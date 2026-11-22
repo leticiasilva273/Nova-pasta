@@ -1,0 +1,1486 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sanctum — Escudo do Mestre</title>
+<style>
+  :root{
+    --ground:#1d1710;      /* turfa: fundo da mesa */
+    --sheet:#261e15;       /* folha do personagem */
+    --sheet-2:#2f2519;     /* bloco de segredos */
+    --ink:#e9dcc0;         /* pergaminho */
+    --muted:#a8966f;
+    --gold:#d2a656;        /* luz de vela: só seleção e foco */
+    --line:#4a3a28;
+    --blood:#7d2f28;       /* segredos e Vilão */
+    --blood-ink:#dd9a8f;
+    --pv:#9cc39a;
+    --pd:#8fb0d4;
+    --serif-display:"Palatino Linotype","Book Antiqua",Palatino,serif;
+    --serif-text:Georgia,"Times New Roman",serif;
+  }
+  *{box-sizing:border-box}
+  [hidden]{display:none !important}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;
+    background:var(--ground);
+    color:var(--ink);
+    font-family:var(--serif-text);
+    font-size:1.0625rem;
+    line-height:1.7;
+  }
+  .masthead{
+    max-width:1120px;margin:0 auto;padding:28px 20px 18px;
+    border-bottom:1px solid var(--line);
+  }
+  h1{
+    margin:0;font-family:var(--serif-display);font-weight:normal;
+    font-size:2rem;line-height:1.1;color:var(--ink);
+  }
+  .sub{margin:4px 0 0;color:var(--muted);font-style:italic;font-size:.95rem}
+  .aviso{
+    display:block;margin:10px 0 0;color:var(--blood-ink);
+    font-style:italic;font-size:.88rem;
+  }
+  #busca{
+    width:100%;margin:18px 0 0;padding:8px 0;
+    background:transparent;color:var(--ink);
+    border:0;border-bottom:1px solid var(--line);border-radius:0;
+    font:inherit;font-size:1.05rem;
+  }
+  #busca::placeholder{color:var(--muted);font-style:italic}
+  #busca:focus{outline:none;border-bottom-color:var(--gold)}
+  #contagem{margin:6px 0 0;min-height:1.2em;color:var(--muted);font-size:.88rem;font-style:italic}
+
+  .layout{max-width:1120px;margin:0 auto;padding:0 20px}
+  nav{padding:14px 0 6px}
+  .group{margin-top:18px}
+  .group h2{
+    margin:0 0 4px;font-size:.92rem;font-weight:normal;font-style:italic;
+    color:var(--muted);
+  }
+  .tabbar{display:flex;flex-wrap:wrap;gap:4px}
+  .tab{
+    background:transparent;color:var(--ink);
+    border:0;border-bottom:2px solid transparent;border-radius:0;
+    padding:8px 4px;font:inherit;font-size:1rem;cursor:pointer;
+    min-height:44px;text-align:left;
+  }
+  .tab:hover{color:var(--gold)}
+  .tab:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .tab[aria-selected="true"]{color:var(--gold);border-bottom-color:var(--gold)}
+  .tab.vilao{color:var(--blood-ink)}
+  .tab.vilao[aria-selected="true"]{color:#f0b9ae;border-bottom-color:var(--blood-ink)}
+
+  main{padding:18px 0 48px}
+  .panel{
+    background:var(--sheet);border:1px solid var(--line);
+    padding:24px 20px 18px;
+    animation:sheetIn .22s ease-out;
+  }
+  @keyframes sheetIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+  .panel h2{
+    margin:0;font-family:var(--serif-display);font-weight:normal;
+    font-size:1.9rem;line-height:1.1;color:var(--ink);
+  }
+  .cargo{margin:6px 0 0;color:var(--muted);font-style:italic}
+  .block{border-top:1px solid var(--line);margin-top:20px;padding-top:12px}
+  .block h3{
+    margin:0 0 6px;font-family:var(--serif-display);font-weight:normal;
+    font-size:1.02rem;color:var(--gold);
+  }
+  .block p{margin:.5em 0;max-width:62ch}
+  .block ol,.block ul{margin:.4em 0 .4em 1.3em;padding:0}
+  .block li{margin:.4em 0;max-width:62ch}
+  .block.seg{
+    border-top:none;margin-top:22px;padding:12px 14px;
+    background:var(--sheet-2);border-left:2px solid var(--blood);
+  }
+  .block.seg h3{color:var(--blood-ink)}
+
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);margin:8px 0 2px}
+  @media (min-width:640px){.stats{grid-template-columns:repeat(6,1fr)}}
+  .stat{padding:8px 4px 10px;text-align:center;border-bottom:1px solid var(--line)}
+  .stat .k{display:block;font-size:.84rem;font-style:italic;color:var(--muted)}
+  .stat strong{display:block;font-family:var(--serif-display);font-size:1.6rem;font-weight:normal;line-height:1.2}
+  .stat.pv strong{color:var(--pv)}
+  .stat.pd strong{color:var(--pd)}
+  .block.ficha{margin-top:18px}
+  .block.ficha h4{
+    margin:14px 0 2px;font-size:.95rem;font-weight:normal;font-style:italic;color:var(--muted);
+  }
+  .block.ficha ul{margin:.1em 0 .1em 1.2em;padding:0}
+  .block.ficha li{margin:.15em 0}
+  .block.ficha ul.pericias{columns:2 200px;column-gap:32px}
+  .block.ficha ul.pericias li{break-inside:avoid}
+  .block.aula p{margin:.5em 0;max-width:62ch}
+  .block.aula strong{font-weight:normal;font-style:italic;color:var(--muted)}
+  .mestre{
+    margin-top:14px;padding:12px 14px;
+    background:var(--sheet-2);border-left:2px solid var(--blood);
+  }
+  .mestre h4{margin:0 0 4px;font-family:var(--serif-display);font-weight:normal;font-size:1.02rem;color:var(--blood-ink)}
+  .mestre p{margin:.4em 0;max-width:62ch}
+  .block.personalidade p{margin:.5em 0;max-width:62ch}
+  .block.personalidade .frase{font-style:italic;color:var(--muted)}
+  .block.detalhe p{margin:.5em 0;max-width:62ch}
+  .block.detalhe strong{font-weight:normal;font-style:italic;color:var(--muted)}
+  /* Ficha da jogadora: dados em grade, perícias em duas colunas */
+  .jogadora .jog-dados{display:grid;grid-template-columns:max-content 1fr;gap:8px 22px;margin:10px 0 0}
+  .jogadora .jog-dados dt{font-style:italic;color:var(--muted)}
+  .jogadora .jog-dados dd{margin:0}
+  .jogadora ul.pericias{columns:2 200px;column-gap:32px;margin:.4em 0 .4em 1.2em}
+  .jogadora ul.pericias li{break-inside:avoid}
+  .jogadora .sub-linha{color:var(--muted);font-style:italic}
+  .jogadora .poder-linha{display:block}
+  .achado{margin:12px 0 0;padding:10px 12px;border:1px solid var(--line);border-left:2px solid var(--line);background:var(--sheet-2)}
+  .achado.encontrado{border-left-color:var(--gold)}
+  .achado p{margin:.3em 0;max-width:62ch}
+  .achado strong,.local .npc strong{font-weight:normal;font-style:italic;color:var(--muted)}
+  .achado-nome{font-family:var(--serif-display);font-size:1.02rem;color:var(--ink)}
+  .local h5{margin:14px 0 0;font-weight:normal;font-style:italic;color:var(--muted);font-size:.95rem}
+  .local .npc{margin:.4em 0}
+  .marca{
+    margin-top:8px;background:transparent;color:var(--muted);border:1px solid var(--line);
+    border-radius:2px;padding:6px 10px;font:inherit;font-size:.9rem;cursor:pointer;min-height:36px;
+  }
+  .marca:hover{color:var(--gold);border-color:var(--gold)}
+  .marca:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .marca[aria-pressed="true"]{color:var(--gold);border-color:var(--gold)}
+  .filtro{display:flex;flex-wrap:wrap;gap:6px;margin:16px 0 4px}
+  .chip{
+    background:transparent;color:var(--ink);border:1px solid var(--line);border-radius:2px;
+    padding:6px 10px;font:inherit;font-size:.92rem;cursor:pointer;min-height:36px;
+  }
+  .chip:hover{border-color:var(--gold)}
+  .chip:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .chip[aria-pressed="true"]{border-color:var(--gold);color:var(--gold)}
+  .zona{border-top:1px solid var(--line);margin-top:22px;padding-top:10px}
+  .zona h3{margin:0 0 4px;font-family:var(--serif-display);font-weight:normal;font-size:1.1rem;color:var(--gold)}
+  .local{margin:12px 0;padding-left:12px;border-left:1px solid var(--line)}
+  .local h4{margin:0;font-family:var(--serif-display);font-weight:normal;font-size:1.02rem}
+  .local p{margin:.3em 0;max-width:62ch}
+  .mestre-linha{color:var(--blood-ink)}
+  .mestre-linha strong{font-weight:normal;font-style:italic}
+
+  /* Links para as abas dos NPCs */
+  .npc-link{
+    color:var(--gold);text-decoration:underline dotted;text-underline-offset:4px;
+    text-decoration-thickness:1px;cursor:pointer;position:relative;
+  }
+  .npc-link:hover,.npc-link:focus-visible{text-decoration-style:solid}
+  .npc-link:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .npc-link::after{
+    content:attr(data-cargo);position:absolute;left:0;bottom:calc(100% + 6px);z-index:5;
+    width:max-content;max-width:240px;padding:4px 8px;
+    background:var(--sheet-2);color:var(--ink);border:1px solid var(--line);
+    font-size:.82rem;font-style:italic;line-height:1.35;white-space:normal;
+    opacity:0;pointer-events:none;transition:opacity .15s ease;
+  }
+  .npc-link:hover::after,.npc-link:focus-visible::after{opacity:1}
+  #vazio{
+    padding:28px 10px;text-align:center;color:var(--muted);font-style:italic;
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  }
+  footer{text-align:center;color:var(--muted);font-size:.85rem;font-style:italic;padding:0 20px 28px}
+
+  /* Desktop: índice fixo à esquerda, folha à direita */
+  @media (min-width:900px){
+    .layout{display:grid;grid-template-columns:250px minmax(0,1fr);gap:48px;align-items:start}
+    nav{position:sticky;top:20px;max-height:calc(100vh - 40px);overflow:auto;padding-top:24px}
+    main{padding-top:24px}
+    .tabbar{flex-direction:column;gap:0}
+    .tab{border-bottom:0;border-left:2px solid transparent;padding:6px 10px;min-height:36px}
+    .tab[aria-selected="true"]{border-left-color:var(--gold);border-bottom-color:transparent}
+    .tab.vilao[aria-selected="true"]{border-left-color:var(--blood-ink)}
+    .panel{padding:36px 40px 28px}
+    .masthead{padding-top:36px}
+    h1{font-size:2.6rem}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation:none !important;transition:none !important}
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="masthead">
+    <h1>Sanctum — Escudo do Mestre</h1>
+    <p class="sub">Dunraven Hall, Escócia, 1996. Campanha de Ordem Paranormal.</p>
+    <span class="aviso">Uso privado do mestre</span>
+    <input id="busca" type="search" placeholder="Buscar por nome, cargo ou qualquer palavra… (sem acento também)" aria-label="Buscar NPCs e conteúdos" autocomplete="off">
+    <p id="contagem" aria-live="polite"></p>
+  </div>
+</header>
+
+<div class="layout">
+  <nav id="tabs" role="tablist" aria-label="Personagens"></nav>
+  <main>
+    <div id="panels"></div>
+    <div id="vazio" hidden>Nenhum resultado</div>
+  </main>
+</div>
+
+<footer>Escudo do mestre · não mostrar aos jogadores</footer>
+
+<script>
+const FICHAS = {
+  "malcolm-ross":  {nivel:3, F:6, M:8, E:8, PV:12, PD:14, pericias:{"Persuasão":8,"Disciplina":10,"Aptidão":10,"Intimidar":6}, itens:"anel de ouro com o brasão; chave do gabinete; livro de atas", ataques:"—", poderes:"Argumento certo; Sangue-frio"},
+  "gerald-hunt":   {nivel:2, F:6, M:8, E:6, PV:10, PD:10, pericias:{"Inspecionar":10,"Percepção":8,"Intimidar":6}, itens:"lanterna; prancheta; relógio de bolso; molho de chaves; apito", ataques:"Bastão de madeira — Luta 6 — 1d6", poderes:"Preparo; Mão firme"},
+  "agnes-bell":    {nivel:2, F:6, M:6, E:8, PV:10, PD:12, pericias:{"Intuição":10,"Percepção":8,"Disciplina":8,"Medicina":6}, itens:"molho de chaves; lanterna; kit de primeiros socorros; bíblia de bolso", ataques:"—", poderes:"Consolo; Argumento certo"},
+  "peter-doyle":   {nivel:3, F:8, M:6, E:6, PV:14, PD:12, pericias:{"Luta":10,"Intimidar":8,"Percepção":8,"Crime":6}, itens:"cassetete; lanterna; maço de cigarros; chaves do posto", ataques:"Cassetete — Luta 10 — 1d6+1", poderes:"Desforra; Reflexo"},
+  "angus-reid":    {nivel:2, F:6, M:8, E:8, PV:10, PD:12, pericias:{"Sobrevivência":10,"Percepção":10,"Pontaria":6}, itens:"molho de chaves mestras; lanterna; livro de entradas; boina e capa encerada (Bran, o cão, é companheiro)", ataques:"Machado de lenha — Luta 6 — 1d8", poderes:"Sentidos aguçados; Olhar atento"},
+  "helena-prado":  {nivel:2, F:6, M:8, E:8, PV:10, PD:12, pericias:{"Persuasão":10,"Enganação":8,"Aptidão":8}, itens:"passaporte; cartões telefônicos; caderno de contatos; cartas da Fundação Lumen", ataques:"—", poderes:"Argumento certo; Vínculo forte"},
+  "adrian-lowe":   {nivel:3, F:6, M:10, E:8, PV:12, PD:14, pericias:{"Aptidão":10,"Persuasão":8,"Intuição":8,"Percepção":6}, itens:"livro de bolso (Byron); caderno; cachecol; panfleto original da Assembleia Livre", ataques:"—", poderes:"Olhar sensível; Leitura de pessoas"},
+  "isobel-grant":  {nivel:3, F:6, M:10, E:6, PV:12, PD:12, pericias:{"Aptidão":10,"Inspecionar":10,"Intuição":8,"Bruxaria":6}, itens:"óculos de leitura; pasta de arquivos; colar de pérolas; chave de arquivo da família Grant", ataques:"—", poderes:"Memória do passado; Leitura rápida"},
+  "simon-clarke":  {nivel:2, F:4, M:10, E:8, PV:8, PD:12, pericias:{"Aptidão":10,"Disciplina":8,"Percepção":6}, itens:"edição de Homero; giz; gravata-borboleta; partitura da capela", ataques:"Bengala — Luta 4 — 1d4", poderes:"Memória do passado"},
+  "fiona-kerr":    {nivel:3, F:8, M:10, E:6, PV:14, PD:12, pericias:{"Medicina":10,"Aptidão":10,"Sobrevivência":8,"Percepção":8}, itens:"kit de laboratório; bisturi; lupa; caderno de campo; maço de Marlboro", ataques:"Bisturi — Luta 6 — 1d4", poderes:"Análise rápida; Primeiros socorros"},
+  "hugh-martin":   {nivel:2, F:6, M:8, E:8, PV:10, PD:12, pericias:{"Persuasão":10,"Intimidar":8,"Disciplina":8,"Enganação":6}, itens:"pasta de couro; abotoaduras de ouro; charuto", ataques:"—", poderes:"Argumento certo; Vínculo forte"},
+  "silas-moore":   {nivel:4, F:6, M:10, E:6, PV:14, PD:14, pericias:{"Aptidão":10,"Inspecionar":10,"Furtividade":8,"Intimidar":6}, itens:"chave da Arca; luvas brancas de algodão; lanterna; livro de registros de empréstimos", ataques:"Estilete — Luta 6 — 1d4", poderes:"Preparo; Mão firme; Resistência"},
+  "daniel-burke":  {nivel:2, F:6, M:8, E:8, PV:10, PD:12, pericias:{"Aptidão":8,"Intuição":8,"Disciplina":8,"Persuasão":6}, itens:"caneca de chá; Bíblia; cruz peitoral", ataques:"—", poderes:"Consolo; Argumento certo"},
+  "luc-renard":    {nivel:2, F:6, M:8, E:10, PV:10, PD:14, pericias:{"Persuasão":10,"Enganação":8,"Aptidão":8}, itens:"lenços coloridos; programa da peça de inverno; maquiagem de palco", ataques:"—", poderes:"Canção; Olhar sensível"},
+  "julian-hale":   {nivel:2, F:8, M:6, E:8, PV:12, PD:12, pericias:{"Luta":8,"Intimidar":8,"Persuasão":8,"Atletismo":6}, itens:"anel de sinete de prata; relógio caro; florete de esgrima", ataques:"Florete — Luta 8 — 1d6+1", poderes:"Investida; Vínculo forte"},
+  "victoria-martin":{nivel:1, F:6, M:8, E:8, PV:8, PD:10, pericias:{"Enganação":8,"Persuasão":8,"Intuição":6,"Aptidão":6}, itens:"caderno de poemas; cigarro; perfume", ataques:"—", poderes:"Olhar sensível"},
+  "callum-ross":   {nivel:1, F:8, M:6, E:8, PV:10, PD:10, pericias:{"Furtividade":6,"Crime":6,"Percepção":6,"Aptidão":6}, itens:"walkman com fitas; jaqueta; canivete", ataques:"—", poderes:"Reflexo"},
+  "megan-doyle":   {nivel:1, F:8, M:6, E:6, PV:10, PD:8, pericias:{"Sobrevivência":8,"Atletismo":6,"Percepção":6,"Furtividade":6}, itens:"capa de chuva amarela; botas de borracha; lanterna; faca de pescador", ataques:"Faca de pescador — Luta 6 — 1d6", poderes:"Sentidos aguçados"},
+  "rory-kerr":     {nivel:2, F:6, M:8, E:8, PV:10, PD:12, pericias:{"Aptidão":10,"Disciplina":8,"Percepção":6}, itens:"distintivo de monitor; livro de poesia; óculos redondos; apito", ataques:"—", poderes:"Teimosia; Leitura rápida"},
+  "lucy-bell":     {nivel:1, F:4, M:8, E:8, PV:6, PD:10, pericias:{"Percepção":8,"Furtividade":8,"Inspecionar":6,"Aptidão":6}, itens:"caderno de desenho; lápis; lanterna pequena; suéter da avó", ataques:"—", poderes:"Olhar atento"},
+  "clara-bennett": {nivel:1, F:4, M:8, E:6, PV:6, PD:8, pericias:{"Aptidão":8,"Persuasão":6,"Intuição":6,"Furtividade":4}, itens:"pingente de trevo de prata (com o Carne); casaco xadrez vermelho; cachecol creme; caderno", ataques:"—", poderes:"Vínculo forte (com Elias); condição: enfeitiçada, sem poder ativo"},
+  "thomas-carne":  {nivel:6, F:8, M:10, E:10, PV:26, PD:28, pericias:{"Luta":10,"Bruxaria":10,"Enganação":10,"Intuição":10,"Persuasão":8,"Furtividade":8,"Intimidar":8,"Percepção":8,"Aptidão":8}, itens:"anel de prata; sobretudo preto; caixa de música de ébano (troféus); exemplar de O Pequeno Príncipe com dedicatória; adaga cerimonial", ataques:"Garras e mordida — Luta 10 — 1d8+2 (a mordida recupera PV de Carne)", poderes:"Sangue-frio; Desforra; Dedução; Olhar atento; Inquebrável; Casca grossa; Ímpeto"}
+};
+
+// Aulas dos docentes: matéria e horário, conteúdo, cena, teste e nota do mestre
+const AULAS = {
+  lowe: {
+    materia: "Literatura Inglesa e Poesia, segunda às 9h.",
+    conteudo: "Byron e Burns, com leitura em voz alta e análise de poemas sobre morte e beleza.",
+    cena: "A aula termina na falésia, no Banco do Poeta. Ele pede que cada um recite um verso de memória.",
+    teste: "Persuasão ou Aptidão (Artes), DT 7, para recitar com emoção. Quem passar ganha um ponto de interesse sobre a Vigília.",
+    mestre: "Guarda o panfleto original da Assembleia Livre (1968–71). Primeira pista de que a Ordem não é a única sociedade do castelo."
+  },
+  grant: {
+    materia: "História Medieval, terça às 11h.",
+    conteudo: "Culloden (1746), a Ordem da Chave e as cavernas jacobitas.",
+    cena: "Projeta um mapa antigo da propriedade e pede que um aluno localize a passagem da adega. Errar não tem consequência imediata, mas ela anota o nome.",
+    teste: "Inspecionar ou Aptidão (Erudição), DT 8, para achar a passagem certa.",
+    mestre: "A família Grant guarda arquivos sobre o reitor de 1662. Ela sabe mais do que deveria e pode vender informação ou propor um pacto."
+  },
+  clarke: {
+    materia: "Latim e Grego, quarta às 8h.",
+    conteudo: "Homero e recitação de memória. Exige que cada aluno decore uma passagem da Odisseia.",
+    cena: "Chamada surpresa. Quem recita sem errar ganha +1 em Disciplina até o fim da sessão.",
+    teste: "Disciplina, DT 7. Quem falha perde um espaço de Ímpeto, se tiver.",
+    mestre: "Toca piano na capela à noite. Se os jogadores o ouvirem às 3h, é a pista da lenda do órgão que toca sozinho."
+  },
+  kerr: {
+    materia: "Biologia e Ciências Naturais, quinta às 14h.",
+    conteudo: "Anatomia, microscopia e conservação de espécimes em formol.",
+    cena: "Prática no Laboratório Kerr. Os alunos identificam uma amostra desconhecida.",
+    teste: "Medicina ou Percepção, DT 8, para notar que a amostra não é de nenhum animal conhecido.",
+    mestre: "A geladeira trancada guarda amostras de sangue. Kerr não sabe de quem são. A pista leva aos troféus de Carne."
+  },
+  martin: {
+    materia: "Direito, segunda às 14h.",
+    conteudo: "Direito constitucional, o Ato de União de 1707 e os direitos de bolsistas estrangeiros.",
+    cena: "Debate simulado sobre se a expulsão de bolsistas por dívida é legal. Os jogadores se dividem em dois times.",
+    teste: "Persuasão, DT 8. Quem vencer ganha +1 em Persuasão com a Reitoria pelo resto da campanha.",
+    mestre: "É pai de um aluno, e o vínculo dele com a Carrick Society pode virar chantagem."
+  },
+  moore: {
+    materia: "Oficina de Pesquisa em Arquivos, quarta às 16h (optativa).",
+    conteudo: "Como consultar registros antigos, datas e assinaturas.",
+    cena: "Entrega três registros de empréstimo. Um, de 1662, está sem assinatura.",
+    teste: "Inspecionar ou Pesquisa, DT 9, para perceber que a letra é a mesma do caderno de Carne.",
+    mestre: "É o servo antigo de Carne. Pode trair ou ajudar, de acordo com o placar de afeto."
+  },
+  burke: {
+    materia: "Ética e Vida Comunitária, sexta às 10h (optativa).",
+    conteudo: "Dilemas morais, responsabilidade e perdão.",
+    cena: "Discussão sobre o que cada um deve a quem gosta. Burke escuta e faz perguntas.",
+    teste: "Intuição ou Disciplina, DT 7. Quem passa recebe um chá, e Burke revela uma pequena informação sobre alguém do grupo.",
+    mestre: "Guarda segredos das confissões informais. Pode ser fonte de pistas sobre Clara."
+  },
+  renard: {
+    materia: "Francês e Teatro, quinta às 16h.",
+    conteudo: "Leitura de Molière e ensaios da peça de inverno.",
+    cena: "Os alunos ensaiam uma cena. Quem ler com a voz do personagem ganha +1 em Persuasão na próxima cena social.",
+    teste: "Aptidão (Artes), DT 7.",
+    mestre: "A peça de inverno é o cenário do clímax de dezembro. Renard é aliado de Lowe e pode ajudar a esconder o desaparecimento de Clara durante o espetáculo."
+  }
+};
+
+// Personalidade e "Aula em detalhe" dos docentes (Renard ainda sem texto completo)
+const PERS = {
+  lowe: {
+    personalidade: "Fala baixo e de forma calorosa, muitas vezes com um livro de bolso na mão. Valoriza a emoção sincera na leitura e odeia recitação mecânica. Trata os bolsistas como iguais, e não como alunos de segunda, o que o coloca contra a reitoria.",
+    frases: ["“Não leia o poema, deixe o poema ler você.”", "“Vocês não estão aqui para decorar, estão aqui para sentir.”"],
+    ambiente: "Sala do 1º andar com janelas altas e um banco de madeira na frente.",
+    rotina: "Começa com uma leitura de 5 minutos feita por ele, sem explicação. Depois há análise do texto em duplas. No fim, leva a turma ao Banco do Poeta, na falésia, para recitar ao vento.",
+    estuda: "Chama para ler em voz alta e pede opinião.",
+    bagunca: "Pede que leia um verso em voz baixa, e a bagunça costuma cessar.",
+    atrasa: "Não repreende; pergunta o que a pessoa estava lendo."
+  },
+  grant: {
+    personalidade: "Fria, irônica, fala de forma precisa e sem rodeios. Tem orgulho do sobrenome Grant e do acervo da família, e não suporta quem repete o que leu sem pesquisar. Trata os bolsistas com distância educada, mas dá bom crédito a quem faz perguntas difíceis.",
+    frases: ["“A fonte primária não se importa com o que você acha que aconteceu.”", "“Se estou ouvindo sua opinião, é porque você não consultou o arquivo.”"],
+    ambiente: "Sala com um projetor de slides antigo e um mapa grande da propriedade na parede.",
+    rotina: "Abre com uma pergunta difícil, depois projeta um documento original, e a turma discute o que ele prova e o que não prova.",
+    estuda: "Aprofunda com fontes primárias.",
+    bagunca: "Humilha com uma pergunta de data e depois ri.",
+    atrasa: "Ignora a entrada e continua a aula, e a pessoa fica sem entender o que perdeu."
+  },
+  clarke: {
+    personalidade: "Distraído, cordial e apaixonado por Homero. Quando se empolga, ergue a voz e cita versos sem perceber que ninguém acompanha. Não tem paciência com quem não se esforça para decorar, mas é generoso com quem tenta de verdade. Trata os bolsistas com carinho, às vezes confundindo-os com alunos de outro ano.",
+    frases: ["“Sem memória, não há ciência; sem ciência, não há nada.”", "“Ah, não se preocupe, o erro é só o primeiro verso que você ainda não decorou.”"],
+    ambiente: "Sala pequena e abafada, com giz e uma mesa cheia de livros empilhados.",
+    rotina: "Começa com recitação dos versos da aula anterior, um por um, em ordem. Depois traduz um trecho no quadro, com a turma completando as palavras.",
+    estuda: "Deixa escolher o próximo verso.",
+    bagunca: "Pede que recite um verso inteiro em grego, e a bagunça vira vergonha.",
+    atrasa: "Pede a recitação do início da aula em voz alta, para a pessoa se sentir no meio da aula."
+  },
+  kerr: {
+    personalidade: "Direta, cética e moderna. Fuma nos intervalos, fala palavrão quando está com raiva e ignora quem reclama do cheiro do formol. Defende os bolsistas nas reuniões e cobra deles o mesmo rigor que cobra dos alunos ingleses. Trata todos de igual para igual.",
+    frases: ["“Não me venha com ‘acho’. Me mostra a amostra.”", "“O corpo não mente, mas ele também não conta a história inteira.”"],
+    ambiente: "Laboratório com bancadas de pedra, microscópios e prateleiras de vidro com espécimes em formol.",
+    rotina: "Começa com uma demonstração no microscópio e depois distribui as amostras.",
+    estuda: "Deixa mexer no material com luva.",
+    bagunca: "Manda sair e pede o relatório por escrito.",
+    atrasa: "Faz a pessoa observar a amostra e explicar o que vê antes de começar a turma."
+  },
+  martin: {
+    personalidade: "Aristocrata, conservador e formal. Veste um terno de risca de giz e gosta de citar precedentes. Não gosta de bolsistas porque acha que estão ocupando vaga de quem pagou, mas é respeitoso com quem argumenta bem. Tem uma relação próxima com a Carrick Society.",
+    frases: ["“O direito não é sentimento, senhor. É precedente.”", "“Num debate, a emoção perde para a lógica, mesmo quando a lógica é injusta.”"],
+    ambiente: "Sala de madeira escura, com estantes de códigos e um quadro com linhas do tempo de leis.",
+    rotina: "Começa com a leitura de um caso e o debate entre dois lados.",
+    estuda: "Pede que defenda o lado oposto ao seu.",
+    bagunca: "Anota o nome e aplica uma punição disciplinar fora da aula.",
+    atrasa: "Aponta o regulamento e pede um parágrafo de justificativa."
+  },
+  moore: {
+    personalidade: "Magro, voz rouca, fala pouco e olha por cima dos óculos. Quase nunca responde perguntas diretamente, preferindo devolver outra pergunta. Usa luvas brancas e nunca tira. Trata todos os bolsistas com a mesma distância e pode ser gentil de forma inesperada.",
+    frases: ["“O que você está procurando, e o que você está disposto a perder?”", "“Os registros não mentem. As pessoas que os escreveram, às vezes.”"],
+    ambiente: "Sala-arquivo pequena com estantes de madeira, cheiro de papel antigo e uma mesa com luz verde.",
+    rotina: "A oficina é prática: cada aluno recebe um registro para ler e interpretar.",
+    estuda: "Deixa consultar o cofre.",
+    bagunca: "Pede que se retire e não volta mais.",
+    atrasa: "Deixa o registro na mesa e a pessoa precisa encontrá-lo sozinha."
+  },
+  burke: {
+    personalidade: "Gentil, cansado e com olheiras. Bebe chá o tempo todo e ouve mais do que fala. Não julga os alunos, mas faz perguntas que deixam a pessoa desconfortável. Tem uma forte relação com a confissão informal e com a culpa dos alunos.",
+    frases: ["“Não me conte o que você fez. Me conte o que você sente que deveria ter feito.”", "“Perdão é uma escolha, não um sentimento.”"],
+    ambiente: "Sala pequena e quente, com cadeiras em círculo e uma chaleira sempre no fogareiro.",
+    rotina: "A aula é uma roda de conversa. Ele apresenta um dilema e deixa cada um responder.",
+    estuda: "Pede que escreva um texto sobre o tema.",
+    bagunca: "Espera o silêncio e fica quieto, até a pessoa perceber e se desculpar.",
+    atrasa: "Serve um chá e pergunta como a pessoa está, antes de começar."
+  },
+  renard: {
+    personalidade: "Extravagante, expansivo e teatral. Gesticula muito, fala alto e acha que todo mundo está no palco. Adora elogios, mas não suporta quem atua sem entrega. Trata os bolsistas com afeto, sobretudo os brasileiros, que ele acha muito expressivos. É aliado de Lowe.",
+    frases: ["“Mais, mais! Você está sussurrando, não está morrendo!”", "“No teatro, não existe erro. Existe emoção que ainda não encontrou o caminho.”"],
+    ambiente: "O palco do Anfiteatro Hume, com cortinas vinho e uma luz amarela.",
+    rotina: "Começa com exercícios de voz e corpo. Depois, a turma ensaia uma cena de Molière.",
+    estuda: "Dá o papel principal.",
+    bagunca: "Coloca essa pessoa no papel mais ridículo da cena e observa a reação.",
+    atrasa: "Faz a pessoa entrar em cena no meio do ensaio, como se fosse o próprio personagem chegando atrasado."
+  }
+};
+
+// Zonas do mapa, pela letra usada em PONTOS
+const ZONA_NOMES = {
+  A:"Acesso e Entrada (oeste)", B:"Térreo do castelo", C:"Andares superiores", D:"Biblioteca Grant",
+  E:"Dormitórios", F:"Claustro e Capela", G:"Torre Norte", H:"Jardins e Terrenos",
+  I:"Costa e Falésias (leste)", J:"Subterrâneo", K:"Kinmorrow (fora da propriedade)"
+};
+const ZONA_ORDEM = ["A","B","C","D","E","F","G","H","I","J","K"];
+
+// Pontos de interesse do mapa. mestre = linha visível só ao mestre.
+const PONTOS = [
+  {zona:"A", nome:"Estrada de Kinmorrow", npc:"ônibus (motorista, 2 vezes ao dia até as 18h)", desc:"Três quilômetros de pedra, muros baixos e urzes.",
+   achados:[{nome:"cachecol creme preso num espinho de urze", teste:"Percepção DT 7", ok:"confirma que alguém andou a pé na noite de 15/09", falha:"nada agora; o cachecol aparece depois no quarto de Clara"}],
+   mestre:"ponto de fuga ou de sequestro."},
+  {zona:"A", nome:"Portão de Ferro", npc:"Angus Reid (até 22h30)", desc:"Portão com o brasão do corvo. Fecha às 22h30.",
+   achados:[{nome:"livro de entradas com horários rasurados", teste:"Inspecionar DT 8", ok:"mostra que três entradas foram apagadas na noite de 15/09", falha:"Angus percebe a curiosidade e fica desconfiado"}],
+   mestre:"Angus conhece as passagens; ganhar a confiança dele dá acesso à Casa do Portão."},
+  {zona:"A", nome:"Casa do Portão", npc:"Angus Reid e o cão Bran", desc:"Casa de pedra de dois andares, com telefone fixo e o molho de chaves mestras.",
+   achados:[{nome:"molho de chaves mestras", teste:"Furtividade DT 8 (copiar) ou Crime DT 9 (levar)", ok:"o grupo tem acesso às portas do castelo", falha:"Bran late e Angus aparece"}],
+   mestre:"se Angus vir o furto, ele conta à reitoria e o grupo perde um aliado."},
+  {zona:"A", nome:"Alameda dos Teixos", npc:"ninguém", desc:"Quatrocentos metros entre teixos centenários, escuros à noite.",
+   achados:[{nome:"rosa negra seca presa num teixo", teste:"Sobrevivência DT 7", ok:"há uma trilha nova ao lado da alameda", falha:"susto: Disciplina DT 6 ou perde 1 PD"}],
+   mestre:"marca de encontro da Vigília."},
+  {zona:"A", nome:"Garagem (antigas cocheiras)", npc:"ninguém", desc:"Land Rover da faculdade, Jaguar do Vice-Reitor e bicicletas.",
+   achados:[{nome:"relatório de ronda de Gerald Hunt no porta-luvas do Jaguar", teste:"Inspecionar DT 8 (carro trancado: Crime DT 9)", ok:"o relatório cita 'entrada de visitante às 23h, ala leste'", falha:"o alarme improvisado de Hunt toca e alerta a reitoria"}],
+   mestre:"o visitante é Vane, saindo da Ala Leste."},
+  {zona:"B", nome:"Vestíbulo e escaninhos", npc:"Mrs. Bell (por perto)", desc:"Piso de pedra gasta, armaduras e o quadro de avisos.",
+   achados:[{nome:"convite da Vigília num escaninho", teste:"Percepção DT 6", ok:"traz o ritual de entrada: ir às ruínas à meia-noite recitando um poema", falha:"o convite é encontrado por outro aluno, que o leva"}],
+   mestre:"convites são escolhidos por Vane; quem recebe é observado."},
+  {zona:"B", nome:"Great Hall (retratos dos reitores)", npc:"Dr. Ross (tarde)", desc:"Salão de 30 m, vigas de carvalho, lareira dupla, retratos de todos os reitores.",
+   achados:[{nome:"placa no pedestal do retrato de Thomas Carne com a data 1662 e o nome Lyall", teste:"Inspecionar DT 8", ok:"o nome Lyall aparece de novo nos arquivos", falha:"nada visível; é preciso voltar com outra perícia"}, {nome:"sensação de estar sendo observado pelo retrato", teste:"Intuição DT 9", ok:"o grupo percebe que o rosto parece Vane, mais velho", falha:"só nervosismo"}],
+   mestre:"o retrato é de Thomas Carne, e Vane se parece com ele."},
+  {zona:"B", nome:"Cozinhas e Copa", npc:"cozinheiros (até 21h)", desc:"Fogões antigos e câmaras frias.",
+   achados:[{nome:"testemunho de cozinheiro sobre a porta de serviço", teste:"Persuasão DT 6", ok:"ele viu um aluno sair pela porta de serviço depois das 23h, na noite de 15/09", falha:"ele pede que os alunos saiam da cozinha"}],
+   mestre:"o aluno é Vane."},
+  {zona:"B", nome:"Adega e Despensa", npc:"ninguém", desc:"Vinhos do porto de 1890. Escada para o porão.",
+   achados:[{nome:"corrente de ar atrás da estante", teste:"Percepção DT 8", ok:"a estante se move e revela a Passagem Esquecida", falha:"nada; a estante fica como está"}, {nome:"mola escondida na estante", teste:"Inspecionar DT 9", ok:"abre a passagem sem barulho", falha:"a estante range e alerta quem estiver no porão"}],
+   mestre:"leva às cavernas."},
+  {zona:"C", nome:"Secretaria Acadêmica", npc:"Mrs. Bell (ocasionalmente)", desc:"Fichas dos alunos, históricos e dossiês de bolsa.",
+   achados:[{nome:"ficha de Clara Bennett", teste:"Inspecionar DT 7 (pasta trancada: Crime DT 8)", ok:"a família perdeu contato; a monitoria foi 'por recomendação de E. Vane'", falha:"a pasta é fechada e Mrs. Bell nota"}],
+   mestre:"a recomendação é prova de que Vane escolheu Clara."},
+  {zona:"C", nome:"Sala dos Professores", npc:"Dr. Ross e Gerald Hunt (tarde)", desc:"Poltronas de couro, uísque e jornais. Alunos só entram convidados.",
+   achados:[{nome:"jornais de 1996 com notícias do castelo", teste:"Enganação DT 8 (para ficar sem ser expulso)", ok:"há uma nota sobre 'motivos familiares' de Clara", falha:"Hunt manda o grupo sair"}],
+   mestre:"a nota é a versão oficial da reitoria."},
+  {zona:"C", nome:"Sala Comunal dos Alunos", npc:"Julian Hale e Victoria Martin (noite)", desc:"Sofás gastos, TV de tubo, toca-discos, xadrez e dardos.",
+   achados:[{nome:"lista de convites da Carrick Society", teste:"Intuição DT 6", ok:"Vane aparece como 'convidado, a confirmar'", falha:"Julian percebe e manda o grupo calar a boca"}],
+   mestre:"Vane estava na lista da Carrick, o que o torna alvo do rival Hale."},
+  {zona:"C", nome:"Laboratório Kerr", npc:"Dr. Fiona Kerr (quinta, 14h)", desc:"Microscópios, formol, esqueletos e uma geladeira trancada.",
+   achados:[{nome:"geladeira trancada com amostras etiquetadas 'E.V.'", teste:"Crime DT 9 ou Persuasão DT 6 (Kerr dá a chave)", ok:"há amostras de sangue sem coagulação", falha:"Kerr pergunta o que o grupo está fazendo"}, {nome:"análise do sangue", teste:"Medicina DT 9", ok:"o sangue não é humano normal", falha:"o grupo acha que é de animal"}],
+   mestre:"amostras de sangue de Carne e de Clara."},
+  {zona:"C", nome:"Anfiteatro Hume (palco)", npc:"Monsieur Renard (quinta, 16h)", desc:"Auditório em degraus, cortinas vinho e luz amarela.",
+   achados:[{nome:"roteiro da peça de inverno com anotações a lápis", teste:"Percepção DT 6", ok:"uma fala foi trocada por uma frase de Byron", falha:"nada"}],
+   mestre:"a frase trocada é uma mensagem de Lowe para o grupo."},
+  {zona:"C", nome:"Galeria Longa", npc:"ninguém (à noite, passos)", desc:"Corredor de 50 m com tapeçarias e janelas altas.",
+   achados:[{nome:"pegadas de pés descalços com manchas escuras", teste:"Percepção DT 8 (à noite)", ok:"as pegadas vão da Galeria até a ala sul", falha:"o grupo ouve passos e fica com medo (Disciplina DT 7 ou perde 1 PD)"}],
+   mestre:"Carne (ou um servo) passou por aqui."},
+  {zona:"C", nome:"Apartamento de Lowe (3º andar)", npc:"Adrian Lowe (fim da tarde)", desc:"Livros empilhados, uma vitrola e um cachecol listrado.",
+   achados:[{nome:"panfleto original da Assembleia Livre", teste:"Furtividade DT 9 (Lowe está na sala)", ok:"o panfleto mostra o corvo de bico aberto", falha:"Lowe percebe e pergunta o que o grupo procura"}],
+   mestre:"Lowe conhece a Assembleia Livre e pode virar aliado."},
+  {zona:"D", nome:"Salão de Leitura (Biblioteca Grant)", npc:"Silas Moore (dia)", desc:"Três andares de estantes, escadas de ferro e teto com constelações.",
+   achados:[{nome:"fichas de empréstimo de 1888 e 1920 com o nome Lyall", teste:"Inspecionar DT 8", ok:"o mesmo nome aparece em três épocas diferentes", falha:"Moore percebe e vem ver o que o grupo faz"}],
+   mestre:"Lyall é o nome que Carne usou."},
+  {zona:"D", nome:"Balcão de Moore", npc:"Silas Moore", desc:"Fichas de empréstimo e o único computador com internet discada.",
+   achados:[{nome:"histórico de empréstimos da Arca", teste:"Persuasão DT 8 (para Moore deixar usar o computador)", ok:"há um empréstimo recente, de 14/09, de um livro de Saint-Exupéry", falha:"Moore fecha o histórico e ganha uma desconfiança"}],
+   mestre:"o livro é o exemplar que Carne usa para caçar."},
+  {zona:"D", nome:"Sala de Mapas", npc:"ninguém", desc:"Cartas náuticas e plantas antigas do castelo.",
+   achados:[{nome:"planta antiga com passagens que não existem mais", teste:"Inspecionar DT 8", ok:"a planta mostra o caminho das cavernas e o bunker", falha:"nada visível"}, {nome:"atas da Hume Society desde 1789", teste:"Aptidão (Erudição) DT 8", ok:"há menções a membros que 'deixaram a sociedade para se juntar a outra'", falha:"só texto antigo"}],
+   mestre:"a outra sociedade é a Vigília."},
+  {zona:"D", nome:"A Arca (Seção Fechada)", npc:"Silas Moore (com a chave)", desc:"Sala abaixo da biblioteca, atrás de porta de carvalho com ferragens.",
+   achados:[{nome:"grimório do pacto de 1662", teste:"Furtividade DT 10 ou Persuasão DT 9 (Moore)", ok:"o grimório mostra o pacto de Sangue e os nomes das vítimas", falha:"Moore alerta Carne"}, {nome:"manuscrito de Eleanor Hale com um desenho de rosa negra", teste:"Inspecionar DT 9", ok:"o desenho é igual ao da rosa na alameda", falha:"o grupo não percebe o detalhe"}],
+   mestre:"se a falha alertar Carne, ele acelera o ritual de 30/11."},
+  {zona:"C", nome:"Gabinete do Reitor", npc:"Dr. Ross (manhã)", desc:"Janelas para o mar, cofre embutido e escrivaninha do século XVII.",
+   achados:[{nome:"chave da Arca no cofre", teste:"Crime DT 10 ou Persuasão DT 9 (Ross entrega)", ok:"o grupo tem acesso à Arca", falha:"Ross ativa o alarme do cofre"}],
+   mestre:"Ross sabe que algo existe e mantém o Silentium por medo."},
+  {zona:"C", nome:"Gabinete do Vice-Reitor", npc:"Gerald Hunt", desc:"Arquivo disciplinar e mapas das rondas.",
+   achados:[{nome:"registro de Clara 'por motivos familiares'", teste:"Inspecionar DT 8", ok:"a assinatura é de Ross, mas a letra é de outra pessoa", falha:"nada"}],
+   mestre:"Hunt não sabe que o registro é falso."},
+  {zona:"E", nome:"Quarto de Elias Vane (térreo, ala oeste)", npc:"Elias Vane (noite)", desc:"Quarto individual com cortinas de veludo sempre fechadas.",
+   achados:[{nome:"pingente de trevo de prata de Clara", teste:"Furtividade DT 9 (Vane quase sempre está lá)", ok:"o pingente é a prova de que Clara esteve ali", falha:"Vane aparece na porta"}, {nome:"caderno de couro com letra caligráfica do século XVII", teste:"Inspecionar DT 8", ok:"o caderno lista nomes com datas", falha:"nada"}],
+   mestre:"prova direta de Vane como Carne."},
+  {zona:"E", nome:"Lavanderia (porão da ala oeste)", npc:"ninguém", desc:"Máquinas a moeda e varais quentes. A porta de serviço não tranca direito.",
+   achados:[{nome:"roupa com manchas lavadas às pressas", teste:"Percepção DT 7", ok:"as manchas são de sangue, de 15/09", falha:"nada"}],
+   mestre:"a rota de fuga mais usada."},
+  {zona:"F", nome:"Capela de São Columba (Memorial de Bronze)", npc:"Fr. Burke (manhã e noite)", desc:"Vitrais, órgão de 1790 e o Memorial de Bronze com os 41 nomes da Primeira Guerra.",
+   achados:[{nome:"nomes riscados no memorial", teste:"Intuição DT 6 (com Burke)", ok:"Burke fala de 'uma aluna que voltou para casa' e não se lembra do nome", falha:"Burke desvia o assunto"}, {nome:"órgão tocando às 3h", teste:"Disciplina DT 7 (para ficar acordado)", ok:"a música vem da cripta", falha:"o grupo perde 1 PD de susto"}],
+   mestre:"a música é de Clarke (ou do órgão amaldiçoado)."},
+  {zona:"F", nome:"Cripta da Capela", npc:"ninguém", desc:"Túmulos de reitores, com um sarcófago vazio de Thomas Carne.",
+   achados:[{nome:"símbolo da chave sobre um livro, gravado no sarcófago", teste:"Inspecionar DT 9", ok:"o símbolo é o da Ordem da Chave", falha:"nada"}, {nome:"medo ao abrir o sarcófago", teste:"Disciplina DT 8", ok:"o grupo não se assusta", falha:"o grupo perde 1 PD"}],
+   mestre:"o sarcófago de Carne está vazio porque ele não está morto."},
+  {zona:"G", nome:"Torre Norte (escada enegrecida)", npc:"ninguém", desc:"Interditada desde 1957. Pisos parcialmente desabados.",
+   achados:[{nome:"astrolábio de latão derretido com o nome 'Shaw'", teste:"Atletismo DT 9 para subir sem cair", ok:"o astrolábio está no Observatório, com a marca de queimadura", falha:"o piso cede: 1d6 de dano"}],
+   mestre:"David Shaw morreu aqui. Carne tem cicatriz de queimadura."},
+  {zona:"H", nome:"Estufa Victoria (jardim leste)", npc:"ninguém", desc:"Ferro e vidro de 1868, com samambaias gigantes e um banco de pedra.",
+   achados:[{nome:"diários das Irmãs de Santa Margarida sob o piso", teste:"Inspecionar DT 8 (achar a pedra solta)", ok:"os diários falam de 1662, 1888 e de Agnes Murray", falha:"um vidro quebrado corta a mão: Acrobacia DT 6 ou 1 PV"}],
+   mestre:"ponto de encontro secreto e a prova de que a Vigília investiga."},
+  {zona:"H", nome:"Cemitério da Casa (túmulo de Eleanor Hale)", npc:"Mrs. Bell (às vezes)", desc:"Pequeno, cercado, com túmulos de alunos e funcionários.",
+   achados:[{nome:"flores frescas no túmulo de Eleanor Hale", teste:"Percepção DT 7", ok:"há uma rosa negra e um poema recente", falha:"nada"}],
+   mestre:"quem visita é a Vigília."},
+  {zona:"I", nome:"Ruínas de São Fergus", npc:"Elias Vane (noite de saraus)", desc:"Capela medieval sem teto, na borda da falésia. Local dos saraus.",
+   achados:[{nome:"pétalas de rosa negra e cacos de garrafa de vinho", teste:"Bruxaria DT 9 (círculo de ritual)", ok:"há marcas de um círculo no chão e uma pegada de sapato de montaria", falha:"o grupo não vê nada"}],
+   mestre:"aqui Clara foi vista pela última vez, em 15/09."},
+  {zona:"I", nome:"Caminho da Falésia", npc:"ninguém", desc:"Cercas quebradas, vento forte e queda de 60 m.",
+   achados:[{nome:"bota de montaria de Clara", teste:"Percepção DT 7", ok:"a bota está presa numa pedra, com marcas de arrasto", falha:"nada"}, {nome:"passagem pela borda", teste:"Acrobacia DT 8", ok:"o grupo chega ao outro lado", falha:"o grupo cai: 2d6 de dano e risco de morte"}],
+   mestre:"a bota prova que Clara foi arrastada até a praia."},
+  {zona:"I", nome:"Banco do Poeta", npc:"Adrian Lowe (aulas de quinta)", desc:"Banco de pedra virado para o mar.",
+   achados:[{nome:"livro de Byron com dedicatória 'E.'", teste:"Persuasão DT 7 (Lowe conta a história)", ok:"a dedicatória é a mesma do livro de Clara", falha:"Lowe mantém o silêncio"}],
+   mestre:"Lowe percebe a semelhança e fica preocupado."},
+  {zona:"I", nome:"Praia de Seixos (maré baixa)", npc:"Megan Doyle (pesca)", desc:"Só aparece na maré baixa.",
+   achados:[{nome:"entrada das cavernas pela praia", teste:"Sobrevivência DT 9 (calcular a maré)", ok:"a entrada fica aberta por duas horas", falha:"a maré sobe e o grupo precisa nadar: Vigor DT 8"}],
+   mestre:"por aqui se chega às cavernas sem passar pelo castelo."},
+  {zona:"J", nome:"Bunker (sob a ala oeste)", npc:"Elias Vane (ocasionalmente)", desc:"Abrigo de 1940, com porta de aço, beliches e mapas da Marinha.",
+   achados:[{nome:"caixa de música de ébano com troféus", teste:"Inspecionar DT 9 (abrir a caixa)", ok:"há a carteira de Oliver Lane, o caderno de Eleanor, o astrolábio de Shaw e o cocar jacobita", falha:"a caixa tem armadilha: Disciplina DT 8 ou 1d4 de dano"}],
+   mestre:"a caixa revela toda a história de uma vez: ótimo momento de virada no Ato 3 ou 4."},
+  {zona:"J", nome:"Sala das Caldeiras", npc:"Angus Reid (5h)", desc:"Barulhenta e quente.",
+   achados:[{nome:"restos de um mapa queimado", teste:"Percepção DT 7", ok:"a parte que sobrou mostra a Passagem Esquecida", falha:"o calor faz o grupo perder 1 PD"}],
+   mestre:"o mapa é do bunker."},
+  {zona:"J", nome:"As Cavernas", npc:"Clara Bennett (presa)", desc:"Grutas inundadas na maré alta, com um altar de pedra.",
+   achados:[{nome:"Clara Bennett, presa e enfraquecida", teste:"Intuição DT 8 (notar a corrente)", ok:"o grupo consegue falar com ela", falha:"Clara grita e alerta Vane"}, {nome:"restos de Oliver Lane numa gruta lateral", teste:"Medicina DT 8", ok:"os ossos são de um jovem, de 1991", falha:"o grupo sente medo: Disciplina DT 7"}],
+   mestre:"clímax de 30 de novembro. Vozes dos jacobitas na maré baixa: Disciplina DT 7."},
+  {zona:"K", nome:"The Crow's Rest (pub de Kinmorrow)", npc:"dono do pub (noite)", desc:"Lareira, sinuca e uísque sob o balcão.",
+   achados:[{nome:"informação sobre Oliver Lane, desaparecido em 1991", teste:"Persuasão DT 6", ok:"o dono diz que Oliver foi visto com um estudante 'de olhos prateados'", falha:"ele não quer falar e fica desconfiado"}],
+   mestre:"o dono conhece a família Doyle."},
+  {zona:"K", nome:"Mercearia e Correios", npc:"carteiro (manhã)", desc:"Onde chegam cartas e encomendas do Brasil.",
+   achados:[{nome:"carta da mãe de Clara", teste:"Inspecionar DT 7", ok:"a carta foi escrita antes de 15/09 e fala de saudade", falha:"o carteiro não entrega"}],
+   mestre:"prova de que Clara ainda não tinha sumido quando escreveu."},
+  {zona:"K", nome:"Igreja Paroquial e Cemitério", npc:"ninguém", desc:"Registros de óbitos desde 1600.",
+   achados:[{nome:"registros de Lyall em 1662 e 1888", teste:"Inspecionar DT 8", ok:"os registros mostram o mesmo nome em épocas diferentes", falha:"nada"}],
+   mestre:"o nome Lyall é Carne."}
+];
+
+// Ligação entre o id de cada aba e a chave em FICHAS
+const SLUG = {
+  ross:"malcolm-ross", hunt:"gerald-hunt", bell:"agnes-bell", doyle:"peter-doyle", reid:"angus-reid", prado:"helena-prado",
+  lowe:"adrian-lowe", grant:"isobel-grant", clarke:"simon-clarke", kerr:"fiona-kerr", martin:"hugh-martin", moore:"silas-moore",
+  burke:"daniel-burke", renard:"luc-renard", hale:"julian-hale", vmartin:"victoria-martin", callum:"callum-ross", megan:"megan-doyle",
+  rory:"rory-kerr", lucy:"lucy-bell", clara:"clara-bennett", carne:"thomas-carne"
+};
+
+(function(){
+  "use strict";
+
+  var GRUPOS = ["Administração", "Corpo Docente", "Alunos Notáveis", "Outros Bolsistas Brasileiros", "Vilão", "Locais", "Jogadora"];
+
+  // g = índice do grupo. blocks: {t, body[], seg (segredo), ol (lista numerada)}
+  var DATA = [
+    /* ---------- ADMINISTRAÇÃO ---------- */
+    { id:"ross", g:0, name:"Dr. Malcolm Ross", role:"Reitor (58 anos)", blocks:[
+      {t:"Resumo", body:[
+        "Escocês das Highlands, viúvo e historiador. Rígido, cerimonioso e sempre fala baixo. Defende a tradição acima de tudo.",
+        "Tem medo real do que acontece em Dunraven, mas prefere manter o Silentium a enfrentar o problema."]},
+      {t:"Aparência", body:["Alto, ombros largos, cabelo grisalho curto, barba aparada e olhos cinzentos cansados. Terno de tweed escuro, beca e anel de ouro com o brasão."]},
+      {t:"Segredos e enredo", seg:true, body:[
+        "Sabe que “algo” existe no castelo e mantém o Silentium por medo e por um acordo herdado.",
+        "Pai de Callum Ross. Pode ser aliado ou obstáculo quando o grupo chegar perto da verdade."]}
+    ]},
+    { id:"hunt", g:0, name:"Mr. Gerald Hunt", role:"Vice-Reitor e Diretor Disciplinar (49 anos)", blocks:[
+      {t:"Resumo", body:[
+        "Inglês de Londres, burocrata cheio de planilhas e regulamentos. Despreza os bolsistas (“caridade cara”).",
+        "Faz rondas noturnas com lanterna. O gabinete guarda o arquivo disciplinar e os mapas das rondas."]},
+      {t:"Aparência", body:["Baixo e magro, careca no topo, óculos de aro de metal e bigode fino. Terno cinza impecável, relógio de bolso, prancheta e lanterna."]},
+      {t:"Segredos e enredo", seg:true, body:[
+        "Ferramenta para os jogadores: o arquivo disciplinar e os mapas das rondas mostram quem estava fora do quarto. Sugestão do mestre: pode ser usado para incriminar um bolsista."]}
+    ]},
+    { id:"bell", g:0, name:"Mrs. Agnes Bell", role:"Governanta-chefe e Inspetora da Ala Leste (63 anos)", blocks:[
+      {t:"Resumo", body:[
+        "Viúva e presbiteriana devota, trabalha no castelo desde 1961. Severa, mas maternal no fundo.",
+        "Sabe de tudo e conta pouco. Dorme no térreo, junto à porta da Ala Leste."]},
+      {t:"Aparência", body:["Robusta, cabelos brancos presos num coque apertado, rosto vermelho do vento. Vestido azul-marinho, cardigã e um molho de chaves na cintura."]},
+      {t:"Segredos e enredo", seg:true, body:[
+        "Avó de Lucy Bell. Sabe do histórico das alunas da Ala Leste e pode ajudar ou travar a investigação, a critério do mestre."]}
+    ]},
+    { id:"doyle", g:0, name:"Mr. Peter Doyle", role:"Inspetor da Ala Oeste (34 anos)", blocks:[
+      {t:"Resumo", body:[
+        "Irlandês e ex-aluno do colégio. Faz vista grossa por um maço de cigarros.",
+        "Dorme na escada da Ala Oeste e conhece os atalhos dos dormitórios."]},
+      {t:"Aparência", body:["Ruivo, sardento, barba por fazer e jaqueta de couro gasta sobre a camisa do colégio. Cheira a cigarro."]},
+      {t:"Segredos e enredo", seg:true, body:[
+        "Compartilha o sobrenome com Megan Doyle e a família de pescadores de Kinmorrow. O parentesco fica a critério do mestre."]}
+    ]},
+    { id:"reid", g:0, name:"Mr. Angus Reid", role:"Zelador (71 anos)", blocks:[
+      {t:"Resumo", body:[
+        "Mora na Casa do Portão com o cão Bran. Guarda o livro de entradas, o molho de chaves mestras e um telefone fixo.",
+        "Conhece cada passagem do castelo e diz que “o castelo tem humor”. Acende a caldeira às 5h."]},
+      {t:"Aparência", body:["Velho e curvado, barba branca cerrada, olhos azuis muito vivos. Boina de lã, capa encerada e botas de borracha, sempre ao lado de Bran, um deerhound cinza enorme."]},
+      {t:"Segredos e enredo", seg:true, body:[
+        "Conhece as passagens e sentiu a presença do Outro Lado. É uma fonte de pistas sobre as cavernas e a passagem da adega."]}
+    ]},
+    { id:"prado", g:0, name:"Dona Helena Prado", role:"Coordenadora do Programa Atlântico (45 anos)", blocks:[
+      {t:"Resumo", body:[
+        "Paulistana, representante da Fundação Lumen. Visita o castelo uma vez por mês e é a única ponte dos bolsistas com o Brasil.",
+        "Fala alto e gesticula, o oposto de todos ali."]},
+      {t:"Aparência", body:["Morena, cabelo curto com luzes, terninho bege com ombreiras e perfume forte."]},
+      {t:"Segredos e enredo", seg:true, body:[
+        "Sem segredo central na Bíblia. Útil como contato externo: pode falar com famílias e com o Brasil quando o grupo perceber que algo está errado."]}
+    ]},
+
+    /* ---------- CORPO DOCENTE ---------- */
+    { id:"lowe", g:1, name:"Prof. Adrian Lowe", role:"Literatura Inglesa e Poesia (38 anos)", blocks:[
+      {t:"Resumo", body:[
+        "O “Keating” de Dunraven. Ex-aluno que voltou depois de anos em Paris e Lisboa; fala português com sotaque.",
+        "Dá aula em cima da mesa e leva os alunos à falésia para ler Byron e Burns. A reitoria o tolera por pouco tempo."]},
+      {t:"Aparência", body:["Magro, cabelo castanho bagunçado, barba de três dias e olhos castanhos calorosos. Suéter de lã com cotoveleiras, cachecol listrado e um livro de bolso na mão."]},
+      {t:"Segredos e enredo", seg:true, body:[
+        "Ouviu falar da Assembleia Livre quando era aluno e guarda um panfleto original. Aliado de Renard e possível aliado do grupo."]}
+    ]},
+    { id:"grant", g:1, name:"Prof. Isobel Grant", role:"História Medieval (52 anos)", blocks:[
+      {t:"Resumo", body:[
+        "Descendente do reitor Alexander Grant, fundador da Biblioteca Grant. Intelectual brilhante, fria e irônica.",
+        "Pesquisa os arquivos do castelo e sabe mais do que deveria."]},
+      {t:"Aparência", body:["Alta e elegante, cabelo preto com fios brancos num corte reto até o queixo, batom escuro. Blazer preto, colar de pérolas e óculos de leitura numa corrente."]},
+      {t:"Segredos e enredo", seg:true, body:[
+        "Desconfia de Elias Vane por causa dos arquivos da família. Pode ser aliada na pesquisa da Arca ou um obstáculo, conforme o mestre."]}
+    ]},
+    { id:"clarke", g:1, name:"Prof. Simon Clarke", role:"Latim e Grego (67 anos)", blocks:[
+      {t:"Resumo", body:[
+        "Velho, distraído e apaixonado por Homero. Exige recitações de memória dos alunos.",
+        "Toca piano na capela à noite."]},
+      {t:"Aparência", body:["Gordinho, cabelo branco ralo e despenteado, óculos grossos e gravata-borboleta torta. A beca vive manchada de giz."]},
+      {t:"Segredos e enredo", seg:true, body:[
+        "Ouve coisas na capela quando toca à noite. Pode ser testemunha dos fenômenos ligados à lenda do órgão que toca sozinho às 3h."]}
+    ]},
+    { id:"kerr", g:1, name:"Dr. Fiona Kerr", role:"Biologia e Ciências Naturais (41 anos)", blocks:[
+      {t:"Resumo", body:[
+        "Cética, moderna e fumante. Dirige o Laboratório Kerr e colabora com o Instituto Roslin.",
+        "Defende os bolsistas nas reuniões da reitoria."]},
+      {t:"Aparência", body:["Loira, cabelo curto e prático, sem maquiagem. Jaleco sobre jeans e botas Dr. Martens. Um maço de Marlboro no bolso."]},
+      {t:"Segredos e enredo", seg:true, body:[
+        "Colaborou com o Instituto Roslin, onde nasceu a ovelha Dolly. Aliada natural de Bianca Nunes; pode analisar restos e marcas encontrados nas cavernas."]}
+    ]},
+    { id:"martin", g:1, name:"Prof. Hugh Martin", role:"Direito (55 anos)", blocks:[
+      {t:"Resumo", body:[
+        "Aristocrata e conservador, pai de Victoria Martin. Representa a velha guarda.",
+        "Desconfia dos bolsistas e prefere a tradição à reforma."]},
+      {t:"Aparência", body:["Alto, cabelos penteados para trás com gel e nariz aquilino. Ternos risca de giz de Londres e abotoaduras de ouro."]},
+      {t:"Segredos e enredo", seg:true, body:[
+        "Pai de Victoria, que foi “chamada” pelos Carrick. Pode ser alvo de chantagem ou aliado dos Carrick, conforme o mestre."]}
+    ]},
+    { id:"moore", g:1, name:"Mr. Silas Moore", role:"Bibliotecário (aparenta uns sessenta)", blocks:[
+      {t:"Resumo", body:[
+        "Guarda a chave da Arca, que divide com o reitor. Magro, voz rouca e luvas de algodão o tempo todo.",
+        "Neutro, misterioso e estranhamente bem-informado. Controla o balcão da Biblioteca Grant e as fichas de empréstimo."]},
+      {t:"Aparência", body:["Muito pálido e magro, rosto encovado, cabelo grisalho ralo. Luvas brancas de algodão, colete preto e voz rouca. Nunca parece envelhecer nas fotos antigas."]},
+      {t:"Segredos e enredo", seg:true, body:[
+        "Servo antigo e cansado de Thomas Carne. Apaga registros, troca fichas e desvia investigações. Pode virar aliado ou traidor."]}
+    ]},
+    { id:"burke", g:1, name:"Fr. Daniel Burke", role:"Capelão episcopal (44 anos)", blocks:[
+      {t:"Resumo", body:[
+        "Gentil, sofre de insônia e ouve confissões informais dos alunos no escritório da sacristia.",
+        "Está sempre com uma caneca de chá."]},
+      {t:"Aparência", body:["Rosto gentil, olheiras profundas e cabelo castanho rareando. Colarinho clerical, cardigã marrom e uma caneca de chá sempre na mão."]},
+      {t:"Segredos e enredo", seg:true, body:[
+        "Recebe confissões que revelam segredos dos alunos. Pode ser fonte de informação valiosa ou testemunha do que acontece à noite."]}
+    ]},
+    { id:"renard", g:1, name:"Monsieur Luc Renard", role:"Francês e Teatro (36 anos)", blocks:[
+      {t:"Resumo", body:[
+        "Belga e extravagante. Dirige a peça de inverno, em dezembro.",
+        "Aliado de Lowe."]},
+      {t:"Aparência", body:["Moreno, cabelo comprido preso num rabo, brinco na orelha esquerda, lenços coloridos no pescoço e casaco de veludo vinho."]},
+      {t:"Segredos e enredo", seg:true, body:[
+        "A Peça de Inverno acontece durante o clímax, em dezembro. Pode servir de cenário para o confronto nas cavernas."]}
+    ]},
+
+    /* ---------- ALUNOS NOTÁVEIS ---------- */
+    { id:"hale", g:2, name:"Lorde Julian Hale", role:"Presidente da Carrick Society (21 anos)", blocks:[
+      {t:"Resumo", body:[
+        "Herdeiro de uma família tradicional, arrogante e rival principal do grupo.",
+        "Comanda os trotes e a vida social dos Carrick."]},
+      {t:"Aparência", body:["Alto e atlético, cabelo loiro-claro penteado com perfeição, queixo quadrado e olhos azuis frios. Blazer verde da Carrick, anel de sinete de prata e relógio caro."]},
+      {t:"Segredos e enredo", seg:true, body:[
+        "Não há parentesco declarado com Eleanor Hale; o sobrenome pode ser pista falsa ou um vínculo a definir. Pode ser manipulado por Vane ou usado como peça de chantagem."]}
+    ]},
+    { id:"vmartin", g:2, name:"Victoria Martin", role:"Aluna (20 anos)", blocks:[
+      {t:"Resumo", body:[
+        "Filha do Prof. Martin, ácida e elegante. Foi chamada pelos Carrick.",
+        "Pode virar aliada do grupo."]},
+      {t:"Aparência", body:["Ruiva escura, cabelo liso até os ombros, olhos amendoados e expressão entediada. Gola alta preta, saia de tweed e batom vinho."]},
+      {t:"Segredos e enredo", seg:true, body:[
+        "Pode ser a aliada que expõe a Carrick ou a que os entrega, conforme o rumo da história."]}
+    ]},
+    { id:"callum", g:2, name:"Callum Ross", role:"Aluno, filho do reitor (19 anos)", blocks:[
+      {t:"Resumo", body:[
+        "Rebelde silencioso, toca guitarra e escuta Oasis. Recusou o convite dos Carrick.",
+        "É filho do Dr. Ross, o que o afasta da reitoria."]},
+      {t:"Aparência", body:["Cabelo castanho comprido até o queixo, estilo Britpop e olheiras. Jaqueta Adidas sobre a camisa do colégio, tênis Samba e walkman no pescoço."]},
+      {t:"Segredos e enredo", seg:true, body:[
+        "Recusar os Carrick pode aproximá-lo dos bolsistas. Conhece o lado do pai e pode ser a chave para o Silentium."]}
+    ]},
+    { id:"megan", g:2, name:"Megan Doyle", role:"Bolsista local de Kinmorrow (20 anos)", blocks:[
+      {t:"Resumo", body:[
+        "Filha de pescador, bolsista local. Entende os brasileiros melhor que ninguém.",
+        "É uma das vozes mais honestas do grupo."]},
+      {t:"Aparência", body:["Morena, cabelo preso num rabo alto e bochechas rosadas do vento. Capa de chuva amarela, jeans e botas de borracha."]},
+      {t:"Segredos e enredo", seg:true, body:[
+        "Conhece o porto e a Escadaria dos Pescadores. Pode ser guia na falésia e na praia de seixos."]}
+    ]},
+    { id:"rory", g:2, name:"Rory Kerr", role:"Veterano e monitor (22 anos)", blocks:[
+      {t:"Resumo", body:[
+        "Certinho e monitor, secretamente apaixonado por poesia. É o atual presidente da Hume Society.",
+        "Leva a beca sempre abotoada com cuidado."]},
+      {t:"Aparência", body:["Alto e desajeitado, cabelo castanho bem curto e óculos redondos. Beca sempre abotoada e distintivo de monitor no peito."]},
+      {t:"Segredos e enredo", seg:true, body:[
+        "A Hume Society guarda as atas desde 1789 na Sala de Mapas. Pode ser fonte de histórias do passado do colégio."]}
+    ]},
+    { id:"lucy", g:2, name:"Lucy Bell", role:"Aluna, neta da governanta (19 anos)", blocks:[
+      {t:"Resumo", body:[
+        "Tímida e observadora, neta de Mrs. Bell. Desenha tudo num caderno e percebe detalhes que os outros ignoram."]},
+      {t:"Aparência", body:["Pequena, cabelo preto curtinho com franja e olhos grandes. Suéter enorme da avó e caderno de desenho debaixo do braço."]},
+      {t:"Segredos e enredo", seg:true, body:[
+        "O caderno de desenhos pode guardar registros visuais de Clara, de Elias ou das ruínas de São Fergus. Sugestão do mestre: use como pista visual."]}
+    ]},
+    { id:"vane", g:2, name:"Elias Vane", role:"Veterano de Filosofia, 3º ano. Aparenta 20 anos. Na verdade, Thomas Carne", blocks:[
+      {t:"Resumo", body:[
+        "Veterano do terceiro ano de Filosofia, “transferido de Oxford” em 1993. Culto, engraçado e generoso; fala um pouco de português e adora música brasileira.",
+        "Faz questão de ser o primeiro amigo dos bolsistas: empresta casacos, mostra passagens secretas e livra-os de punições."]},
+      {t:"Aparência", body:["Pele pálida e lisa, cabelo preto ondulado caindo na testa e olhos cinza-claros que parecem prateados à luz de velas. Mãos sempre frias. Sobretudo preto longo, suéter de gola alta e anel antigo de prata. Nunca aparece em fotos de grupo."]},
+      {t:"Segredos e enredo do mestre", seg:true, body:[
+        "Identidade real: Thomas Carne (ver aba Vilão). Fundador da Vigília, sua “estufa”. O convite é feito com uma rosa negra no escaninho.",
+        "Placar de afeto: anote confidências, favores aceitos, tempo a sós e convites aceitos. Quem tiver o maior placar no Ato 4 (30/nov) é levado às cavernas para o ritual de renovação.",
+        "O livro: dá a cada escolhido um exemplar de O Pequeno Príncipe com dedicatória “Para …, que ainda não sabe que é único no mundo. Você me cativou. — E.”. Aceitar vale +1; recusar ou devolver vale −2, e ele fica magoado e depois frio.",
+        "Pistas: nunca come no Great Hall; não aparece em fotos; mãos frias; conhece detalhes da história que ninguém sabe; o retrato de Thomas Carne no Great Hall se parece com ele, mais velho; o trevo de Clara aparece no quarto dele."]}
+    ]},
+    { id:"clara", g:2, name:"Clara Bennett", role:"Aluna de Letras, monitora do Programa Atlântico (20 anos). Desaparecida", blocks:[
+      {t:"Resumo", body:[
+        "Simpática e luminosa, a mais bonita do colégio segundo metade dos alunos. Recebeu os bolsistas na chegada, em 15 de setembro.",
+        "Naquela noite saiu para encontrar Elias nas Ruínas de São Fergus e nunca voltou. A reitoria disse que ela “voltou para casa por motivos familiares”."]},
+      {t:"Aparência", body:["Cabelo loiro-mel comprido e ondulado, olhos verdes, sardas leves e sorriso largo. Casaco xadrez vermelho, cachecol creme e botas de montaria. Usava um cordão com pingente de trevo de prata."]},
+      {t:"Segredos e enredo do mestre", seg:true, body:[
+        "Está viva, presa nas cavernas como reserva de sangue e futura serva. Apaixonada por Elias, escolheu ser monitora por isso.",
+        "Pista: o exemplar de Clara do livro tem a mesma dedicatória e data de setembro de 1995. O “presente” não era único.",
+        "Troféu de Carne: o pingente de trevo de prata, que ele carrega no bolso."]}
+    ]},
+
+    /* ---------- OUTROS BOLSISTAS ---------- */
+    { id:"renato", g:3, name:"Renato Lima", role:"Bolsista carioca (20 anos)", blocks:[
+      {t:"Resumo", body:[
+        "Carioca, toca violão e samba. É o coração da turma.",
+        "Tenta reunir todo mundo quando o grupo se separa."]},
+      {t:"Aparência", body:["Negro, alto, cabelo raspado e sorriso enorme. Camisa do Flamengo por baixo do casaco emprestado e violão nas costas."]},
+      {t:"Segredos e enredo", seg:true, body:[
+        "Âncora emocional do grupo. Pode ser o primeiro a notar que Vane é diferente do que parece."]}
+    ]},
+    { id:"camila", g:3, name:"Camila Duarte", role:"Bolsista mineira, Letras (19 anos)", blocks:[
+      {t:"Resumo", body:[
+        "Mineira, estudiosa de Letras, quer ser escritora.",
+        "Anota tudo e sempre tem um livro e uma caneta atrás da orelha."]},
+      {t:"Aparência", body:["Morena clara, cabelo castanho cacheado e volumoso, óculos de aro grosso. Sempre com um livro e uma caneta atrás da orelha."]},
+      {t:"Segredos e enredo", seg:true, body:[
+        "Pode se ligar aos poemas de Eleanor Hale e ao caderno que é troféu de Carne. Sua escrita pode decifrar as anotações da Arca."]}
+    ]},
+    { id:"diego", g:3, name:"Diego Torres", role:"Bolsista gaúcho, Direito (21 anos)", blocks:[
+      {t:"Resumo", body:[
+        "Gaúcho, cursa Direito. Competitivo e orgulhoso, entra em conflito com Julian Hale e com a Carrick.",
+        "Levou uma cuia de chimarrão escondida na mala."]},
+      {t:"Aparência", body:["Branco, cabelo loiro-escuro curto com gel e porte de atleta. Jaqueta jeans, botas e a cuia de chimarrão escondida na mala."]},
+      {t:"Segredos e enredo", seg:true, body:[
+        "O orgulho pode ser explorado: é um alvo fácil para a disputa de afeto com Vane ou para um convite à Vigília."]}
+    ]},
+    { id:"bianca", g:3, name:"Bianca Nunes", role:"Bolsista baiana, Biologia (20 anos)", blocks:[
+      {t:"Resumo", body:[
+        "Baiana, estuda Biologia. Cética e corajosa, vai à falésia sem medo.",
+        "Destoa do castelo com seu estilo próprio."]},
+      {t:"Aparência", body:["Negra, tranças longas, colares de miçangas e um casaco de nylon colorido que destoa de tudo no castelo."]},
+      {t:"Segredos e enredo", seg:true, body:[
+        "Pode propor testes científicos sobre as cavernas e é aliada natural de Fiona Kerr."]}
+    ]},
+
+    /* ---------- VILÃO ---------- */
+    { id:"carne", g:4, vilao:true, name:"Thomas Carne", role:"Vilão. Identidade atual: Elias Vane", blocks:[
+      {t:"Identidade", body:[
+        "Reitor acusado de práticas ocultas em 1662, absolvido misteriosamente e morto um ano depois, aos 91 anos, segundo o registro oficial.",
+        "Na verdade fez um pacto de Sangue com uma entidade do Outro Lado e tornou-se vampiro. Dorme por longos ciclos no bunker e nas cavernas e volta sob novas identidades. Hoje é Elias Vane."]},
+      {t:"Perfil psicológico", body:[
+        "Psicopata clínico, muito antes de ser vampiro. Não sente culpa, só tédio.",
+        "Não odeia as vítimas: coleciona-as. Cada jovem é uma obra inacabada que ele “completa” ao tirá-la do tempo. Vê-se como curador da beleza, não como assassino.",
+        "O que mais o excita é o momento em que a vítima percebe que confiou na pessoa errada."]},
+      {t:"Os cinco tempos da caça", ol:true, body:[
+        "Observar: semanas só olhando. Escolhe o solitário, o deslocado, o saudoso e o bolsista pobre. Anota num caderno de couro, com letra caligráfica do século XVII.",
+        "Espelhar: torna-se exatamente o que a vítima precisa: melhor amigo, alma gêmea ou cúmplice.",
+        "Isolar: afasta a vítima dos outros com pequenas brigas, segredos revelados e encontros noturnos só a dois.",
+        "Provar: bebe pouco, em várias noites, com a vítima entorpecida pelo vinho da Vigília. Ela acorda pálida, com marcas atrás da orelha ou no pulso, e dependente dele.",
+        "Colher: numa noite simbólica, leva a vítima a um lugar isolado (ruínas, falésia, estufa), revela quem é e só depois a mata ou a leva para as cavernas."]},
+      {t:"Assinatura", body:[
+        "Guarda troféus numa caixa de música de ébano no bunker, cada um com etiqueta de nome e data.",
+        "Deixa uma rosa negra seca onde a vítima foi vista pela última vez.",
+        "Encobre tudo com acidente, fuga ou “motivos familiares”, contando com o Silentium e com servos como Silas Moore."]},
+      {t:"Fraquezas", body:[
+        "Vaidoso e precisa ser admirado; não resiste a uma plateia.",
+        "Subestima quem é leal ao grupo, e não a ele.",
+        "Se uma vítima o rejeita, fica obcecado e começa a cometer erros."]},
+      {t:"Vítima 1662 — Margaret Lyall, a criada", seg:true, body:[
+        "Escolhida como testemunha contra ele. Carne foi gentil por semanas, ensinou-a a ler e deu-lhe um livro de salmos. Na véspera do depoimento, sangrou-a sobre o altar de pedra das cavernas. A acusação caiu por falta de testemunha.",
+        "Troféu: o livro de salmos, com o nome dela."]},
+      {t:"Vítimas 1746 — três jacobitas e três Custodes", seg:true, body:[
+        "Conquistou os oficiais escondidos nas cavernas levando comida e notícias, sob o nome de um irmão da Ordem da Chave. Matou-os um a um na maré alta, dizendo que o companheiro “fugira num barco”.",
+        "Quando três Custodes desceram para investigar, ele os afogou na maré alta. Foi o fim da Ordem da Chave. Troféus: um cocar branco jacobita e três chaves de ferro."]},
+      {t:"Vítima 1888 — Eleanor Hale", seg:true, body:[
+        "Voltou como “Edward Lyall”, tutor de piano. Leu os poemas de Eleanor em voz alta e prometeu publicá-los em Londres.",
+        "Na noite de 31 de outubro, levou-a à falésia. Quando ela entendeu quem ele era e tentou fugir pela borda, ele a deixou cair. Troféu: o caderno de poemas dela."]},
+      {t:"Vítima 1920 — Agnes Murray, a última Irmã", seg:true, body:[
+        "Descobriu o padrão de desaparecimentos e o nome “Lyall” em 1662 e 1888. Carne apenas a vigiou. Na noite em que ia levar as provas ao bispo de Aberdeen, foi vista pela última vez entrando na estufa.",
+        "Troféu: o broche de lírio da sociedade. Os diários dela continuam sob o piso da Estufa Victoria."]},
+      {t:"Vítima 1957 — David Shaw, o incêndio da Torre Norte", seg:true, body:[
+        "Aluno de astronomia que passava as noites no Observatório. Carne o atacou lá em cima; David reagiu com uma lamparina de querosene e a torre pegou fogo.",
+        "Carne escapou e é a única vez em que foi ferido: tem uma cicatriz de queimadura nas costas que nunca sarou. Troféu: um astrolábio de latão derretido."]},
+      {t:"Vítima 1991 — Oliver Lane", seg:true, body:[
+        "Bolsista, filho de mineiro de Glasgow, tímido e humilhado pelos Carrick. Carne apareceu como colega de quarto temporário, defendeu-o dos trotes e, aos poucos, bebeu dele.",
+        "Na véspera do Natal, levou-o às cavernas para transformá-lo em servo. Oliver não sobreviveu. Os restos estão numa gruta lateral, sob pedras. Troféu: a carteira de estudante."]},
+      {t:"Vítima 1996 — Clara Bennett (viva)", seg:true, body:[
+        "Conquistada ao longo de 1995 e 1996. Na noite de 15 de setembro, após o jantar de boas-vindas, foi levada às ruínas, beijada e mordida.",
+        "Está presa nas cavernas, fraca e meio enfeitiçada. Carne planeja convertê-la em serva no ritual de 30 de novembro, junto com o jogador escolhido."]},
+      {t:"Dica do mestre", body:[
+        "A caixa de música no bunker revela toda a história de uma vez. É um ótimo momento de virada no Ato 3 ou 4."]}
+    ]}
+  ];
+
+  /* ---------- utilidades ---------- */
+  function norm(s){
+    return String(s).normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+  }
+  function el(tag, cls, text){
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text != null) e.textContent = text;
+    return e;
+  }
+
+  var tabsEl = document.getElementById("tabs");
+  var panelsEl = document.getElementById("panels");
+  var buscaEl = document.getElementById("busca");
+  var vazioEl = document.getElementById("vazio");
+  var contagemEl = document.getElementById("contagem");
+
+  function listaSimples(titulo, texto){
+    var box = el("div", "ficha-sec");
+    box.appendChild(el("h4", null, titulo));
+    var partes = String(texto || "").split(";").map(function(s){ return s.trim(); }).filter(Boolean);
+    if (!partes.length || (partes.length === 1 && partes[0] === "—")) partes = ["Nenhum"];
+    var ul = el("ul");
+    partes.forEach(function(p){ ul.appendChild(el("li", null, p)); });
+    box.appendChild(ul);
+    return box;
+  }
+
+  function buildFicha(f){
+    var art = el("article", "block ficha");
+    art.appendChild(el("h3", null, "Ficha"));
+
+    var stats = el("div", "stats");
+    [["Nível", f.nivel, ""], ["Físico", f.F, ""], ["Mente", f.M, ""], ["Emoção", f.E, ""], ["PV", f.PV, "pv"], ["PD", f.PD, "pd"]]
+      .forEach(function(s){
+        var box = el("div", "stat" + (s[2] ? " " + s[2] : ""));
+        box.appendChild(el("span", "k", s[0]));
+        box.appendChild(el("strong", null, String(s[1])));
+        stats.appendChild(box);
+      });
+    art.appendChild(stats);
+
+    var nomes = Object.keys(f.pericias || {});
+    if (nomes.length) {
+      var sec = el("div", "ficha-sec");
+      sec.appendChild(el("h4", null, "Perícias"));
+      var ulp = el("ul", "pericias");
+      nomes.forEach(function(n){ ulp.appendChild(el("li", null, n + " " + f.pericias[n])); });
+      sec.appendChild(ulp);
+      art.appendChild(sec);
+    }
+
+    art.appendChild(listaSimples("Ataques", f.ataques));
+    art.appendChild(listaSimples("Itens", f.itens));
+    art.appendChild(listaSimples("Poderes e habilidades", f.poderes));
+    return art;
+  }
+
+  function buildAula(a){
+    var art = el("article", "block aula");
+    art.appendChild(el("h3", null, "Aula"));
+    [["Matéria e horário", a.materia], ["Conteúdo", a.conteudo], ["Cena sugerida", a.cena], ["Teste", a.teste]]
+      .forEach(function(s){
+        var p = el("p");
+        p.appendChild(el("strong", null, s[0] + ". "));
+        p.appendChild(document.createTextNode(s[1]));
+        art.appendChild(p);
+      });
+    var m = el("div", "mestre");
+    m.appendChild(el("h4", null, "Mestre"));
+    m.appendChild(el("p", null, a.mestre));
+    art.appendChild(m);
+    return art;
+  }
+
+  function buildPersonalidade(p){
+    var art = el("article", "block personalidade");
+    art.appendChild(el("h3", null, "Personalidade"));
+    art.appendChild(el("p", null, p.personalidade));
+    p.frases.forEach(function(f){ art.appendChild(el("p", "frase", f)); });
+    return art;
+  }
+
+  function buildDetalhe(d){
+    var art = el("article", "block seg detalhe");
+    art.appendChild(el("h3", null, "Aula em detalhe"));
+    [["Ambiente", d.ambiente], ["Rotina", d.rotina], ["Quem estuda", d.estuda], ["Quem faz bagunça", d.bagunca], ["Quem chega atrasado", d.atrasa]]
+      .forEach(function(s){
+        var p = el("p");
+        p.appendChild(el("strong", null, s[0] + ". "));
+        p.appendChild(document.createTextNode(s[1]));
+        art.appendChild(p);
+      });
+    return art;
+  }
+
+  /* ---------- aba Mapa ---------- */
+  var zonaAtiva = null, zonasEls = [], chipEls = [];
+
+  function marcaChips(){
+    chipEls.forEach(function(c){
+      c.el.setAttribute("aria-pressed", c.valor === zonaAtiva ? "true" : "false");
+    });
+  }
+
+  // Esconde zonas sem nenhum local visível (busca) ou fora do filtro escolhido
+  function atualizaZonas(){
+    zonasEls.forEach(function(z, zi){
+      var algum = z.locais.some(function(l){ return !l.el.hidden; });
+      z.wrap.hidden = (zonaAtiva !== null && zonaAtiva !== zi) || !algum;
+    });
+  }
+
+  /* ---------- montagem do mapa ---------- */
+  var CHAVE_ACHADOS = "sanctum-achados";
+  function carregaAchados(){
+    try {
+      var v = JSON.parse(localStorage.getItem(CHAVE_ACHADOS) || "[]");
+      return Array.isArray(v) ? v : [];
+    } catch (e) { return []; }
+  }
+  function salvaAchados(lista){
+    try { localStorage.setItem(CHAVE_ACHADOS, JSON.stringify(lista)); } catch (e) {}
+  }
+
+  function buildMapa(){
+    var btn = el("button", "tab", "Mapa");
+    btn.type = "button";
+    btn.id = "tab-mapa";
+    btn.setAttribute("role", "tab");
+    btn.setAttribute("aria-selected", "false");
+    btn.setAttribute("aria-controls", "p-mapa");
+    groupEls[5].bar.appendChild(btn);
+
+    var panel = el("section", "panel");
+    panel.id = "p-mapa";
+    panel.setAttribute("role", "tabpanel");
+    panel.setAttribute("aria-labelledby", btn.id);
+    panel.hidden = true;
+    panel.appendChild(el("h2", null, "Mapa de Dunraven Hall"));
+    panel.appendChild(el("p", "cargo", "Pontos de interesse por zona. Os achados marcados ficam salvos neste navegador."));
+
+    var filtro = el("div", "filtro");
+    filtro.setAttribute("role", "group");
+    filtro.setAttribute("aria-label", "Filtrar por zona");
+    chipEls = [];
+    function novoChip(txt, valor){
+      var c = el("button", "chip", txt);
+      c.type = "button";
+      c.addEventListener("click", function(){
+        zonaAtiva = valor;
+        marcaChips();
+        atualizaZonas();
+      });
+      filtro.appendChild(c);
+      chipEls.push({ el: c, valor: valor });
+    }
+    novoChip("Todas", null);
+    ZONA_ORDEM.forEach(function(letra, zi){ novoChip(ZONA_NOMES[letra], zi); });
+    panel.appendChild(filtro);
+
+    var marcados = carregaAchados();
+    var recs = [];
+    zonasEls = [];
+    ZONA_ORDEM.forEach(function(letra){
+      var wrap = el("section", "zona");
+      wrap.appendChild(el("h3", null, ZONA_NOMES[letra]));
+      var zl = [];
+
+      PONTOS.forEach(function(p, pi){
+        if (p.zona !== letra) return;
+        var art = el("article", "local");
+        art.appendChild(el("h4", null, p.nome));
+        art.appendChild(el("p", null, p.desc));
+
+        var npcP = el("p", "npc");
+        npcP.appendChild(el("strong", null, "NPC presente. "));
+        npcP.appendChild(document.createTextNode(p.npc));
+        art.appendChild(npcP);
+
+        var textos = [ZONA_NOMES[letra], p.nome, p.desc, p.npc, p.mestre];
+        if (p.achados && p.achados.length) {
+          art.appendChild(el("h5", null, "Achados"));
+          p.achados.forEach(function(a, ai){
+            var chave = pi + "-" + ai;
+            var box = el("div", "achado");
+            box.appendChild(el("p", "achado-nome", a.nome));
+            [["Teste", a.teste], ["Se der certo", a.ok], ["Se falhar", a.falha]].forEach(function(s){
+              var q = el("p");
+              q.appendChild(el("strong", null, s[0] + ". "));
+              q.appendChild(document.createTextNode(s[1]));
+              box.appendChild(q);
+              textos.push(s[1]);
+            });
+            textos.push(a.nome);
+
+            var bt = el("button", "marca", "Marcar como encontrado");
+            bt.type = "button";
+            var pinta = function(){
+              var on = marcados.indexOf(chave) !== -1;
+              box.classList.toggle("encontrado", on);
+              bt.textContent = on ? "Encontrado" : "Marcar como encontrado";
+              bt.setAttribute("aria-pressed", on ? "true" : "false");
+            };
+            bt.addEventListener("click", function(){
+              var i = marcados.indexOf(chave);
+              if (i === -1) marcados.push(chave); else marcados.splice(i, 1);
+              salvaAchados(marcados);
+              pinta();
+            });
+            box.appendChild(bt);
+            pinta();
+            art.appendChild(box);
+          });
+        }
+
+        var mp = el("p", "mestre-linha");
+        mp.appendChild(el("strong", null, "Mestre. "));
+        mp.appendChild(document.createTextNode(p.mestre));
+        art.appendChild(mp);
+
+        wrap.appendChild(art);
+        var rec = { el: art, text: norm(textos.join(" ")) };
+        zl.push(rec);
+        recs.push(rec);
+      });
+
+      panel.appendChild(wrap);
+      zonasEls.push({ wrap: wrap, locais: zl });
+    });
+
+    panelsEl.appendChild(panel);
+    marcaChips();
+    return {
+      id: "mapa",
+      g: 5,
+      btn: btn,
+      panel: panel,
+      head: norm("Mapa de Dunraven Hall pontos de interesse"),
+      blocks: recs
+    };
+  }
+
+  /* ---------- aba Jogadora (só dados de player) ---------- */
+  var JOGADORA = {
+    nome: "Silvia Ferreira",
+    jogador: "Giorgiana",
+    idade: 20,
+    nivel: 1,
+    perfil: "Analista",
+    vocacao: "Letras",
+    atributos: [["Físico", 6], ["Mente", 8], ["Emoção", 8]],
+    passos: "2 / 2",
+    pontosPatamarVida: 1,
+    patamarVida: 3,
+    patamarDeterminacao: 3,
+    pvMax: 9,
+    pdMax: 11,
+    capacidade: 6,
+    pericias: [
+      ["Acrobacia", 6, "Físico"], ["Bruxaria", 6, "Mente"], ["Disciplina", 6, "Emoção"],
+      ["Enganação", 8, "Emoção"], ["Furtividade", 8, "Físico"], ["Inspecionar", 8, "Mente"],
+      ["Intuição", 6, "Emoção"], ["Persuasão", 6, "Emoção"]
+    ],
+    treinadas: "8 / 10 (faltam 2)",
+    aptidao: "Folclore",
+    poderes: [["Dedução", "Perfil · Analista"], ["Leitura rápida", "Vocação · Letras"]],
+    habilidades: ["Resoluto"],
+    itens: ["Caderno de anotações", "Mapa do castelo", "Livro de folclore"],
+    situacao: "sem penalidade",
+    relacao: { com: "Ninguém", grau: 1 },
+    historico: [
+      "Silvia é natural do Acre e cresceu cercada por livros, histórias e lendas. Sua curiosidade pelo folclore e pela mitologia surgiu ainda na infância, alimentada pelos contos que sua avó costumava lhe narrar e pelos relatos de experiências sobrenaturais que ela jurava ter vivenciado. Fascinada por aquelas histórias, Silvia desenvolveu uma paixão pela literatura e uma insaciável sede por conhecimento. Seu interesse pela leitura era tão intenso que, ainda jovem, começou a estudar outros idiomas, como inglês e latim, desejando ampliar seus horizontes e ter acesso a obras e conhecimentos que não estavam disponíveis em sua língua materna.",
+      "Entretanto, sua curiosidade nunca se limitou às páginas dos livros. Durante a adolescência, passou a explorar lugares abandonados e locais conhecidos por suas supostas assombrações, movida tanto pelo desejo de investigar o desconhecido quanto pela vontade de provar aos amigos e às pessoas ao seu redor que o sobrenatural realmente existia. Contudo, seu entusiasmo e suas histórias acabaram sendo recebidos com descrença e estranhamento. Aos poucos, Silvia passou a ser vista como a garota esquisita ou até mesmo louca, tornando-se alvo de comentários e afastando-se socialmente. Cansada de não ser levada a sério, aprendeu a guardar seus interesses e descobertas para si mesma, mantendo em segredo uma parte importante de quem era.",
+      "Para Silvia, o intercâmbio na Escócia representa muito mais do que uma oportunidade de crescimento acadêmico. É a possibilidade de recomeçar em um lugar onde ninguém conhece seu passado, onde poderá construir novas relações e, principalmente, aprofundar seus estudos em uma área pela qual sempre foi apaixonada. Talvez, longe dos julgamentos que a acompanharam durante tantos anos, finalmente encontre pessoas dispostas a ouvir suas histórias. Ou, quem sabe, encontre algo que prove que sua curiosidade nunca foi tão infundada quanto todos acreditavam."
+    ]
+  };
+
+  function jogCampo(art, rotulo, valor){
+    var p = el("p");
+    p.appendChild(el("strong", null, rotulo + ". "));
+    p.appendChild(document.createTextNode(String(valor)));
+    art.appendChild(p);
+  }
+
+  function jogStats(lista){
+    var grid = el("div", "stats");
+    lista.forEach(function(s){
+      var box = el("div", "stat" + (s[2] ? " " + s[2] : ""));
+      box.appendChild(el("span", "k", s[0]));
+      box.appendChild(el("strong", null, String(s[1])));
+      grid.appendChild(box);
+    });
+    return grid;
+  }
+
+  function buildJogadora(){
+    var J = JOGADORA;
+    var btn = el("button", "tab", J.nome.split(" ")[0]);
+    btn.type = "button";
+    btn.id = "tab-jogadora";
+    btn.setAttribute("role", "tab");
+    btn.setAttribute("aria-selected", "false");
+    btn.setAttribute("aria-controls", "p-jogadora");
+    groupEls[6].bar.appendChild(btn);
+
+    var panel = el("section", "panel");
+    panel.id = "p-jogadora";
+    panel.className = "panel jogadora";
+    panel.setAttribute("role", "tabpanel");
+    panel.setAttribute("aria-labelledby", btn.id);
+    panel.hidden = true;
+    panel.appendChild(el("h2", null, J.nome));
+    panel.appendChild(el("p", "cargo", "Jogada por " + J.jogador + ". " + J.idade + " anos, " + J.perfil.toLowerCase() + ", cursa " + J.vocacao + "."));
+
+    var blocos = [];
+    function novoBloco(titulo){
+      var art = el("article", "block");
+      art.appendChild(el("h3", null, titulo));
+      panel.appendChild(art);
+      blocos.push(art);
+      return art;
+    }
+
+    var id = novoBloco("Identificação");
+    var dl = el("dl", "jog-dados");
+    [["Nome", J.nome], ["Jogador(a)", J.jogador], ["Idade", J.idade], ["Nível", J.nivel], ["Perfil", J.perfil], ["Vocação (curso)", J.vocacao]]
+      .forEach(function(c){
+        dl.appendChild(el("dt", null, c[0]));
+        dl.appendChild(el("dd", null, String(c[1])));
+      });
+    id.appendChild(dl);
+
+    var at = novoBloco("Atributos");
+    at.appendChild(jogStats(J.atributos.map(function(a){ return [a[0], a[1]]; })));
+    jogCampo(at, "Passos usados na criação", J.passos);
+
+    var pv = novoBloco("Patamares e vitais");
+    pv.appendChild(jogStats([
+      ["Patamar de Vida", J.patamarVida],
+      ["Patamar de Determinação", J.patamarDeterminacao],
+      ["PV máx.", J.pvMax, "pv"],
+      ["PD máx.", J.pdMax, "pd"]
+    ]));
+    jogCampo(pv, "Pontos de patamar em Vida", J.pontosPatamarVida + " (de 0 a 2)");
+    jogCampo(pv, "Cálculo", "PV = Físico + patamar × nível; PD = Emoção + patamar × nível");
+
+    var pe = novoBloco("Perícias");
+    jogCampo(pe, "Treinadas", J.treinadas);
+    var ulp = el("ul", "pericias");
+    J.pericias.forEach(function(p){
+      var li = el("li");
+      li.appendChild(document.createTextNode(p[0] + " " + p[1] + " "));
+      li.appendChild(el("span", "sub-linha", p[2]));
+      ulp.appendChild(li);
+    });
+    pe.appendChild(ulp);
+    jogCampo(pe, "Aptidão (subárea)", J.aptidao);
+
+    var po = novoBloco("Poderes e habilidades");
+    var ulo = el("ul");
+    J.poderes.forEach(function(p){
+      var li = el("li");
+      li.appendChild(document.createTextNode(p[0]));
+      li.appendChild(el("span", "sub-linha poder-linha", p[1]));
+      ulo.appendChild(li);
+    });
+    J.habilidades.forEach(function(h){
+      var li = el("li");
+      li.appendChild(document.createTextNode(h));
+      li.appendChild(el("span", "sub-linha poder-linha", "Habilidade"));
+      ulo.appendChild(li);
+    });
+    po.appendChild(ulo);
+
+    var it = novoBloco("Itens e carga");
+    jogCampo(it, "Capacidade (Físico)", J.capacidade);
+    jogCampo(it, "Situação", J.situacao);
+    var uli = el("ul");
+    J.itens.forEach(function(x){ uli.appendChild(el("li", null, x)); });
+    it.appendChild(uli);
+
+    var rel = novoBloco("Relação e histórico");
+    jogCampo(rel, "Com quem", J.relacao.com);
+    jogCampo(rel, "Grau (1 a 3)", J.relacao.grau);
+
+    var hi = novoBloco("Histórico");
+    J.historico.forEach(function(t){ hi.appendChild(el("p", null, t)); });
+
+    panelsEl.appendChild(panel);
+    return {
+      id: "jogadora",
+      g: 6,
+      btn: btn,
+      panel: panel,
+      head: norm(J.nome + " " + J.jogador + " jogadora player ficha"),
+      blocks: blocos.map(function(art){ return { el: art, text: norm(art.textContent) }; })
+    };
+  }
+
+  /* ---------- montagem ---------- */
+  var groupEls = [];
+  GRUPOS.forEach(function(nome, i){
+    var grp = el("div", "group");
+    grp.appendChild(el("h2", null, nome));
+    var bar = el("div", "tabbar");
+    bar.setAttribute("role", "tablist");
+    bar.setAttribute("aria-label", nome);
+    grp.appendChild(bar);
+    tabsEl.appendChild(grp);
+    groupEls[i] = { wrap: grp, bar: bar };
+  });
+
+  var items = DATA.map(function(npc){
+    var btn = el("button", "tab" + (npc.vilao ? " vilao" : ""), npc.name.replace(/^(Dr\.|Dona|Mr\.|Mrs\.|Prof\.|Monsieur|Fr\.|Lorde)\s+/, "") );
+    btn.type = "button";
+    btn.id = "tab-" + npc.id;
+    btn.setAttribute("role", "tab");
+    btn.setAttribute("aria-selected", "false");
+    btn.setAttribute("aria-controls", "p-" + npc.id);
+    groupEls[npc.g].bar.appendChild(btn);
+
+    var panel = el("section", "panel");
+    panel.id = "p-" + npc.id;
+    panel.setAttribute("role", "tabpanel");
+    panel.setAttribute("aria-labelledby", btn.id);
+    panel.hidden = true;
+    panel.appendChild(el("h2", null, npc.name));
+    panel.appendChild(el("p", "cargo", npc.role));
+
+    var f = FICHAS[SLUG[npc.id] || npc.id];
+    var blocks = [];
+    npc.blocks.forEach(function(b, bi){
+      var art = el("article", "block" + (b.seg ? " seg" : ""));
+      art.appendChild(el("h3", null, b.t));
+      if (b.ol) {
+        var ol = el("ol");
+        b.body.forEach(function(t){ ol.appendChild(el("li", null, t)); });
+        art.appendChild(ol);
+      } else {
+        b.body.forEach(function(t){ art.appendChild(el("p", null, t)); });
+      }
+      panel.appendChild(art);
+      blocks.push({ el: art, text: norm(b.t + " " + b.body.join(" ")) });
+
+      // Ficha logo abaixo do resumo (primeiro bloco), antes dos segredos
+      if (bi === 0 && f) {
+        var fa = buildFicha(f);
+        panel.appendChild(fa);
+        blocks.push({ el: fa, text: norm(fa.textContent) });
+      }
+      // Seção Aula logo depois da ficha (docentes)
+      if (bi === 0 && AULAS[npc.id]) {
+        var au = buildAula(AULAS[npc.id]);
+        panel.appendChild(au);
+        blocks.push({ el: au, text: norm(au.textContent) });
+      }
+      // Personalidade e Aula em detalhe, logo abaixo da Aula
+      if (bi === 0 && PERS[npc.id]) {
+        var pe = buildPersonalidade(PERS[npc.id]);
+        var de = buildDetalhe(PERS[npc.id]);
+        panel.appendChild(pe);
+        blocks.push({ el: pe, text: norm(pe.textContent) });
+        panel.appendChild(de);
+        blocks.push({ el: de, text: norm(de.textContent) });
+      }
+    });
+
+    panelsEl.appendChild(panel);
+
+    return {
+      id: npc.id,
+      g: npc.g,
+      btn: btn,
+      panel: panel,
+      head: norm(npc.name + " " + npc.role),
+      blocks: blocks
+    };
+  });
+
+  items.push(buildMapa());
+  items.push(buildJogadora());
+
+  /* ---------- links para as abas dos NPCs ---------- */
+  // Aliases em ordem livre: a busca usa sempre a forma mais longa primeiro.
+  // Os ids de destino são os das abas no HTML (ex.: "ross" para Malcolm Ross).
+  var ALIASES = [
+    ["Malcolm Ross","ross"], ["Dr. Ross","ross"], ["Reitor Ross","ross"],
+    ["Gerald Hunt","hunt"], ["Mr. Hunt","hunt"], ["Hunt","hunt"],
+    ["Agnes Bell","bell"], ["Mrs. Bell","bell"],
+    ["Peter Doyle","doyle"], ["Mr. Doyle","doyle"], ["Inspetor Doyle","doyle"],
+    ["Megan Doyle","megan"], ["Megan","megan"],
+    ["Angus Reid","reid"], ["Angus","reid"],
+    ["Helena Prado","prado"], ["Dona Helena","prado"], ["Helena","prado"],
+    ["Adrian Lowe","lowe"], ["Prof. Lowe","lowe"], ["Lowe","lowe"],
+    ["Isobel Grant","grant"], ["Prof. Grant","grant"],
+    ["Simon Clarke","clarke"], ["Prof. Clarke","clarke"], ["Clarke","clarke"],
+    ["Fiona Kerr","kerr"], ["Dr. Kerr","kerr"], ["Fiona","kerr"],
+    ["Rory Kerr","rory"], ["Rory","rory"],
+    ["Hugh Martin","martin"], ["Prof. Martin","martin"],
+    ["Victoria Martin","vmartin"], ["Victoria","vmartin"],
+    ["Silas Moore","moore"], ["Mr. Moore","moore"], ["Silas","moore"],
+    ["Daniel Burke","burke"], ["Fr. Burke","burke"], ["Burke","burke"],
+    ["Luc Renard","renard"], ["Monsieur Renard","renard"], ["Renard","renard"],
+    ["Julian Hale","hale"], ["Lorde Julian","hale"], ["Julian","hale"],
+    ["Callum Ross","callum"], ["Callum","callum"],
+    ["Lucy Bell","lucy"], ["Lucy","lucy"],
+    ["Clara Bennett","clara"], ["Clara","clara"],
+    ["Elias Vane","vane"], ["Elias","vane"], ["Vane","vane"],
+    ["Thomas Carne","carne"], ["Carne","carne"],
+    ["Renato Lima","renato"], ["Renato","renato"],
+    ["Camila Duarte","camila"], ["Camila","camila"],
+    ["Diego Torres","diego"], ["Diego","diego"],
+    ["Bianca Nunes","bianca"], ["Bianca","bianca"]
+  ];
+
+  var ALIAS_ALVO = {};
+  ALIASES.forEach(function(x){ ALIAS_ALVO[x[0]] = x[1]; });
+  var ALIAS_RE = new RegExp(
+    "(?<![\\p{L}\\p{N}])(" +
+    ALIASES.slice()
+      .sort(function(a, b){ return b[0].length - a[0].length; })
+      .map(function(x){ return x[0].replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); })
+      .join("|") +
+    ")(?![\\p{L}\\p{N}])", "gu");
+
+  function reduzMovimento(){
+    return window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  }
+
+  function cargoDe(alvo){
+    var it = items.filter(function(x){ return x.id === alvo; })[0];
+    var c = it && it.panel.querySelector(".cargo");
+    return c ? c.textContent : "";
+  }
+
+  // Troca nomes por links só nos nós de texto visíveis (fora de a, button, h2, script e style)
+  function ligaNoTexto(raiz, selfId){
+    var andador = document.createTreeWalker(raiz, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(n){
+        for (var p = n.parentNode; p && p !== raiz; p = p.parentNode) {
+          var t = p.nodeName;
+          if (t === "A" || t === "BUTTON" || t === "H2" || t === "SCRIPT" || t === "STYLE") return NodeFilter.FILTER_REJECT;
+        }
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    });
+    var nos = [];
+    while (andador.nextNode()) nos.push(andador.currentNode);
+
+    nos.forEach(function(no){
+      var txt = no.nodeValue;
+      var re = new RegExp(ALIAS_RE.source, ALIAS_RE.flags);
+      var partes = [], ultimo = 0, m;
+      while ((m = re.exec(txt)) !== null) {
+        var alvo = ALIAS_ALVO[m[1]];
+        // "Victoria" dentro de "Estufa Victoria" é o nome da estufa, não da aluna
+        if (m[1] === "Victoria" && txt.slice(Math.max(0, m.index - 7), m.index) === "Estufa ") continue;
+        // evita autolink: não linka o NPC da própria aba
+        if (alvo === selfId) continue;
+        partes.push(txt.slice(ultimo, m.index));
+        partes.push({ alvo: alvo, texto: m[1] });
+        ultimo = m.index + m[1].length;
+      }
+      if (!partes.length) return;
+      partes.push(txt.slice(ultimo));
+
+      var pai = no.parentNode;
+      partes.forEach(function(p){
+        if (typeof p === "string") {
+          if (p) pai.insertBefore(document.createTextNode(p), no);
+        } else {
+          var a = el("a", "npc-link", p.texto);
+          a.href = "#" + p.alvo;
+          a.dataset.alvo = p.alvo;
+          a.dataset.cargo = cargoDe(p.alvo);
+          pai.insertBefore(a, no);
+        }
+      });
+      pai.removeChild(no);
+    });
+  }
+
+  function irParaNpc(alvo){
+    var it = items.filter(function(x){ return x.id === alvo; })[0];
+    if (!it) return;
+    if (buscaEl.value) { buscaEl.value = ""; filtrar(); }
+    activate(it, true);
+    var titulo = it.panel.querySelector("h2") || it.panel;
+    titulo.scrollIntoView({ behavior: reduzMovimento() ? "auto" : "smooth", block: "start" });
+  }
+
+  document.addEventListener("click", function(ev){
+    var a = ev.target.closest ? ev.target.closest("a.npc-link") : null;
+    if (!a) return;
+    ev.preventDefault();
+    irParaNpc(a.dataset.alvo);
+  });
+
+  items.forEach(function(it){ ligaNoTexto(it.panel, it.id); });
+
+  /* ---------- ativação e busca ---------- */
+  var current = null;
+
+  function activate(it, updateHash){
+    items.forEach(function(x){
+      var on = (x === it);
+      x.panel.hidden = !on;
+      x.btn.setAttribute("aria-selected", on ? "true" : "false");
+      x.btn.tabIndex = on ? 0 : -1;
+    });
+    current = it;
+    if (updateHash) {
+      try { history.replaceState(null, "", "#" + it.id); } catch (e) {}
+    }
+  }
+
+  function filtrar(){
+    var q = norm(buscaEl.value.trim());
+    var visiveis = [];
+
+    items.forEach(function(it){
+      var headMatch = !q || it.head.indexOf(q) !== -1;
+      var algum = false;
+      it.blocks.forEach(function(b){
+        var ok = !q || headMatch || b.text.indexOf(q) !== -1;
+        b.el.hidden = !ok;
+        if (ok) algum = true;
+      });
+      var mostra = !q || headMatch || algum;
+      it.btn.hidden = !mostra;
+      if (mostra) visiveis.push(it);
+    });
+
+    groupEls.forEach(function(g, i){
+      g.wrap.hidden = !items.some(function(x){ return x.g === i && !x.btn.hidden; });
+    });
+
+    atualizaZonas();
+    vazioEl.hidden = visiveis.length > 0;
+    contagemEl.textContent = q
+      ? (visiveis.length === 1 ? "1 resultado" : visiveis.length + " resultados")
+      : "";
+
+    if (!visiveis.length) {
+      items.forEach(function(x){ x.panel.hidden = true; });
+      current = null;
+      return;
+    }
+    if (!current || current.btn.hidden) {
+      activate(visiveis[0], false);
+    } else {
+      current.panel.hidden = false;
+    }
+  }
+
+  items.forEach(function(it){
+    it.btn.addEventListener("click", function(){ activate(it, true); });
+  });
+
+  buscaEl.addEventListener("input", filtrar);
+
+  // Navegação por teclado entre abas visíveis (setas)
+  tabsEl.addEventListener("keydown", function(ev){
+    if (ev.key !== "ArrowRight" && ev.key !== "ArrowLeft") return;
+    var vis = items.filter(function(x){ return !x.btn.hidden; });
+    var idx = vis.indexOf(current);
+    if (idx < 0) return;
+    var nxt = ev.key === "ArrowRight" ? vis[(idx + 1) % vis.length] : vis[(idx - 1 + vis.length) % vis.length];
+    activate(nxt, true);
+    nxt.btn.focus();
+    ev.preventDefault();
+  });
+
+  // Estado inicial: primeira aba ou a indicada no #hash
+  filtrar();
+  var h = (location.hash || "").replace("#", "");
+  var alvo = items.filter(function(x){ return x.id === h; })[0];
+  if (alvo) activate(alvo, false);
+})();
+</script>
+</body>
+</html>
