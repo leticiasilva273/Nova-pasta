@@ -1045,7 +1045,8 @@ const SLUG = {
   }
 
   /* ---------- aba Jogadora (só dados de player) ---------- */
-  var JOGADORA = {
+  var JOGADORAS = [{
+    slug: "silvia",
     nome: "Silvia Ferreira",
     jogador: "Giorgiana",
     idade: 20,
@@ -1077,7 +1078,39 @@ const SLUG = {
       "Entretanto, sua curiosidade nunca se limitou às páginas dos livros. Durante a adolescência, passou a explorar lugares abandonados e locais conhecidos por suas supostas assombrações, movida tanto pelo desejo de investigar o desconhecido quanto pela vontade de provar aos amigos e às pessoas ao seu redor que o sobrenatural realmente existia. Contudo, seu entusiasmo e suas histórias acabaram sendo recebidos com descrença e estranhamento. Aos poucos, Silvia passou a ser vista como a garota esquisita ou até mesmo louca, tornando-se alvo de comentários e afastando-se socialmente. Cansada de não ser levada a sério, aprendeu a guardar seus interesses e descobertas para si mesma, mantendo em segredo uma parte importante de quem era.",
       "Para Silvia, o intercâmbio na Escócia representa muito mais do que uma oportunidade de crescimento acadêmico. É a possibilidade de recomeçar em um lugar onde ninguém conhece seu passado, onde poderá construir novas relações e, principalmente, aprofundar seus estudos em uma área pela qual sempre foi apaixonada. Talvez, longe dos julgamentos que a acompanharam durante tantos anos, finalmente encontre pessoas dispostas a ouvir suas histórias. Ou, quem sabe, encontre algo que prove que sua curiosidade nunca foi tão infundada quanto todos acreditavam."
     ]
-  };
+  }, {
+    slug: "siena",
+    nome: "Siena Bellini",
+    jogador: "Agnes",
+    idade: 19,
+    nivel: 1,
+    perfil: "Analista",
+    vocacao: "História",
+    atributos: [["Físico", 6], ["Mente", 8], ["Emoção", 8]],
+    passos: "2 / 2",
+    pontosPatamarVida: 1,
+    patamarVida: 3,
+    patamarDeterminacao: 3,
+    pvMax: 9,
+    pdMax: 11,
+    capacidade: 6,
+    pericias: [
+      ["Disciplina", 8, "Emoção"], ["Enganação", 10, "Emoção"], ["Furtividade", 10, "Físico"],
+      ["Inspecionar", 8, "Mente"], ["Intimidar", 6, "Emoção"], ["Intuição", 8, "Emoção"],
+      ["Luta", 6, "Físico"], ["Vigor", 8, "Físico"]
+    ],
+    treinadas: "8 / 10 (faltam 2)",
+    aptidao: "Acontecimentos históricos",
+    poderes: [["Olhar atento", "Perfil · Analista"], ["Leitura de pessoas", "Vocação · Psicologia"]],
+    habilidades: ["Passo leve"],
+    itens: ["Caderno de anotações", "Lanterna"],
+    situacao: "sem penalidade",
+    historico: [
+      "Com 1,65 m de altura e 60 kg, Sienna Bellini carrega no próprio nome — que remete ao marrom-avermelhado — o tom de seus cabelos ruivos, ondulados e volumosos, frequentemente presos de forma despretensiosa com presilhas de tartaruga. De pele clara levemente dourada pelo sol, sardas suaves espalhadas pelo nariz e bochechas e olhos cor de mel atentos, ela cultiva um visual clássico dos anos 1990: suéteres de tricô ajustados ou camisas de botões em tons terrosos, calças jeans de cintura alta e corte reto, além de um par de mocassins de couro bem cuidados ou coturnos discretos que denunciam um toque alternativo. Nos dias mais frios, completa o visual com um sobretudo longo de lã e uma bolsa tiracolo de couro desgastado.",
+      "Por trás da aparência estudiosa e comportada, no entanto, Sienna esconde pequenos atos de rebeldia que a mantêm sã: uma mecha descolorida estrategicamente oculta na nuca — visível apenas quando prende o cabelo bem alto — e um maço de cigarros guardado no fundo falso da bolsa, ao lado de um isqueiro gasto e de algumas fitas cassete avulsas. Seu fiel companheiro é um Walkman cinza de metal, cujos fones de espuma laranja estão quase sempre em seus ouvidos, embalando seus dias com faixas gravadas de MPB, como Marisa Monte e Cássia Eller, misturadas ao rock nacional de Legião Urbana, Paralamas do Sucesso e Engenheiros do Hawaii.",
+      "Totalmente \"de humanas\", apaixonada por literatura e história, e com o sonho genuíno de se tornar professora, Sienna teve uma adolescência moldada pela rigidez dos pais, dividida exclusivamente entre o colégio e as pilhas de apostilas e livros para passar em concursos. Após concluir o ensino médio, chegou a ceder às expectativas familiares e ingressou na faculdade de Medicina Veterinária, mas abandonou o curso logo nos primeiros semestres ao perceber que não pertencia àquele ambiente. Decidida a tomar as rédeas da própria vida, estudou em segredo e prestou a prova de seleção para Dunraven Hall. A aprovação — que não surpreendeu ninguém devido à sua disciplina impecável — foi o seu passaporte para a liberdade. Agora, em pleno 1996, ao lado de sua melhor amiga e confidente, Celina, Sienna fecha as malas para um intercâmbio em outro país, pronta para viver uma nova fase que sua família jamais aprovaria, sem fazer ideia do que o futuro reserva para as duas longe de casa."
+    ]
+  }];
 
   function jogCampo(art, rotulo, valor){
     var p = el("p");
@@ -1097,18 +1130,17 @@ const SLUG = {
     return grid;
   }
 
-  function buildJogadora(){
-    var J = JOGADORA;
+  function buildJogadora(J){
     var btn = el("button", "tab", J.nome.split(" ")[0]);
     btn.type = "button";
-    btn.id = "tab-jogadora";
+    btn.id = "tab-" + J.slug;
     btn.setAttribute("role", "tab");
     btn.setAttribute("aria-selected", "false");
-    btn.setAttribute("aria-controls", "p-jogadora");
+    btn.setAttribute("aria-controls", "p-" + J.slug);
     groupEls[6].bar.appendChild(btn);
 
     var panel = el("section", "panel");
-    panel.id = "p-jogadora";
+    panel.id = "p-" + J.slug;
     panel.className = "panel jogadora";
     panel.setAttribute("role", "tabpanel");
     panel.setAttribute("aria-labelledby", btn.id);
@@ -1183,16 +1215,18 @@ const SLUG = {
     J.itens.forEach(function(x){ uli.appendChild(el("li", null, x)); });
     it.appendChild(uli);
 
-    var rel = novoBloco("Relação e histórico");
-    jogCampo(rel, "Com quem", J.relacao.com);
-    jogCampo(rel, "Grau (1 a 3)", J.relacao.grau);
+    if (J.relacao) {
+      var rel = novoBloco("Relação e histórico");
+      jogCampo(rel, "Com quem", J.relacao.com);
+      jogCampo(rel, "Grau (1 a 3)", J.relacao.grau);
+    }
 
     var hi = novoBloco("Histórico");
     J.historico.forEach(function(t){ hi.appendChild(el("p", null, t)); });
 
     panelsEl.appendChild(panel);
     return {
-      id: "jogadora",
+      id: J.slug,
       g: 6,
       btn: btn,
       panel: panel,
@@ -1282,7 +1316,7 @@ const SLUG = {
   });
 
   items.push(buildMapa());
-  items.push(buildJogadora());
+  JOGADORAS.forEach(function(j){ items.push(buildJogadora(j)); });
 
   /* ---------- links para as abas dos NPCs ---------- */
   // Aliases em ordem livre: a busca usa sempre a forma mais longa primeiro.
