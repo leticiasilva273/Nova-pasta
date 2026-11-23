@@ -535,7 +535,7 @@ const SLUG = {
 (function(){
   "use strict";
 
-  var GRUPOS = ["Administração", "Corpo Docente", "Alunos Notáveis", "Outros Bolsistas Brasileiros", "Vilão", "Locais", "Jogadora", "Bíblia"];
+  var GRUPOS = ["Administração", "Corpo Docente", "Alunos Notáveis", "Outros Bolsistas Brasileiros", "Vilão", "Locais", "Jogadora", "Bíblia", "Mundo", "Só para o mestre"];
 
   // g = índice do grupo. blocks: {t, body[], seg (segredo), ol (lista numerada)}
   var DATA = [
@@ -1397,26 +1397,40 @@ const SLUG = {
   }
 
   // Converte o markdown da Bíblia em blocos: "## " abre um bloco, "### " um subtítulo
-  function buildBiblia(){
-    var btn = el("button", "tab", "Bíblia");
+  // cfg: {id, label, group, titulo, prefixo} — sem cfg, monta a aba inteira "Bíblia"
+  function buildBiblia(cfg){
+    cfg = cfg || { id: "biblia", label: "Bíblia", group: 7, titulo: "Bíblia de Dunraven Hall", prefixo: null };
+    var btn = el("button", "tab", cfg.label);
     btn.type = "button";
-    btn.id = "tab-biblia";
+    btn.id = "tab-" + cfg.id;
     btn.setAttribute("role", "tab");
     btn.setAttribute("aria-selected", "false");
-    btn.setAttribute("aria-controls", "p-biblia");
-    groupEls[7].bar.appendChild(btn);
+    btn.setAttribute("aria-controls", "p-" + cfg.id);
+    groupEls[cfg.group].bar.appendChild(btn);
 
     var panel = el("section", "panel biblia");
-    panel.id = "p-biblia";
+    panel.id = "p-" + cfg.id;
     panel.setAttribute("role", "tabpanel");
     panel.setAttribute("aria-labelledby", btn.id);
     panel.hidden = true;
-    var titulo = el("h2", null, "Bíblia de Dunraven Hall");
+    var titulo = el("h2", null, cfg.titulo);
     var cargo = el("p", "cargo");
     panel.appendChild(titulo);
     panel.appendChild(cargo);
 
-    var linhas = String(window.BIBLIA_MD || "").replace(/\r/g, "").split("\n");
+    var todas = String(window.BIBLIA_MD || "").replace(/\r/g, "").split("\n");
+    var linhas = todas;
+    if (cfg.prefixo) {
+      // Recorta do cabeçalho "## ..." que começa com o prefixo até o próximo "## "
+      var ini = -1;
+      for (var k = 0; k < todas.length; k++) { if (todas[k].indexOf(cfg.prefixo) === 0) { ini = k; break; } }
+      linhas = [];
+      if (ini >= 0) {
+        var fim = ini + 1;
+        while (fim < todas.length && !/^## /.test(todas[fim])) fim++;
+        linhas = todas.slice(ini, fim);
+      }
+    }
     var blocos = [];
     var atual = null, par = [], lista = null, ultimoLi = null, ultimoSub = null, tab = [];
 
@@ -1497,11 +1511,11 @@ const SLUG = {
 
     panelsEl.appendChild(panel);
     return {
-      id: "biblia",
-      g: 7,
+      id: cfg.id,
+      g: cfg.group,
       btn: btn,
       panel: panel,
-      head: norm("Bíblia de Dunraven Hall Sanctum"),
+      head: norm(cfg.titulo + " Dunraven Hall Sanctum " + cfg.label),
       blocks: blocos.map(function(art){ return { el: art, text: norm(art.textContent) }; })
     };
   }
@@ -1589,6 +1603,20 @@ const SLUG = {
   items.push(buildMapa());
   JOGADORAS.forEach(function(j){ items.push(buildJogadora(j)); });
   items.push(buildBiblia());
+  // Seções da Bíblia como abas próprias (texto vindo de BIBLIA_MD, sem transcrição manual)
+  [
+    { id: "visao",     label: "Visão Geral",          group: 8, prefixo: "## 1. ",  titulo: "Visão Geral" },
+    { id: "tempo",     label: "Linha do Tempo",       group: 8, prefixo: "## 2. ",  titulo: "Linha do Tempo" },
+    { id: "castelo",   label: "O Castelo",            group: 8, prefixo: "## 3. ",  titulo: "O Castelo e Seus Espaços" },
+    { id: "planta",    label: "Planta",               group: 8, prefixo: "## 3.1 ", titulo: "Planta Descritiva da Propriedade" },
+    { id: "pontos",    label: "Pontos de Interesse",  group: 8, prefixo: "## 3.2 ", titulo: "Pontos de Interesse" },
+    { id: "sociedades",label: "Sociedades",           group: 8, prefixo: "## 7. ",  titulo: "Sociedades Através dos Tempos" },
+    { id: "costumes",  label: "Costumes",             group: 8, prefixo: "## 8. ",  titulo: "Costumes e Vida em 1996" },
+    { id: "lendas",    label: "Lendas",               group: 8, prefixo: "## 9. ",  titulo: "Lendas do Castelo" },
+    { id: "coracao",   label: "Segredos do Coração",  group: 9, prefixo: "## 6.2 ", titulo: "Segredos do Coração (para o mestre)" },
+    { id: "mestre",    label: "Segredos do Mestre",   group: 9, prefixo: "## 10. ", titulo: "Segredos do Mestre" },
+    { id: "cenas",     label: "Cenas Fixas",          group: 9, prefixo: "## 11. ", titulo: "Cronograma de Cenas Fixas (para o mestre)" }
+  ].forEach(function(cfg){ items.push(buildBiblia(cfg)); });
 
   /* ---------- links para as abas dos NPCs ---------- */
   // Aliases em ordem livre: a busca usa sempre a forma mais longa primeiro.
