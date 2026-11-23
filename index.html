@@ -268,11 +268,11 @@ const AULAS = {
     conteudo: "Byron e Burns, com leitura em voz alta e análise de poemas sobre morte e beleza.",
     cena: "A aula termina na falésia, no Banco do Poeta. Ele pede que cada um recite um verso de memória.",
     teste: "Persuasão ou Aptidão (Artes), DT 7, para recitar com emoção. Quem passar ganha um ponto de interesse sobre a Vigília.",
-    mestre: "Guarda o panfleto original da Assembleia Livre (1968–71). Primeira pista de que a Ordem não é a única sociedade do castelo."
+    mestre: "Guarda o panfleto original da Assembleia Livre (1968–71). Primeira pista de que há outras sociedades no castelo além da Carrick e da Hume, porque a Ordem acabou em 1746."
   },
   grant: {
-    materia: "História Medieval, terça às 11h.",
-    conteudo: "Culloden (1746), a Ordem da Chave e as cavernas jacobitas.",
+    materia: "História (medieval e moderna), terça às 11h.",
+    conteudo: "Culloden (1746), a Ordo Clavis Morayensis (Ordem da Chave) e as cavernas jacobitas.",
     cena: "Projeta um mapa antigo da propriedade e pede que um aluno localize a passagem da adega. Errar não tem consequência imediata, mas ela anota o nome.",
     teste: "Inspecionar ou Aptidão (Erudição), DT 8, para achar a passagem certa.",
     mestre: "A família Grant guarda arquivos sobre o reitor de 1662. Ela sabe mais do que deveria e pode vender informação ou propor um pacto."
@@ -282,7 +282,7 @@ const AULAS = {
     conteudo: "Homero e recitação de memória. Exige que cada aluno decore uma passagem da Odisseia.",
     cena: "Chamada surpresa. Quem recita sem errar ganha +1 em Disciplina até o fim da sessão.",
     teste: "Disciplina, DT 7. Quem falha perde um espaço de Ímpeto, se tiver.",
-    mestre: "Toca piano na capela à noite. Se os jogadores o ouvirem às 3h, é a pista da lenda do órgão que toca sozinho."
+    mestre: "Toca piano na capela até a uma da manhã. O órgão das 3h toca sozinho e não é ele: quem anota as três notas é a Prof.ª Munro. Clarke é testemunha do fenômeno, não a causa."
   },
   kerr: {
     materia: "Biologia e Ciências Naturais, quinta às 14h.",
@@ -293,9 +293,9 @@ const AULAS = {
   },
   martin: {
     materia: "Direito, segunda às 14h.",
-    conteudo: "Direito constitucional, o Ato de União de 1707 e os direitos de bolsistas estrangeiros.",
-    cena: "Debate simulado sobre se a expulsão de bolsistas por dívida é legal. Os jogadores se dividem em dois times.",
-    teste: "Persuasão, DT 8. Quem vencer ganha +1 em Persuasão com a Reitoria pelo resto da campanha.",
+    conteudo: "Direito escocês, o Ato de União de 1707, o caso Donoghue v Stevenson (1932) e o Estatuto de Dunraven.",
+    cena: "Tribunal simulado: Aluna X contra o Colégio Dunraven, sobre uma carta aberta sem autorização. Os jogadores se dividem em dois times, e um aluno faz de juiz com a toga e a peruca.",
+    teste: "Persuasão, DT 8, para o argumento principal de cada time. O juiz faz Intuição, DT 7. Quem vencer ganha +2 em Persuasão com a Reitoria, uma vez por sessão, até o fim da campanha.",
     mestre: "É pai de Victoria Martin, e o vínculo dele com a Carrick Society pode virar chantagem."
   },
   moore: {
@@ -317,7 +317,7 @@ const AULAS = {
     conteudo: "Leitura de Molière e ensaios da peça de inverno.",
     cena: "Os alunos ensaiam uma cena. Quem ler com a voz do personagem ganha +1 em Persuasão na próxima cena social.",
     teste: "Aptidão (Artes), DT 7.",
-    mestre: "A peça de inverno é o cenário do clímax de dezembro. Renard é aliado de Lowe e pode ajudar a esconder o desaparecimento de Clara durante o espetáculo."
+    mestre: "A Peça de Inverno (Hamlet, 14/12) é o epílogo. Se Elias sobreviver às cavernas, aparece no papel do Fantasma, que Renard deu a ele. Renard é aliado de Lowe."
   }
 };
 
@@ -629,15 +629,91 @@ var RETRATOS = {
         "Dá aula em cima da mesa e leva os alunos à falésia para ler Byron e Burns. A reitoria o tolera por pouco tempo."]},
       {t:"Aparência", body:["Magro, cabelo castanho bagunçado, barba de três dias e olhos castanhos calorosos. Suéter de lã com cotoveleiras, cachecol listrado e um livro de bolso na mão."]},
       {t:"Segredos e enredo", seg:true, body:[
-        "Ouviu falar da Assembleia Livre quando era aluno e guarda um panfleto original. Bissexual, vive em segredo um relacionamento com Renard há três anos. Se Hunt descobrir, os dois perdem o emprego. Possível aliado do grupo."]}
+        "Ouviu falar da Assembleia Livre quando era aluno e guarda um panfleto original. Bissexual, vive em segredo um relacionamento com Renard há três anos. Se Hunt descobrir, os dois perdem o emprego. Possível aliado do grupo."]},
+      {t:"Aula: A Noite e a Rosa", body:[
+        "Literatura Inglesa e Poesia, segunda-feira, 9h. Sala do 1º andar e Banco do Poeta. Os dois poemas são de domínio público; as traduções são para a mesa."]},
+      {t:"Objetivos da aula", ol:true, body:[
+        "Ouvir e responder: responder a uma das perguntas do Lowe sobre os poemas.",
+        "Trabalhar em dupla: fazer a análise em dupla e apresentar uma ideia à turma.",
+        "Recitar de memória: na falésia, recitar pelo menos um verso de memória, com emoção."]},
+      {t:"1. Leitura de abertura (5 min)", body:[
+        "Lowe entra, não cumprimenta ninguém, sobe na mesa e lê em voz alta, devagar, sem explicar nada. Poema: So, we'll go no more a roving (Lord Byron, 1817).",
+        "So, we'll go no more a roving / So late into the night, / Though the heart be still as loving, / And the moon be still as bright.",
+        "For the sword outwears its sheath, / And the soul wears out the breast, / And the heart must pause to breathe, / And love itself have rest.",
+        "Though the night was made for loving, / And the day returns too soon, / Yet we'll go no more a roving / By the light of the moon.",
+        "Tradução para a mesa: Então não vamos mais vagar tão tarde noite adentro, mesmo que o coração ainda ame tanto e a lua ainda brilhe tanto. Pois a espada gasta a bainha, e a alma gasta o peito, e o coração precisa parar para respirar, e até o amor precisa descansar. Mesmo que a noite tenha sido feita para amar, e o dia volte cedo demais, não vamos mais vagar à luz da lua.",
+        "Ele desce da mesa e diz: “Byron tinha vinte e nove anos quando escreveu isso. Vinte e nove, e já estava cansado da noite. Guardem isso.”"]},
+      {t:"2. Segundo poema, lido por um bolsista", body:[
+        "Lowe distribui cópias mimeografadas, ainda com cheiro de álcool, e pede que um aluno leia em voz alta, de preferência um bolsista, “para ouvirmos Burns com outro sotaque”. Poema: A Red, Red Rose (Robert Burns, 1794).",
+        "O my Luve is like a red, red rose / That's newly sprung in June; / O my Luve is like the melodie / That's sweetly play'd in tune.",
+        "So fair art thou, my bonnie lass, / So deep in luve am I; / And I will luve thee still, my dear, / Till a' the seas gang dry.",
+        "Till a' the seas gang dry, my dear, / And the rocks melt wi' the sun; / I will luve thee still, my dear, / While the sands o' life shall run.",
+        "And fare thee weel, my only luve! / And fare thee weel awhile! / And I will come again, my luve, / Though it were ten thousand mile.",
+        "Tradução para a mesa: Meu amor é como uma rosa vermelha, vermelha, que acabou de abrir em junho; meu amor é como a melodia tocada docemente, afinada. Tão linda és tu, minha menina, tão fundo no amor estou eu; e vou te amar ainda, minha querida, até que todos os mares sequem. Até que todos os mares sequem, querida, e as rochas derretam com o sol; vou te amar ainda, minha querida, enquanto correrem as areias da vida. Adeus, meu único amor! Adeus, por um tempo! E eu voltarei, meu amor, nem que seja a dez mil milhas."]},
+      {t:"3. Perguntas (objetivo 1)", ol:true, body:[
+        "“Byron diz que a noite foi feita para amar, mas decide parar. Por quê? O que a noite custa?”",
+        "“Burns promete amar até os mares secarem. Isso é uma promessa ou uma ameaça?”",
+        "“Um poema fala de parar, o outro de nunca parar. Qual dos dois é mais corajoso?”",
+        "Quem responder com sinceridade, sem precisar estar certo, cumpre o objetivo. Lowe odeia resposta decorada: “Isso é o que o livro diz. Eu perguntei o que você acha.”"]},
+      {t:"4. Análise em dupla (objetivo 2)", body:[
+        "Dez minutos. Cada dupla escolhe um dos poemas e responde: que imagem deste poema vocês levariam para casa, e por quê? No fim, cada dupla diz a sua imagem em uma frase."]},
+      {t:"5. Banco do Poeta (objetivo 3)", body:[
+        "A turma desce até a falésia com casacos e cachecóis, sob o vento. Lowe sobe no banco de pedra e pede que cada um recite um verso de memória, de qualquer um dos dois poemas, virado para o mar.",
+        "Teste: Persuasão ou Aptidão (Artes), DT 7. Lowe aplaude todo mundo, mas a quem errar diz baixinho: “Não leia o poema. Deixe o poema ler você. Tenta de novo.” Cada aluno pode tentar uma segunda vez."]},
+      {t:"Bônus da aula", body:[
+        "Os 3 objetivos: Inspirado, +2 em um teste de Mente ou Emoção, à escolha do jogador, até o fim da próxima sessão, e recupera 1 PD. Além disso, ganha a pista abaixo.",
+        "2 objetivos: +1 em um teste de Mente ou Emoção até o fim da sessão.",
+        "1 ou nenhum: nada, mas Lowe guarda o nome e chama o aluno para ler na próxima aula."]},
+      {t:"Pista para quem cumpriu os 3 (só para o mestre)", seg:true, body:[
+        "No fim da aula, Lowe chama o aluno de lado: “Você recita bem. Lembra alguém. Tem um veterano, o Vane, que recita Byron como se tivesse conhecido o homem pessoalmente. Ele recitou esse mesmo poema numa reunião de poesia nas ruínas, ano passado. Um grupo de alunos que se encontra à noite. Eu não deveria saber disso. Você também não.”",
+        "Com isso o jogador fica sabendo da Vigília, de que o Elias a lidera, e de que ela se reúne nas ruínas à noite."]},
+      {t:"Ligação com a trama (só para o mestre)", seg:true, body:[
+        "O poema de Byron é um aviso: fala de parar de vagar à noite, “por mais que o coração ame”. Quando o jogador for convidado para a Vigília, lembre este verso.",
+        "A rosa de Burns é o contraponto da rosa negra do Elias: a de Burns é um amor que volta mesmo de longe; a do Elias é um amor que prende. Se um jogador perceber isso em voz alta, dê +1 no placar contra o Encanto.",
+        "Callum Ross está na turma e recita perfeitamente, de olho baixo. Rory Kerr assiste da porta, fingindo que está só de passagem."]}
     ]},
-    { id:"grant", g:1, name:"Prof. Isobel Grant", role:"História Medieval (52 anos)", blocks:[
+    { id:"grant", g:1, name:"Prof. Isobel Grant", role:"História (medieval e moderna) (52 anos)", blocks:[
       {t:"Resumo", body:[
         "Descendente do reitor Alexander Grant, fundador da Biblioteca Grant. Intelectual brilhante, fria e irônica.",
         "Pesquisa os arquivos do castelo e sabe mais do que deveria."]},
       {t:"Aparência", body:["Alta e elegante, cabelo preto com fios brancos num corte reto até o queixo, batom escuro. Blazer preto, colar de pérolas e óculos de leitura numa corrente."]},
       {t:"Segredos e enredo", seg:true, body:[
-        "Desconfia de Elias Vane por causa dos arquivos da família. Pode ser aliada na pesquisa da Arca ou um obstáculo, conforme o mestre."]}
+        "Desconfia de Elias Vane por causa dos arquivos da família. Pode ser aliada na pesquisa da Arca ou um obstáculo, conforme o mestre."]},
+      {t:"Aula: Culloden e o que o arquivo não diz", body:[
+        "História (medieval e moderna), terça-feira, 11h. Sala do 2º andar, ala sul. A parte histórica de Culloden é real; os documentos do arquivo são da campanha."]},
+      {t:"Objetivos da aula", ol:true, body:[
+        "Responder à pergunta de abertura com uma ideia própria, não decorada.",
+        "Analisar um documento em dupla: dizer o que ele prova e o que ele não prova.",
+        "Achar a passagem no mapa: localizar a passagem da adega no mapa de 1760."]},
+      {t:"1. A pergunta de abertura", body:[
+        "Grant entra pontualmente, fecha a porta (quem chegar depois fica do lado de fora até o intervalo) e escreve no quadro, sem dizer bom dia: “Em 16 de abril de 1746, perderam-se cerca de 1.500 homens em menos de uma hora. Quantos deles estão nos arquivos desta Casa?”",
+        "Ela espera em silêncio até alguém arriscar. A resposta certa é “não sabemos”, e ela só aceita se o aluno explicar por quê: os arquivos são escritos por quem sobreviveu e por quem tinha algo a esconder.",
+        "“Ótimo. A pergunta mais honesta da História é ‘como você sabe disso?’. O resto é decoração.”"]},
+      {t:"2. O contexto (10 minutos, real)", body:[
+        "1745: Carlos Eduardo Stuart, o “Bonnie Prince Charlie”, desembarca na Escócia e reúne os clãs das Highlands para tomar o trono britânico de volta para os Stuart.",
+        "16 de abril de 1746: Batalha de Culloden, perto de Inverness. O exército jacobita, cansado e faminto, é destruído pelas tropas do governo sob o Duque de Cumberland em menos de uma hora. É a última batalha campal travada em solo britânico.",
+        "Depois: fugitivos caçados por toda a Escócia. Em 1746, o governo aprova leis que proíbem o tartã e as armas nas Highlands. O modo de vida dos clãs começa a acabar.",
+        "“Os vencedores escreveram a História. Os perdedores se esconderam em grutas. E alguns desses perdedores se esconderam a três quilômetros desta sala.”"]},
+      {t:"3. O documento (objetivo 2)", body:[
+        "Documento A — Livro de Registro do Reitor, 2 de maio de 1746 (caligrafia apressada): “Recebemos sob este teto três cavalheiros vindos do norte, feridos, cujos nomes não escrevo. Estão guardados onde a maré guarda. O irmão L. leva-lhes pão e notícias. Que Deus e o Silêncio nos perdoem.”",
+        "Documento B — Rol dos Custodes da Ordo Clavis, maio de 1746 (sete nomes; três riscados com tinta mais escura, todos no mesmo dia): “Custodes: Wm. Moray · J. Grant · A. Ferguson · (riscado) R. Ogilvie · (riscado) D. Keith · (riscado) T. Burnett · Fr. L. — descenderunt, non redierunt (desceram, não voltaram), 29 de maio.”",
+        "Pergunta para cada dupla: o que estes documentos provam? E o que eles NÃO provam? Provam que o Colégio escondeu jacobitas, que eles estavam num lugar ligado ao mar e que três Custodes “desceram e não voltaram” no mesmo dia. Não provam quem eram os jacobitas, o que aconteceu com eles nem quem é o “irmão L.” / “Fr. L.”.",
+        "Quem perceber que o “L.” aparece nos dois documentos e não tem sobrenome recebe um olhar longo de Grant e uma nota de canto no caderno dela."]},
+      {t:"4. O mapa (objetivo 3)", body:[
+        "Grant projeta a planta do castelo de 1760, da Sala de Mapas, e pergunta: “Se vocês fossem esconder três homens ‘onde a maré guarda’, por onde os levariam?” Ela chama um aluno ao quadro.",
+        "Teste: Inspecionar ou Aptidão (Erudição), DT 8, para achar a escada atrás da adega desenhada no mapa.",
+        "Se errar: “Não. Mas obrigada por me mostrar como os jacobitas morreram.” Ela anota o nome do aluno. Se acertar: fica em silêncio um segundo longo demais, desliga o projetor e diz: “Correto. Essa escada foi tapada em 1802. Supostamente.”"]},
+      {t:"Bônus da aula", body:[
+        "Os 3 objetivos: Método de Arquivo, +2 em testes de Inspecionar ou Aptidão (pesquisa em documentos) até o fim da próxima sessão. E ganha a pista abaixo.",
+        "2 objetivos: +1 em um teste de Inspecionar ou Aptidão até o fim da sessão.",
+        "1 ou nenhum: nada, e Grant passa uma leitura extra de quarenta páginas “para corrigir a ignorância”."]},
+      {t:"Pista para quem cumpriu os 3 (só para o mestre)", seg:true, body:[
+        "No fim da aula, Grant pede que o aluno fique para “ajudar a guardar os slides”. Com a porta fechada: “Você viu o ‘L.’. Ninguém vê o ‘L.’. O meu tataravô escreveu num diário, em 1771, que havia ‘um irmão L. que nunca envelhecia’. Em 1888, um tutor de piano chamado Edward Lyall esteve nesta Casa. Duas semanas atrás, eu vi um aluno assinar Vane com a mesma inclinação na letra. Eu posso estar louca. Mas, se você encontrar o nome Lyall em qualquer lugar deste castelo, me procure. Não procure mais ninguém.”",
+        "O jogador sai sabendo do nome Lyall, da suspeita sobre o Elias e do quadro de datas de Grant, além de ganhar uma aliada de pesquisa."]},
+      {t:"Ligação com a trama (só para o mestre)", seg:true, body:[
+        "O “irmão L.” dos Documentos A e B é Carne, disfarçado como irmão da Ordem da Chave em 1746. A mesma pessoa que levava pão aos jacobitas os matou, e depois afogou os três Custodes riscados.",
+        "Esta aula adianta para o Ato 2 parte da Cena 12 (As Datas). Se os jogadores forem bem aqui, a Cena 12 pode ser mais curta.",
+        "Silas Moore fez as fotocópias. Se perceber que Grant usou o Documento B, conta ao Elias, e isso pode antecipar a Cena 15."]}
     ]},
     { id:"clarke", g:1, name:"Prof. Simon Clarke", role:"Latim e Grego (67 anos)", blocks:[
       {t:"Resumo", body:[
@@ -645,7 +721,35 @@ var RETRATOS = {
         "Toca piano na capela à noite."]},
       {t:"Aparência", body:["Gordinho, cabelo branco ralo e despenteado, óculos grossos e gravata-borboleta torta. A beca vive manchada de giz."]},
       {t:"Segredos e enredo", seg:true, body:[
-        "Era professor de David Shaw em 1957 e nunca superou o incêndio. Ouve coisas na capela quando toca à noite. Pode ser testemunha dos fenômenos ligados à lenda do órgão que toca sozinho às 3h."]}
+        "Era professor de David Shaw em 1957 e nunca superou o incêndio. Ouve coisas na capela quando toca à noite. Pode ser testemunha dos fenômenos ligados à lenda do órgão que toca sozinho às 3h."]},
+      {t:"Aula: Os Mortos que Bebem", body:[
+        "Latim e Grego, quarta-feira, 8h. Sala do 1º andar, ao lado da Sala Columba. A Odisseia é de domínio público; o grego e a tradução podem ir para a mesa. Canto XI: a descida ao mundo dos mortos."]},
+      {t:"Objetivos da aula", ol:true, body:[
+        "Recitar de memória o primeiro verso da Odisseia em grego (o dever da aula anterior).",
+        "Completar a tradução no quadro com a turma: acertar pelo menos uma palavra.",
+        "Responder à pergunta final sobre o Canto XI."]},
+      {t:"1. A chamada recitada (objetivo 1)", body:[
+        "Clarke chega cinco minutos atrasado, com a beca torta e uma xícara de chá na mão, e começa sem cumprimentar: “Senhor… ahn… senhorita… você, de óculos. Odisseia, canto I, verso 1. Comece.” Ele chama um por um, em ordem, inclusive os bolsistas, cujos nomes ele erra sempre (“Senhor Torres… Tavares… Torres!”).",
+        "O verso a decorar: Ἄνδρα μοι ἔννεπε, Μοῦσα, πολύτροπον… Ándra moi énnepe, Moûsa, polýtropon… “Canta-me, Musa, o homem de muitos caminhos…”",
+        "Teste: Disciplina, DT 7. Quem acerta ganha um “Excelente! Homero chora de alegria.” Quem erra ouve: “Ah, não se preocupe, o erro é só o primeiro verso que você ainda não decorou. Quarta que vem, de novo.”"]},
+      {t:"2. O Canto XI no quadro (objetivo 2)", body:[
+        "Clarke explica a Nekyia, a descida ao mundo dos mortos: “Odisseu precisa falar com os mortos. E o que os mortos querem, meus jovens? Querem lembrar. Mas os mortos não lembram de nada, são sombras vazias. Para que uma sombra fale, ela precisa beber… sangue.”",
+        "Ele escreve no quadro um resumo com lacunas: Odisseu cava uma cova, derrama nela o ______ (sangue) de um carneiro negro, e as sombras dos mortos sobem do Érebo, aos milhares, gritando. Ele as afasta com a ______ (espada), e só deixa beber quem ele quer ouvir. Quem bebe o sangue ______ (lembra / fala), e conta a verdade.",
+        "Quem acertar pelo menos uma lacuna cumpre o objetivo. Clarke fica tão empolgado que recita, de olhos fechados, alguns versos em grego que ninguém acompanha."]},
+      {t:"3. A pergunta final (objetivo 3)", body:[
+        "“Em Homero, os mortos precisam de sangue para lembrar quem eram. Então lhes pergunto: o que acontece com quem bebe o sangue dos vivos para não esquecer… e nunca morre?”",
+        "Qualquer resposta pensada cumpre o objetivo. Se alguém disser “vira um monstro” ou “vira um vampiro”, Clarke ri, mas os olhos dele não riem: “Ah, os jovens e as suas histórias de fantasma.”"]},
+      {t:"Bônus da aula", body:[
+        "Os 3 objetivos: Memória de Homero, +2 em testes de Disciplina ou de Vontade/Emoção contra medo ou encanto até o fim da próxima sessão. “Quem decora não esquece quem é.” E ganha a pista abaixo.",
+        "2 objetivos: +1 em Disciplina até o fim da sessão.",
+        "1 ou nenhum: nada, e o aluno precisa decorar os três primeiros versos para quarta que vem."]},
+      {t:"Pista para quem cumpriu os 3 (só para o mestre)", seg:true, body:[
+        "Enquanto a turma sai, Clarke segura o braço do aluno com a mão trêmula: “Você tem boa memória. Eu tive um aluno assim, em 1957. David Shaw. Decorava constelações como quem decora poemas. Ele me disse, uma semana antes de morrer, que um rapaz subia ao Observatório à noite sem fazer barulho na escada. Eu disse a ele que era imaginação. Eu toco piano na capela todas as noites desde então, até a uma da manhã. E às três, quando eu já parei… o órgão toca sozinho. Três notas. Eu nunca contei isso a ninguém.”",
+        "O jogador fica sabendo de David Shaw, do rapaz no Observatório em 1957 e de que o órgão das 3h não é o Clarke. Isso aponta para a Prof.ª Munro, que anota as três notas."]},
+      {t:"Ligação com a trama (só para o mestre)", seg:true, body:[
+        "O Canto XI é o espelho do Carne: os mortos de Homero bebem sangue para lembrar quem eram, e Carne bebe sangue para nunca esquecer e nunca morrer. Se um jogador ligar as duas coisas em voz alta, dê +1 contra o Encanto do Elias.",
+        "Elias, se cursar algo com Clarke, recita o Canto XI inteiro em grego com uma pronúncia antiga que Clarke nunca ouviu de ninguém. Clarke fica encantado e não percebe o perigo.",
+        "Esta aula pode substituir a cena do Armistício (Cena 13 do cronograma) como o momento em que os jogadores descobrem David Shaw."]}
     ]},
     { id:"kerr", g:1, name:"Dr. Fiona Kerr", role:"Biologia e Ciências Naturais; também Geografia e Geologia (41 anos)", blocks:[
       {t:"Resumo", body:[
@@ -653,7 +757,51 @@ var RETRATOS = {
         "Defende os bolsistas nas reuniões da reitoria."]},
       {t:"Aparência", body:["Loira, cabelo curto e prático, sem maquiagem. Jaleco sobre jeans e botas Dr. Martens. Um maço de Marlboro no bolso."]},
       {t:"Segredos e enredo", seg:true, body:[
-        "Bissexual e discreta: foi casada com um geólogo até 1992 e é confidente de Morag. Colaborou com o Instituto Roslin, onde nasceu a ovelha Dolly. Aliada natural de Bianca Nunes; pode analisar restos e marcas encontrados nas cavernas."]}
+        "Bissexual e discreta: foi casada com um geólogo até 1992 e é confidente de Morag. Colaborou com o Instituto Roslin, onde nasceu a ovelha Dolly. Aliada natural de Bianca Nunes; pode analisar restos e marcas encontrados nas cavernas."]},
+      {t:"Aula: Hematologia Básica, o Sangue ao Microscópio", body:[
+        "Biologia e Ciências Naturais, 1º ano. Quinta-feira, 14h às 16h. Laboratório Kerr.",
+        "Material na bancada de cada dupla: microscópio óptico, lâminas e lamínulas, lancetas descartáveis, álcool, algodão, corante de Giemsa, óleo de imersão, luvas e uma ficha de laboratório mimeografada."]},
+      {t:"Objetivos da aula", ol:true, body:[
+        "Seguir o protocolo (luvas, jaleco, nada na boca) sem ser avisado.",
+        "Fazer um esfregaço legível (teste da Parte 2).",
+        "Identificar corretamente as lâminas de comparação (teste da Parte 3)."]},
+      {t:"Parte 1: aula expositiva (40 min)", body:[
+        "Kerr fala de pé, desenhando no quadro com giz colorido. “Boa tarde. Hoje é sangue. Quem desmaia com sangue, sente perto da porta, que eu não carrego ninguém.”",
+        "“O sangue é um tecido. Um tecido líquido, mas um tecido. Se vocês centrifugarem um tubo de sangue, ele se separa em duas partes. Em cima, uns 55%: o plasma. Amarelado, é quase todo água, com proteínas, sais, açúcar, hormônios. Embaixo, uns 45%: as células. Escrevam isso.”",
+        "Hemácias (glóbulos vermelhos): discos achatados, sem núcleo nos mamíferos. Levam oxigênio, com a hemoglobina. Duram cerca de 120 dias.",
+        "Leucócitos (glóbulos brancos): maiores, com núcleo. Defesa do corpo. Duram de horas a anos, conforme o tipo.",
+        "Plaquetas: fragmentos pequenos de células. Coagulação. Duram cerca de 10 dias.",
+        "“As hemácias são o caminhão de entrega. Não têm núcleo, nos mamíferos, para caber mais hemoglobina. Atenção, porque isso cai na prova: aves, répteis, peixes e anfíbios têm hemácias COM núcleo. Se vocês olharem uma lâmina e virem hemácia com núcleo, não é sangue de gente.”",
+        "“Os leucócitos são o exército. São cinco tipos, e vocês vão decorar os cinco: neutrófilos, os mais comuns, que atacam bactérias; linfócitos, que fazem os anticorpos; monócitos, os maiores, que engolem o lixo; eosinófilos, que lutam contra parasitas e aparecem nas alergias; basófilos, os mais raros. Num sangue normal, de cada cem leucócitos, uns sessenta são neutrófilos e uns trinta são linfócitos.”",
+        "“Agora, anemia. Anemia é pouca hemoglobina no sangue. A mais comum é por falta de ferro. Sintomas: palidez, cansaço, falta de ar, frio nas mãos, sono demais, dificuldade de concentração. Se algum de vocês estiver assim depois das noites desta faculdade, a culpa é do toque de recolher, não do ferro.”",
+        "“Por último: o sangue fora do corpo morre. Coagula em minutos se não tiver anticoagulante. As células começam a se deformar em horas. Uma lâmina corada se conserva, mas as células não ficam como estavam vivas. Sangue velho parece sangue velho. Lembrem disso daqui a uma hora.”"]},
+      {t:"Parte 2: prática, o esfregaço (50 min)", ol:true, body:[
+        "Higiene: luvas, limpar a ponta do dedo com álcool.",
+        "Coleta: furar a ponta do dedo com a lanceta (cada aluno do próprio dedo) e colocar uma gota pequena na ponta da lâmina.",
+        "Esfregaço: com outra lâmina inclinada a 45°, encostar na gota e deslizar num movimento só, rápido e firme. O sangue tem que ficar como uma língua fina, mais fina na ponta.",
+        "Secagem: deixar secar ao ar por dois minutos. Não soprar.",
+        "Coloração: cobrir com corante de Giemsa por dez minutos e lavar com água.",
+        "Observação: começar com o aumento menor; depois, uma gota de óleo de imersão e o aumento de 1.000 vezes.",
+        "Registro: desenhar na ficha uma hemácia, um neutrófilo e um linfócito, com legenda.",
+        "“Quem fizer o esfregaço grosso vai ver uma pilha de hemácias e nada mais. Esfregaço é como manteiga no pão: fino, numa passada só.”",
+        "Teste: Aptidão (Ciências) ou Medicina, DT 7, para fazer um esfregaço legível. Quem falha pode refazer uma vez."]},
+      {t:"Parte 3: lâminas de comparação (20 min)", body:[
+        "Kerr distribui três lâminas prontas, numeradas, e pede que cada dupla diga de onde é cada uma: Lâmina 1: sangue de frango, hemácias com núcleo, ovais. Lâmina 2: sangue humano de um aluno anêmico, com a etiqueta tapada, hemácias pálidas e pequenas. Lâmina 3: sangue humano com a etiqueta “E.V. — 1994 — exame de admissão”.",
+        "Teste: Medicina ou Percepção, DT 8. Sucesso: a dupla identifica o frango (núcleo) e a anemia (hemácias pálidas). E percebe que a lâmina 3 está errada: as células de 1994 estão perfeitas, como se fossem de hoje, e não há nenhum leucócito.",
+        "Se alguém falar isso em voz alta, Kerr se aproxima, olha no microscópio por tempo demais, recolhe a lâmina e diz: “Erro de etiqueta. Acontece. Próxima dupla.”"]},
+      {t:"Parte 4: fechamento e dever de casa (10 min)", body:[
+        "“Para a semana que vem: relatório de duas páginas, à mão, com os desenhos do esfregaço de vocês e a resposta a três perguntas.” No quadro: 1. Por que as hemácias dos mamíferos não têm núcleo? 2. Cite os cinco tipos de leucócitos e a função de cada um. 3. Um paciente está pálido, cansado e com sono o dia todo. Que exame você pediria, e o que esperaria ver no esfregaço?",
+        "“E lavem as lâminas. Quem deixar sangue seco na minha bancada faz o relatório em dobro.”"]},
+      {t:"Bônus da aula", body:[
+        "Os 3 objetivos: Rigor de Laboratório, +2 em testes de Medicina ou Inspecionar (vestígios, ferimentos, marcas) até o fim da próxima sessão. E ganha a pista abaixo.",
+        "2 objetivos: +1 em um teste de Medicina ou Percepção até o fim da sessão.",
+        "1 ou nenhum: nada, e o aluno lava todos os frascos da bancada."]},
+      {t:"Pista para quem cumpriu os 3 (só para o mestre)", seg:true, body:[
+        "Depois da aula, atrás do laboratório, com um cigarro aceso: “Aquela lâmina não tinha erro de etiqueta. É do Vane. Exame de admissão. Sangue de dois anos não fica assim, e sangue humano tem leucócito. Aquele não tinha nenhum. E a lâmina 2, a do anêmico? É de um menino daquele clube de poesia dele. Metade do clube está assim. Eu sou cientista, não acredito em fantasma. Mas se você me trouxer mais uma coisa que eu não consiga explicar, eu começo a acreditar.”"]},
+      {t:"Para o mestre", seg:true, body:[
+        "A aula ensina aos jogadores, sem eles perceberem, os sintomas da anemia: palidez, cansaço, frio, sono. Depois disso, eles vão reconhecer os membros da Vigília, e talvez a si mesmos, se estiverem com o livro do Elias.",
+        "A pergunta 3 do dever de casa é a mesma situação de quem está sendo mordido. Se um jogador responder pensando num colega da Vigília, Kerr anota o nome dele.",
+        "Se Bianca Nunes estiver na turma (ela faz Biologia), é ela quem nota a lâmina 3 primeiro."]}
     ]},
     { id:"martin", g:1, name:"Prof. Hugh Martin", role:"Direito; também Economia e Administração (55 anos)", blocks:[
       {t:"Resumo", body:[
@@ -661,7 +809,45 @@ var RETRATOS = {
         "Desconfia dos bolsistas e prefere a tradição à reforma."]},
       {t:"Aparência", body:["Alto, cabelos penteados para trás com gel e nariz aquilino. Ternos risca de giz de Londres e abotoaduras de ouro."]},
       {t:"Segredos e enredo", seg:true, body:[
-        "Pai de Victoria, que foi “chamada” pelos Carrick. Pode ser alvo de chantagem ou aliado dos Carrick, conforme o mestre."]}
+        "Pai de Victoria, que foi “chamada” pelos Carrick. Pode ser alvo de chantagem ou aliado dos Carrick, conforme o mestre."]},
+      {t:"Aula: Introdução ao Direito Escocês e o Método do Caso", body:[
+        "Direito, 1º ano. Segunda-feira, 14h às 16h. Sala de madeira escura, 2º andar, ala sul.",
+        "Material: cópias mimeografadas do caso Donoghue v Stevenson, o Estatuto e Regulamento Interno de Dunraven, uma toga e uma peruca de juiz (que ele empresta ao aluno que fizer de juiz)."]},
+      {t:"Objetivos da aula", ol:true, body:[
+        "Responder corretamente a pelo menos uma das perguntas do caso Donoghue.",
+        "Argumentar no tribunal simulado (passar no teste de Persuasão ou fazer de juiz).",
+        "Citar um artigo do Estatuto com o número certo durante o debate."]},
+      {t:"Parte 1: aula expositiva (35 min)", body:[
+        "Martin fala sentado, de pernas cruzadas, sem levantar a voz. “Senhoras e senhores. A primeira coisa que um advogado aprende na Escócia é que ele não é inglês.”",
+        "“O direito escocês é um sistema misto. De um lado, o direito romano, que os nossos juristas estudaram nos Países Baixos e na França nos séculos XVI e XVII: códigos, princípios, lógica. Do outro, a common law, o direito dos precedentes, que veio com a convivência com a Inglaterra. O resultado é um sistema que não é nem continental nem inglês. É nosso.”",
+        "“Quando o Parlamento escocês se uniu ao inglês, em 1707, o Ato de União garantiu duas coisas que interessam a vocês: os tribunais escoceses continuariam existindo, e o direito privado escocês continuaria escocês. Foi o preço da União. Escrevam: Ato de União, 1707, artigos 18 e 19.”",
+        "“Os tribunais. Para causas civis, a Court of Session, em Edimburgo. Para causas criminais, a High Court of Justiciary. Acima deles, para as causas civis, a Câmara dos Lordes, em Londres. Os advogados que falam nesses tribunais chamam-se advocates. Os juízes chamam-se Lords. Sim, todos eles. Não, isso não os torna aristocratas. Infelizmente.”",
+        "Quadro de conceitos: Precedente, decisão de um tribunal superior que obriga os inferiores em casos semelhantes. Ratio decidendi, a razão da decisão: a parte que vira regra. Obiter dictum, o que o juiz disse de passagem: não obriga, mas pesa. Delict, no direito escocês, o dano causado a outra pessoa por culpa (o tort inglês)."]},
+      {t:"Parte 2: o caso (35 min)", body:[
+        "“O caso mais famoso do direito britânico do século XX começou com uma garrafa de cerveja de gengibre. E é escocês.” Donoghue v Stevenson (1932), que é real: em agosto de 1928, May Donoghue foi com uma amiga a um café em Paisley, perto de Glasgow. A amiga lhe pagou uma cerveja de gengibre numa garrafa escura, que não deixava ver o conteúdo.",
+        "Depois de beber metade, ela despejou o resto no copo e saiu dali um caramujo em decomposição. Ela passou mal. Não podia processar o café por contrato, porque não tinha comprado nada: quem pagou foi a amiga. Então processou o fabricante, David Stevenson.",
+        "O caso foi até a Câmara dos Lordes, que decidiu a favor dela por 3 votos a 2. Lord Atkin criou o princípio do vizinho: você deve tomar cuidado razoável para não causar dano a quem pode ser previsivelmente afetado pelo que você faz.",
+        "“Até 1932, quem não tinha contrato não tinha direito. Depois daquele caramujo, todo fabricante do Império passou a dever cuidado a quem nunca viu na vida. Uma escocesa de Paisley mudou o direito de um império com um caramujo. Nunca subestimem um caso pequeno.”",
+        "Perguntas para a turma: 1. Qual é a ratio decidendi do caso? (O fabricante deve cuidado razoável ao consumidor final, mesmo sem contrato.) 2. Por que a Sra. Donoghue não podia processar o café? (Ela não tinha contrato com o café.) 3. Quem é o seu “vizinho”, no sentido de Lord Atkin?"]},
+      {t:"Parte 3: tribunal simulado (40 min)", body:[
+        "“Agora vocês vão argumentar. E vão argumentar sobre esta Casa.” Caso simulado: Aluna X contra o Colégio Dunraven. Um funcionário do Colégio abriu a carta pessoal de uma aluna no escaninho, sem autorização, e guardou uma cópia num arquivo disciplinar. A aluna pede a destruição da cópia e uma punição para o funcionário. O Colégio alega que a carta podia conter prova de uma falta disciplinar e invoca o Silentium (Art. 61-63).",
+        "Time da Aluna: baseia-se no Art. 12 (direito a receber correspondência sem violação) e no Art. 14 (vida privada). Time do Colégio: baseia-se no Art. 43 (inspeção em caso de urgência ou suspeita fundada), no Art. 62 (dever de comunicar acontecimentos incomuns) e no Silentium. Juiz: um aluno, com a toga e a peruca, que decide no fim e precisa dar a ratio da decisão.",
+        "Teste: Persuasão (ou Diplomacia, conforme o seu sistema), DT 8, para o argumento principal de cada time. O juiz faz um teste de Intuição, DT 7, para dar uma decisão bem fundamentada.",
+        "Martin não diz quem tem razão. No fim, só comenta: “O Art. 43 fala de inspeção de quartos, não de cartas. O Art. 12 não tem exceção. Quem defendeu o Colégio defendeu bem, e estava errado. Isso também acontece nos tribunais, e com frequência.”"]},
+      {t:"Parte 4: fechamento e dever de casa (10 min)", body:[
+        "“Para segunda que vem: uma página sobre o caso Donoghue, com a ratio decidendi em uma frase. E uma lista de três situações nesta Casa em que alguém deve cuidado razoável a outra pessoa. Sejam criativos. Sejam precisos.”"]},
+      {t:"Bônus da aula", body:[
+        "Os 3 objetivos: Precedente, +2 em testes de Persuasão ou Diplomacia em discussões formais com autoridades (Reitor, Hunt, Senatus, Court of Governors) até o fim da campanha, uma vez por sessão. E ganha a pista abaixo.",
+        "2 objetivos: +1 em Persuasão com a Reitoria até o fim da sessão.",
+        "1 ou nenhum: nada, e Martin pede o dever de casa em dobro, “com caligrafia legível desta vez”."]},
+      {t:"Pista para quem cumpriu os 3 (só para o mestre)", seg:true, body:[
+        "Martin chama o aluno à mesa enquanto os outros saem: “Você argumentou bem. Não gosto do seu programa de bolsas, mas gosto de quem lê o regulamento. Um conselho de graça: o caso que eu dei hoje não é tão hipotético quanto parece. Se alguém nesta Casa estiver abrindo cartas alheias, isso é falta grave contra o Estatuto. E a Court of Governors tira até um Vice-Reitor do cargo por isso. Eu não disse nada. O senhor também não ouviu nada.”",
+        "O jogador fica sabendo que Hunt está violando correspondência. Essa é a arma para salvar a Dra. Morag Lindsay no arco dela. Também fica sabendo que Martin não gosta de Hunt, e que ele pode ser um aliado inesperado da velha guarda."]},
+      {t:"Para o mestre", seg:true, body:[
+        "O caso simulado é exatamente o que Hunt fez com a carta da Kirsty para a Morag. Se os jogadores ligarem as duas coisas, eles têm o argumento jurídico para derrubar Hunt.",
+        "Martin é conservador, mas é um homem de regras: ele detesta Hunt porque Hunt quebra o Estatuto. Isso o torna previsível e explorável.",
+        "Se Victoria Martin estiver assistindo da porta (ela faz o curso de Direito do 2º ano), ela vê o pai elogiando um bolsista. Nunca o viu fazer isso.",
+        "Se Diego Torres estiver na turma (ele faz Direito), Martin o chama de “senhor Torres, o gaúcho” e o põe no time do Colégio, para ver se ele consegue defender o que não acredita."]}
     ]},
     { id:"moore", g:1, name:"Mr. Silas Moore", role:"Bibliotecário (aparenta uns sessenta)", blocks:[
       {t:"Resumo", body:[
@@ -686,7 +872,46 @@ var RETRATOS = {
       {t:"Aparência", body:["Moreno, cabelo comprido preso num rabo, brinco na orelha esquerda, lenços coloridos no pescoço e casaco de veludo vinho."]},
       {t:"Segredos e enredo", seg:true, body:[
         "Gay, e vive em segredo com Lowe há três anos. Diante de todos, os dois fingem ser só bons colegas que discutem muito.",
-        "A Peça de Inverno acontece durante o clímax, em dezembro. Pode servir de cenário para o confronto nas cavernas."]}
+        "A Peça de Inverno acontece durante o clímax, em dezembro. A Peça de Inverno (Hamlet, 14/12) é o epílogo. Se Elias sobreviver às cavernas, aparece no papel do Fantasma, que Renard deu a ele."]},
+      {t:"Aula: Molière e o Corpo em Cena", body:[
+        "Francês e Teatro, 1º ano. Quinta-feira, 16h às 18h. Palco do Anfiteatro Hume.",
+        "Material: cópias de Le Bourgeois gentilhomme (Molière, 1670), uma lista de papéis do Hamlet para a Peça de Inverno, um piano velho no canto do palco e uma arara de figurinos."]},
+      {t:"Objetivos da aula", ol:true, body:[
+        "Fazer o aquecimento inteiro sem ficar de fora, incluindo andar como um animal no palco.",
+        "Acertar as traduções da Parte 2.",
+        "Passar no teste de elenco da Parte 3."]},
+      {t:"Parte 1: aquecimento (20 min)", body:[
+        "Renard recebe a turma de pé no palco, descalço, com um lenço laranja no pescoço. Todos tiram os sapatos. “Bonjour, mes enfants! Sapatos fora. O ator pensa com os pés. Quem tem chulé, que tenha coragem.”",
+        "Respiração: deitados no chão do palco, uma mão na barriga. Inspirar em quatro tempos, segurar em quatro, soltar em oito, com um “ssss”.",
+        "Voz: de pé, em círculo, cada um diz o próprio nome cada vez mais alto, até a última fileira do anfiteatro ouvir. “Mais, mais! Você está sussurrando, não está morrendo!”",
+        "Trava-língua francês, em coro, cada vez mais rápido: Les chaussettes de l'archiduchesse sont-elles sèches, archisèches? (As meias da arquiduquesa estão secas, arquissecas?)",
+        "Corpo: cada aluno atravessa o palco andando como um animal que ele escolher, sem falar. A turma adivinha. Renard sempre é um gato."]},
+      {t:"Parte 2: Molière e a prosa (40 min)", body:[
+        "Molière: Jean-Baptiste Poquelin, o maior cômico da França, ator, diretor, autor. Morreu em 1673, praticamente em cena, tossindo sangue enquanto fazia o papel de um homem que se fingia de doente. “Que fim para um ator, hein? Magnífico!”",
+        "Hoje: Le Bourgeois gentilhomme, de 1670. Monsieur Jourdain é um burguês rico que quer, desesperadamente, parecer nobre. Contrata professores de tudo: dança, música, esgrima, filosofia. E o professor de filosofia lhe explica que tudo o que não é verso é prosa.",
+        "Fala real (ato II, cena 4): “Par ma foi! il y a plus de quarante ans que je dis de la prose sans que j'en susse rien.” (Palavra de honra! Faz mais de quarenta anos que eu falo em prosa sem saber.)",
+        "Ponto de gramática no quadro: Tu é íntimo: família, amigos, crianças (Tu viens?). Vous é formal ou plural: desconhecidos, superiores, mais de uma pessoa (Vous venez, Monsieur?). Passé simple é o tempo literário, só na escrita, como em susse, de savoir (Il mourut en 1673).",
+        "“Na peça, Jourdain trata o professor de vous e a criada de tu. Quem a gente trata de tu diz muito sobre quem a gente pensa que é. Vale para a França e vale para este castelo.”",
+        "Exercício em dupla: traduzir para o francês três frases do dia a dia do castelo, escolhendo entre tu e vous. 1. “Senhor Reitor, posso entrar?” (Monsieur le Recteur, puis-je entrer? vous). 2. “Você vem para o jantar?”, dito a um colega de quarto (Tu viens dîner? tu). 3. “Onde vocês estavam ontem à noite?”, dito pelo Hunt a um grupo de alunos (Où étiez-vous hier soir? vous, plural).",
+        "Teste: Aptidão (Línguas) ou Mente, DT 7, para acertar as três traduções."]},
+      {t:"Parte 3: teste de elenco do Hamlet (50 min)", body:[
+        "“E agora, mes amours, o que interessa. Em dezembro, a Casa vai assistir ao Hamlet. E eu preciso de um elenco.” Em dois minutos: o príncipe da Dinamarca vê o fantasma do pai, que conta que foi assassinado pelo próprio irmão, o tio de Hamlet, agora rei e casado com a mãe dele. Hamlet finge loucura para descobrir a verdade, e quase todo mundo morre no fim.",
+        "O teste: cada aluno lê em voz alta, em inglês, uma fala curta do Ato I, cena 5 (domínio público). Fala do Fantasma: “I am thy father's spirit, / Doom'd for a certain term to walk the night.” (Sou o espírito do teu pai, condenado por um tempo a vagar pela noite.) Fala de Hamlet: “O, all you host of heaven! O earth! What else?” (Ó, exércitos do céu! Ó, terra! E o que mais?)",
+        "Teste: Aptidão (Artes) ou Persuasão, DT 7. Sucesso: Renard aplaude, anota o nome e diz o papel provisório. Falha: “No teatro, não existe erro. Existe emoção que ainda não encontrou o caminho. De novo, com o corpo inteiro.”",
+        "O momento da cena: no fim do teste, a porta do fundo do anfiteatro se abre. É Elias, que “estava passando”. Renard o chama, encantado: “Monsieur Vane! O senhor faria um fantasma perfeito, tão pálido, tão melancólico. Leia para nós!” Elias sobe ao palco e recita a fala do Fantasma sem olhar o papel, com uma voz que esfria o anfiteatro. Ninguém aplaude por um segundo inteiro. Renard, emocionado, dá o papel do Fantasma a ele ali mesmo."]},
+      {t:"Parte 4: fechamento (10 min)", body:[
+        "“Para quinta que vem: decorem a sua fala do Hamlet, e escrevam em francês três frases sobre um personagem que vocês admiram, usando tu ou vous corretamente. E tragam uma meia velha. Não perguntem por quê.” (É para o exercício de marionete da próxima aula.)"]},
+      {t:"Bônus da aula", body:[
+        "Os 3 objetivos: Presença de Palco, +2 em testes de Persuasão ou Enganação quando o personagem estiver fingindo, encenando ou falando em público, até o fim da próxima sessão. Ganha um papel na Peça de Inverno e a pista abaixo.",
+        "2 objetivos: +1 em Persuasão na próxima cena social. Ganha um papel pequeno na peça.",
+        "1 ou nenhum: nada, e Renard o escala como “a árvore do segundo ato”."]},
+      {t:"Pista para quem cumpriu os 3 (só para o mestre)", seg:true, body:[
+        "Nos bastidores, entre os figurinos, Renard fecha a cortina e fala baixo: “Você viu como o Vane leu o Fantasma? Sem papel. Eu nunca dei aquela fala a ele. E ele disse ‘doom'd’, com a pronúncia de um ator do século XVII, a que eu estudei em Bruxelas. Ninguém fala assim. Eu dei o papel a ele porque fiquei encantado. Agora que ele saiu, estou com medo. Adrian me disse para tomar cuidado com ele. Eu achei que era ciúme. Não conte ao Adrian que eu disse isso.”",
+        "O jogador fica sabendo que Elias conhece o teatro do século XVII, que Lowe já desconfia dele, e ganha uma pista discreta sobre Lowe e Renard (“Adrian”, “ciúme”), para quem estiver atento."]},
+      {t:"Para o mestre", seg:true, body:[
+        "Elias como o Fantasma do Hamlet prepara a Cena 22 do cronograma: se Elias sobreviver às cavernas, ele aparece no palco na noite de 14/12, no papel que já era dele.",
+        "O exercício de tu e vous parece gramática, mas é sobre poder: Hunt usa vous com os alunos, e Elias usa tu desde o primeiro dia. Um jogador atento pode notar isso.",
+        "A meia velha da lição de casa é para fantoches. Na aula seguinte, Renard faz cada um contar um segredo por meio da marionete, “porque não é você que está falando, é a meia”. É uma boa cena para um jogador soltar algo que nunca diria."]}
     ]},
 
     { id:"morag", g:1, name:"Dra. Morag Lindsay", role:"Psicologia (27 anos)", blocks:[
@@ -696,7 +921,48 @@ var RETRATOS = {
       {t:"Aparência", body:["Baixa, rosto jovem e sardento, cabelo castanho cacheado curto preso com presilha, óculos de aro de tartaruga e blazer de veludo cotelê mostarda grande demais. Coturnos cor de vinho, prancheta e gravador de fita."]},
       {t:"Segredos e enredo", seg:true, body:[
         "Lésbica, vive um relacionamento escondido com Kirsty Fraser, dona do sebo Fraser's Books em Stonehaven. Hunt desconfia e guarda uma cópia de uma carta no arquivo disciplinar.",
-        "Elias descobre o segredo com Dedução e a chantageia: quer que ela encerre o estudo sobre memória e entregue a fita de Clara. Morag pode devolver a memória de Clara no Ato 5."]}
+        "Elias descobre o segredo com Dedução e a chantageia: quer que ela encerre o estudo sobre memória e entregue a fita de Clara. Morag pode devolver a memória de Clara no Ato 5."]},
+      {t:"Personalidade", body:[
+        "Fala rápido quando se empolga e baixo quando está nervosa. Na frente da turma é confiante; no Senior Common Room, entre professores de sessenta anos, encolhe. Trata os alunos como colegas de pesquisa e lembra o nome de todos.",
+        "“Você dormiu bem? Não? Ótimo! Quer dizer… ótimo para a pesquisa. Assine aqui.”",
+        "“A memória não é um arquivo. É uma história que a gente conta de novo toda vez.”"]},
+      {t:"Sala e rotina", body:[
+        "Laboratório do Sono, numa antiga enfermaria vitoriana. Camas de ferro, um eletroencefalógrafo barulhento e cortinas pretas. Os alunos sentam nas camas.",
+        "Abre com um experimento, sem explicar nada; depois explica o que aconteceu e mostra a teoria. Quem estuda, convida para ser voluntário. Quem faz bagunça, pergunta o que a pessoa sonhou ontem, na frente de todos, e a bagunça para. Quem chega atrasado, pede que descreva com detalhes o caminho que fez até a sala, e depois mostra quantos detalhes ela inventou."]},
+      {t:"Aula: A Memória Mente", body:[
+        "Psicologia, 1º ano. Sexta-feira, 10h às 12h. Laboratório do Sono, 2º andar, ala leste. Os estudos citados são reais e eram novidade em 1996, alguns de 1995."]},
+      {t:"Parte 1: o experimento (15 min)", body:[
+        "Morag entra com o gravador de fita na mão, nervosa, e começa sem se apresentar: “Bom dia! Desculpa, eu não vou explicar nada ainda, senão estraga. Fechem os cadernos. Ouçam esta lista de palavras e tentem lembrar o máximo que conseguirem. Não anotem.”",
+        "Ela lê devagar, uma palavra a cada dois segundos (lista do experimento real de Roediger e McDermott, 1995): cama, descanso, acordado, cansado, sonho, despertar, soneca, cobertor, cochilo, ronco, travesseiro, paz, bocejo, sonolento.",
+        "Ela espera um minuto e pede: “Agora escrevam todas as palavras de que lembram.” A armadilha: a palavra “sono” nunca foi dita. A maioria das pessoas jura que ouviu. Teste: Mente ou Intuição, DT 8. Falha: o jogador escreve “sono” e tem certeza de que ouviu. Sucesso: o jogador percebe que “sono” não estava na lista.",
+        "Morag pergunta: “Quem escreveu ‘sono’?” Quase todos levantam a mão. Ela sorri: “Eu não disse ‘sono’. Nenhuma vez. Vocês acabaram de lembrar de uma coisa que não aconteceu.”"]},
+      {t:"Parte 2: aula expositiva (40 min)", body:[
+        "“A memória não é um gravador. Eu tenho um gravador aqui: ele guarda tudo igual, para sempre. A memória de vocês não faz isso. Ela reconstrói. Toda vez que vocês lembram de algo, contam a história de novo, e a cada vez a história muda um pouco.”",
+        "Ebbinghaus, 1885: a curva do esquecimento. Esquecemos mais da metade de algo novo em menos de um dia, se não revisarmos.",
+        "Loftus e Palmer, 1974: pessoas viram o filme de uma batida de carro. Quem ouviu “a que velocidade os carros se esmagaram?” disse velocidades maiores, e uma semana depois “lembrava” de vidro quebrado que não existia no filme.",
+        "Loftus, perdido no shopping, 1995: um quarto dos participantes passou a “lembrar” de ter se perdido num shopping quando criança, uma história falsa contada por um parente.",
+        "Roediger e McDermott, 1995: o experimento que vocês acabaram de fazer.",
+        "“Uma pergunta bem-feita, ou uma pessoa em quem a gente confia, consegue colocar uma lembrança dentro de nós. E a gente vai jurar que é nossa.”",
+        "Sono e sonhos: “Em 1953, Aserinsky e Kleitman, em Chicago, descobriram que, em certos momentos da noite, os olhos de quem dorme se mexem muito rápido. Chamaram isso de sono REM, de rapid eye movement. É quando sonhamos. A noite tem ciclos de uns noventa minutos, e cada ciclo termina num período de REM. Esse aparelho barulhento aqui mostra as ondas do cérebro durante a noite.” Ela desenha no quadro um hipnograma simples: vigília, sono leve, sono profundo, REM, repetindo de 4 a 5 vezes na noite.",
+        "“E aqui está o que eu estudo: o sono REM é quando a memória se organiza. Se você não dorme, você não guarda. E se alguém interfere no seu sono, pode interferir no que você lembra.”"]},
+      {t:"Parte 3: prática em dupla (35 min)", body:[
+        "O diário de sono. Cada dupla entrevista o colega com o questionário da pesquisa: 1. A que horas você dormiu nas últimas três noites? 2. Você acordou durante a noite? Lembra por quê? 3. Lembra de algum sonho? Descreva. 4. Houve alguma noite da qual você não lembra de nada, nem de ter ido para a cama? 5. Você se sente mais cansado do que deveria?",
+        "Teste: Intuição, DT 7, para perceber se o colega está escondendo algo na resposta.",
+        "O momento da cena: se algum jogador estiver dormindo com o livro do Elias no quarto, ele responde “sim” à pergunta 4 sem saber por quê, ou descreve um sonho com velas e frio. Morag para de anotar e olha para ele um segundo longo demais."]},
+      {t:"Parte 4: fechamento (10 min)", body:[
+        "“Para sexta que vem: preencham o diário de sono por sete noites seguidas. Hora de deitar, hora de acordar, sonhos. E quem quiser ser voluntário da pesquisa, a sério, com o eletroencefalógrafo, deixa o nome comigo. Eu pago em chá e biscoito. É o orçamento que a velha guarda me deu.”"]},
+      {t:"Objetivos e bônus", body:[
+        "Objetivos: 1. Não cair na falsa memória, ou, se cair, admitir em voz alta. 2. Explicar com as próprias palavras um dos estudos do quadro, quando Morag perguntar. 3. Fazer a entrevista em dupla com seriedade.",
+        "Os 3 objetivos: Mente Desconfiada, +2 em testes para resistir ao Encanto, a ilusões ou a manipulação da memória até o fim da próxima sessão. E ganha a pista abaixo.",
+        "2 objetivos: +1 em Intuição até o fim da sessão.",
+        "1 ou nenhum: nada, e Morag pede o diário de sono de quatorze noites."]},
+      {t:"Pista para quem cumpriu os 3 (só para o mestre)", seg:true, body:[
+        "Morag pede que o aluno fique para ajudar a guardar os eletrodos e fala rápido, mexendo nos fios: “Você entendeu a aula, então você vai entender isto. Eu tenho treze alunos que não lembram onde estavam em noites inteiras. Treze. Todos de um clubinho de poesia. Uma delas, a Clara Bennett, eu hipnotizei em agosto. Ela descreveu um rapaz que beija o pescoço dela e ‘o mundo fica em silêncio’. Eu achei que era uma fantasia romântica. Agora a Clara sumiu. Eu sou cientista, eu não… Olha, se você souber de alguém do clube que queira falar comigo, manda vir. Por favor.”",
+        "O jogador fica sabendo das treze lacunas de memória da Vigília e da fita da Clara, e ganha a Morag como aliada."]},
+      {t:"Para o mestre", seg:true, body:[
+        "O experimento da lista é a melhor demonstração do que o Elias faz: ele não apaga memórias, ele sugere, e as pessoas passam a lembrar do que ele quer. Se um jogador fizer essa ligação em voz alta, dê +1 no placar contra o Encanto.",
+        "O diário de sono é a forma mais simples de os jogadores descobrirem o Ritual do Livro: quem dorme com o livro tem noites em branco e sonhos com velas.",
+        "Se a chantagem do Elias já tiver acontecido (Cena 15), Morag dá a aula pálida e cancela a Parte 3 no meio, sem explicar. Ela olha para o gravador o tempo todo."]}
     ]},
     { id:"hay", g:1, name:"Dr. Gideon Hay", role:"Filosofia; chefe do Departamento (63 anos)", blocks:[
       {t:"Resumo", body:[
@@ -705,7 +971,47 @@ var RETRATOS = {
       {t:"Aparência", body:["Pequeno e magro, cabelo branco revolto, sobrancelhas enormes e olhos muito escuros. Cardigã marrom com furos, gravata torta e beca puída."]},
       {t:"Segredos e enredo", seg:true, body:[
         "Os ensaios de Elias citam manuscritos do século XVII que não existem em nenhuma biblioteca, com detalhes “de quem estava lá”. A ficha de transferência de 1994 tem um carimbo de uma faculdade de Oxford fechada em 1902.",
-        "Hay é cego para Elias por admiração. Convencê-lo é difícil e doloroso; se acontecer, ele pode dar um depoimento ao Reitor."]}
+        "Hay é cego para Elias por admiração. Convencê-lo é difícil e doloroso; se acontecer, ele pode dar um depoimento ao Reitor.",
+        "Ensaio do Elias: confissão disfarçada, sobre um homem que vive trezentos anos e tem o direito, e talvez o dever, de continuar colecionando."]},
+      {t:"Personalidade", body:[
+        "Distraído, gentil, apaixonado por perguntas. Responde a uma pergunta com outra pergunta. Esquece o cachimbo apagado na boca e fala com ele entre os dentes. Admira o Elias como um pai admira um filho brilhante.",
+        "“Hume nos ensina que o hábito é o grande guia da vida. Mas o que acontece quando o hábito dura séculos?”",
+        "“Não me dê a resposta. Me dê uma pergunta melhor.”"]},
+      {t:"Sala e rotina", body:[
+        "O gabinete dele, na torre leste, cheio de livros até o teto. Os alunos sentam no chão, nas poltronas e em pilhas de livros. A lareira fica sempre acesa.",
+        "É um seminário, não uma aula. Um aluno lê um ensaio em voz alta, e a turma tenta destruí-lo com perguntas. Quem estuda, convida para ler o próximo ensaio. Quem faz bagunça, pergunta, muito sério, se a pessoa tem certeza de que existe; a discussão que vem depois costuma durar meia hora. Quem chega atrasado nem percebe."]},
+      {t:"Aula: Seminário, Quem é você daqui a trezentos anos?", body:[
+        "Filosofia, 1º ano. Terça-feira, 15h às 17h. Gabinete do Dr. Hay, 2º andar, torre leste. Os filósofos e os argumentos são reais."]},
+      {t:"Objetivos da aula", ol:true, body:[
+        "Responder à pergunta de abertura com um argumento, não só com “sim” ou “não”.",
+        "Explicar com as próprias palavras um dos três filósofos, quando Hay perguntar.",
+        "Apontar uma falha no ensaio do Elias (teste da Parte 3)."]},
+      {t:"Parte 1: a pergunta (10 min)", body:[
+        "Hay está de pé diante da lareira, de costas para a turma, com o cachimbo apagado na mão: “Uma pergunta antes de começar. Vocês são a mesma pessoa que eram aos cinco anos de idade?”",
+        "Quando alguém responde “sim”, ele se vira: “Ótimo. Por quê? O seu corpo trocou quase todas as células. Você não pensa como pensava. Não gosta do que gostava. Não lembra de quase nada. O que, exatamente, continuou igual?”"]},
+      {t:"Parte 2: os três filósofos (35 min)", body:[
+        "1. John Locke (inglês, 1694): a memória faz a pessoa. “Para Locke, você é a mesma pessoa enquanto lembrar de ser. Se você lembra de ter feito algo, você é quem fez. Simples, elegante. E, como tudo que é simples, errado.”",
+        "2. Thomas Reid (escocês, 1785): o oficial valente. “Um escocês, naturalmente, foi quem encontrou o erro. Reid imaginou um menino que é açoitado por roubar maçãs. Anos depois, ele é um jovem oficial que se lembra do açoite. Ainda mais tarde, é um velho general que se lembra de ter sido oficial, mas já não lembra do açoite. Pela regra de Locke, o general é o oficial, e o oficial é o menino, mas o general não é o menino. É absurdo. A memória não pode ser tudo.”",
+        "3. David Hume (escocês, 1739): não existe um eu. “E então vem Hume, o maior de todos, e diz algo terrível. Ele olhou para dentro de si mesmo, procurando o ‘eu’, e não encontrou nada além de sensações, uma depois da outra: frio, calor, amor, ódio, dor. Ele escreveu que o ser humano é nothing but a bundle or collection of different perceptions. Nada além de um feixe de percepções. Não há ninguém lá dentro. Só a sequência.”",
+        "Hay bate o cachimbo na palma da mão: “Se Hume estiver certo, não existe um ‘você’ que dure. Existe uma história que vai sendo contada. E a pergunta passa a ser: quem está contando?”"]},
+      {t:"Parte 3: o seminário (60 min)", body:[
+        "“Hoje quem lê é o meu melhor aluno. Monsieur… Mister Vane. Por favor.” Elias, que estava sentado no parapeito da janela, de costas para a luz, abre um caderno de couro e lê o ensaio dele: “‘Sobre um homem que vivesse trezentos anos.’ Imaginemos um homem que não morre. Ele vê os amigos envelhecerem, as cidades mudarem, os reis caírem. Ao fim do primeiro século, ainda é quem era? Lembra-se de tudo, como Locke exigiria. Mas, como Hume previu, o feixe de percepções que ele chama de ‘eu’ já foi trocado tantas vezes que nada resta do original. Concluo que esse homem não é uma pessoa: é uma coleção. E, se é uma coleção, tem o direito, e talvez o dever, de continuar colecionando.”",
+        "Hay aplaude devagar, encantado. A tarefa da turma: encontrar a falha no argumento do Elias. Teste: Mente ou Aptidão (Filosofia), DT 8.",
+        "Sucesso: o jogador aponta a falha. Por exemplo: “Se ele é só uma coleção, então ninguém é responsável por nada do que ele fez”; “Colecionar o quê?”; ou “Então, para ele, as outras pessoas também são só coleções. Isso justifica qualquer coisa.”",
+        "Se o jogador acertar a falha moral (a de que o argumento justifica qualquer coisa), Elias sorri devagar, fecha o caderno e diz só: “Muito bem. Você seria um ótimo item de coleção.” Hay ri, achando que é uma piada."]},
+      {t:"Parte 4: fechamento (10 min)", body:[
+        "“Para terça que vem: duas páginas respondendo ao Mister Vane. Defendam o que torna vocês a mesma pessoa. Se não conseguirem, defendam que não são. Mas defendam.”"]},
+      {t:"Objetivos e bônus", body:[
+        "Os 3 objetivos: Pensamento Claro, +2 em testes de Mente para resistir a argumentos, à sedução intelectual ou ao Encanto do Elias, até o fim da próxima sessão. E ganha a pista abaixo.",
+        "2 objetivos: +1 em um teste de Mente até o fim da sessão.",
+        "1 ou nenhum: nada, e Hay pede o ensaio “em quatro páginas, que duas não chegam para pensar”."]},
+      {t:"Pista para quem cumpriu os 3 (só para o mestre)", seg:true, body:[
+        "Depois do seminário, Hay chama o aluno para ver “uma coisa curiosa”: “Você argumentou bem contra ele. Ninguém faz isso. Olhe aqui, este é outro ensaio dele, do ano passado, sobre a caça às bruxas de 1662. Ele escreve em primeira pessoa, por licença literária, veja só: ‘O tribunal cheirava a sebo e medo. A criada tremia ao meu lado.’ Ele cita uma carta do reitor da época que eu nunca encontrei em biblioteca nenhuma. Eu perguntei de onde tinha tirado, e ele disse ‘dos arquivos da família’. Um prodígio. Um verdadeiro prodígio.”",
+        "O jogador lê a frase sobre a criada (Margaret Lyall, 1662). Quem conhece a história percebe que o Elias escreveu sobre um crime que ele mesmo cometeu."]},
+      {t:"Para o mestre", seg:true, body:[
+        "O ensaio do Elias é uma confissão disfarçada. Quando os jogadores descobrirem quem ele é, esse texto se torna assustador.",
+        "Hay é a pessoa mais perigosa para os jogadores sem ter culpa nenhuma: ele mostra ao Elias tudo o que os alunos escrevem nos ensaios. Se um jogador escrever o ensaio da lição de casa denunciando o Elias, o Elias lê.",
+        "Convencer Hay exige três provas juntas: o carimbo de Oxford de 1902, o ensaio de 1662 e o Livro de Matrículas com a mesma letra de 1662, 1887 e 1994. Quando cair a ficha, ele senta, apaga a lareira e diz: “Eu passei quarenta anos ensinando a duvidar. E não duvidei dele.”"]}
     ]},
     { id:"munro", g:1, name:"Prof.ª Ailsa Munro", role:"Música (47 anos)", blocks:[
       {t:"Resumo", body:[
@@ -714,7 +1020,44 @@ var RETRATOS = {
       {t:"Aparência", body:["Alta e magra, cabelo grisalho prateado muito comprido, mãos longas de pianista, xale tartã azul e muitos anéis de prata. Fala baixo e cantarola."]},
       {t:"Segredos e enredo", seg:true, body:[
         "Mulher trans, escondida: fez a transição em Londres antes de chegar a Dunraven, em 1976. Ninguém no castelo sabe. Sua certidão antiga está no cofre do Reitor Ross, e Hunt pode achá-la nos arquivos da Secretaria.",
-        "Reconhece a técnica de “E. Lyall” nas partituras. As três notas que o órgão toca às três são do salmo de Margaret Lyall, e cantá-lo nas cavernas pode enfraquecer Carne."]}
+        "Reconhece a técnica de “E. Lyall” nas partituras. As três notas que o órgão toca às três são do salmo de Margaret Lyall, e cantá-lo nas cavernas pode enfraquecer Carne.",
+        "Personalidade: fala baixo, quase cantando. Escuta mais do que fala. Trata cada voz como um instrumento que precisa ser afinado com paciência. Nunca levanta a voz: quando quer silêncio, toca uma nota no diapasão e espera.",
+        "“A música lembra de tudo. As pessoas esquecem, as pedras esquecem. A música, não.” / “Não cante bonito. Cante verdadeiro. Bonito vem depois.”"]},
+      {t:"Sala e rotina", body:[
+        "A galeria superior da Capela de São Columba, ao lado do órgão de 1790. Os alunos ficam de pé em semicírculo, e a acústica de pedra faz cada voz voltar duas vezes.",
+        "Começa no escuro, com cinco minutos de silêncio para ouvir a capela. Depois vem o aquecimento vocal, e por fim o canto. Quem estuda, convida para fazer o papel do precentor (quem puxa o canto). Quem faz bagunça, pede que cante sozinho uma nota longa, segurando até perder o fôlego; a bagunça vira respeito. Quem chega atrasado não diz nada: entrega um saltério aberto na página certa."]},
+      {t:"Aula: Os Salmos que Atravessam o Tempo", body:[
+        "Música, 1º ano. Quarta-feira, 18h às 19h30. Galeria da Capela de São Columba. A tradição, o saltério e o salmo são reais."]},
+      {t:"Parte 1: o silêncio (10 min)", body:[
+        "Ailsa espera os alunos com as luzes apagadas e só uma vela acesa no console do órgão: “Boa noite. Sentem-se no chão, por favor. Cinco minutos de silêncio. Não para rezar: para ouvir. Uma capela de quatrocentos anos tem muito a dizer, se a gente deixar.”",
+        "Durante o silêncio, teste de Percepção, DT 8: o jogador ouve, muito baixo, uma respiração que não é de ninguém da turma, vinda dos tubos do órgão. Ailsa percebe o olhar dele e sorri devagar, sem explicar."]},
+      {t:"Parte 2: aula expositiva (25 min)", body:[
+        "“Depois da Reforma, em 1560, a Igreja da Escócia proibiu quase toda a música na missa. Nada de hinos inventados por homens. Só a Palavra de Deus, cantada. Então os escoceses pegaram os Salmos da Bíblia e os reescreveram em versos com rima e métrica, para que o povo pudesse cantá-los. O saltério que ficou foi o de 1650. É este aqui.”",
+        "Quadro: Salmo métrico, um salmo da Bíblia reescrito em versos regulares, com rima, para ser cantado. Métrica comum (8.6.8.6), versos de 8 e 6 sílabas alternados, que serve para qualquer melodia da mesma métrica. Melodia (tune), que tinha nomes de cidades: Dundee, Old Hundredth, Martyrs, French. Precentor, quem puxa o canto: canta cada linha sozinho, e a congregação repete.",
+        "“E nas igrejas das Highlands, nas ilhas, cantando em gaélico, nasceu uma coisa extraordinária. O precentor canta a linha, e a congregação responde, mas cada um canta no seu tempo, com os seus enfeites, devagar. Não fica um coro. Fica um mar de vozes, cada uma chegando quando consegue. Ainda se canta assim hoje, em Lewis, nas Hébridas. É a coisa mais antiga e mais estranha que vocês vão ouvir na vida.”"]},
+      {t:"Parte 3: o canto (40 min)", body:[
+        "Salmo 121 (Scottish Psalter, 1650): I to the hills will lift mine eyes, / from whence doth come mine aid. / My safety cometh from the Lord, / who heav'n and earth hath made.",
+        "Thy foot he'll not let slide, nor will / he slumber that thee keeps. / Behold, he that keeps Israel, / he slumbers not, nor sleeps.",
+        "The Lord thee keeps, the Lord thy shade / on thy right hand doth stay: / The moon by night thee shall not smite, / nor yet the sun by day.",
+        "The Lord shall keep thy soul; he shall / preserve thee from all ill. / Henceforth thy going out and in / God keep for ever will.",
+        "Tradução para a mesa: Aos montes erguerei meus olhos: de onde virá meu socorro? Meu socorro vem do Senhor, que fez o céu e a terra. Ele não deixará teu pé escorregar; não dorme quem te guarda. Aquele que guarda Israel não cochila nem dorme. O Senhor te guarda; o Senhor é tua sombra à tua mão direita. A lua não te ferirá de noite, nem o sol de dia. O Senhor guardará tua alma e te livrará de todo mal. Tua saída e tua entrada Deus guardará para sempre.",
+        "Como a turma canta: 1. Ailsa toca a melodia uma vez no órgão, devagar. 2. Ela canta a primeira linha sozinha, como precentor. 3. A turma repete a linha, devagar, cada um no seu tempo, do jeito das Highlands. 4. No terceiro verso, ela convida um aluno para ser o precentor.",
+        "Teste: Aptidão (Música) ou Emoção, DT 7, para cantar afinado com o grupo.",
+        "O momento da cena: na estrofe “The moon by night thee shall not smite”, todos os que passaram no teste ouvem o órgão responder sozinho: as três primeiras notas da melodia, baixinho, sem ninguém nas teclas. Ailsa continua cantando de olhos fechados, como se nada tivesse acontecido, e só para no fim do salmo."]},
+      {t:"Parte 4: fechamento (15 min)", body:[
+        "“Para quarta que vem: decorem a primeira estrofe. E quem quiser entrar no coral para o culto de domingo é bem-vindo. Pagamos em chá e em paciência.”"]},
+      {t:"Objetivos e bônus", body:[
+        "Objetivos: 1. Ficar os cinco minutos em silêncio sem rir nem conversar. 2. Explicar o que é um precentor quando Ailsa perguntar. 3. Cantar afinado com o grupo (teste da Parte 3).",
+        "Os 3 objetivos: Voz Guardada. O jogador aprende o Salmo 121 de cor. Até o fim da campanha, cantá-lo uma vez por sessão dá +2 em um teste contra medo, efeitos de Sangue ou o Encanto. E ganha a pista abaixo.",
+        "2 objetivos: +1 em um teste de Emoção até o fim da sessão.",
+        "1 ou nenhum: nada, e Ailsa pede que o aluno venha à capela às 7h, por uma semana, para aprender a ouvir."]},
+      {t:"Pista para quem cumpriu os 3 (só para o mestre)", seg:true, body:[
+        "A turma sai, e Ailsa pede que o aluno espere. Ela fala baixo, sentada no órgão, mexendo nos anéis: “Você ouviu, não ouviu? O órgão. Eu ouço há vinte anos. Sempre às três da manhã, sempre as mesmas três notas: o começo deste salmo. Eu procurei durante anos de onde vinha. Achei num livrinho de salmos de 1662, nos arquivos, com o nome de uma criada: Margaret Lyall. Alguém quer muito que ela seja lembrada. E tem mais uma coisa. Um aluno tocou o piano desta capela no mês passado. Tocou Bach como quem conheceu Bach. Com uma técnica que só vi em partituras velhas, assinadas por um certo ‘E. Lyall, tutor’. Lyall de novo. Eu não acredito em coincidências, querido. Acredito em música.”",
+        "O jogador fica sabendo de Margaret Lyall, do salmo, do nome E. Lyall e de que o Elias toca como esse tutor do século XIX."]},
+      {t:"Para o mestre", seg:true, body:[
+        "O Salmo 121 é uma arma sem parecer uma: fala de proteção contra quem não dorme, contra a lua e contra o sol. No altar das cavernas, cantado pelo grupo, ele é o bônus do ritual para destruir o pacto.",
+        "Os versos “the moon by night thee shall not smite” podem ser o momento em que o órgão responde em qualquer cena que você quiser, não só na aula.",
+        "Se o Elias passar pela capela durante a aula, ele não entra. Fica parado na porta enquanto o salmo é cantado, e vai embora antes do fim."]}
     ]},
     { id:"forbes", g:1, name:"Prof. Niall Forbes", role:"Artes Visuais e Arquitetura (50 anos)", blocks:[
       {t:"Resumo", body:[
@@ -722,7 +1065,45 @@ var RETRATOS = {
       {t:"Aparência", body:["Barrigudo, careca com uma coroa de cabelo grisalho, barba cheia e óculos de meia-lua. Avental de pintor manchado, gravata-borboleta e tinta nos dedos."]},
       {t:"Segredos e enredo", seg:true, body:[
         "Sob luz ultravioleta, descobriu que o rosto do retrato de Thomas Carne (1662) foi repintado em 1890 e em 1960, sempre para parecer mais velho. A camada original mostra um rapaz de uns 20 anos.",
-        "Elias passa no ateliê com frequência demais, “admirando o trabalho”."]}
+        "Elias passa no ateliê com frequência demais, “admirando o trabalho”."]},
+      {t:"Personalidade", body:[
+        "Fala alto, ri das próprias piadas, conta fofoca sobre tudo e todos com carinho e sem maldade. Trata os quadros como pessoas e as pessoas como quadros.",
+        "“Todo quadro mente, meus queridos. O segredo é descobrir para quem.”",
+        "“Um restaurador não pinta. Um restaurador escuta o que o pintor quis dizer.”"]},
+      {t:"Sala e rotina", body:[
+        "O Ateliê Forbes, no sótão da ala sul, com claraboias, cavaletes, telas antigas em restauro e cheiro de terebintina.",
+        "Começa com um passeio pelo castelo para desenhar a arquitetura e volta ao ateliê para a parte técnica. Quem estuda deixa segurar a lâmpada UV ou o pincel de restauro. Quem faz bagunça pede um desenho de uma gárgula “com a sua cara”, e pendura no ateliê. Quem chega atrasado pergunta qual fofoca a pessoa ouviu no caminho."]},
+      {t:"Aula: As Pedras e as Camadas", body:[
+        "Artes Visuais e Arquitetura, 1º ano. Sexta-feira, 14h às 16h30. Claustro, capela e Ateliê Forbes. A arquitetura gótica e as técnicas de restauração são reais."]},
+      {t:"Parte 1: o passeio gótico (45 min)", body:[
+        "“O castelo é de 1342. Gótico escocês, que é como o gótico francês, só que com mais frio e menos dinheiro. Olhem para cima. Sempre olhem para cima. As pessoas passam a vida olhando para os próprios sapatos.”",
+        "Elementos do gótico no castelo: arco ogival, arco pontudo que leva o peso para baixo (arcadas do claustro, janelas da capela); abóbada de nervuras, teto em arcos que se cruzam como costelas (teto da capela); rosácea, janela redonda com vitral em forma de flor (capela, sobre o altar); gárgula, escultura que escoa a água da chuva pela boca (beirais do Great Hall); contraforte, pilar externo que segura a parede (lado do mar da Ala Leste).",
+        "“As gárgulas não são decoração, são calhas. Os monstros servem para alguma coisa: põem a água para fora. Guardem isso, é uma boa lição de vida.”",
+        "Tarefa: cada aluno desenha um elemento gótico do castelo."]},
+      {t:"Parte 2: técnicas de restauração (30 min)", body:[
+        "“Uma pintura a óleo não é uma camada: é um bolo. Embaixo, a preparação da tela. Depois, o desenho. Depois, as camadas de tinta. Por cima de tudo, o verniz. E por cima do verniz, às vezes, um restaurador desastrado do século passado.”",
+        "Luz ultravioleta: o verniz velho brilha verde-leitoso sob a UV, e os retoques recentes, feitos por cima do verniz, aparecem como manchas escuras. É assim que se descobre onde alguém mexeu.",
+        "Raio X: atravessa a tinta e mostra o que está embaixo, sobretudo o branco de chumbo. Às vezes aparece outro quadro inteiro por baixo.",
+        "Pentimento: quando o pintor mudou de ideia, uma mão que estava em outro lugar, um rosto que olhava para o outro lado. Vem do italiano pentirsi, arrepender-se. O quadro guarda o arrependimento do pintor."]},
+      {t:"Parte 3: o retrato de Thomas Carne (40 min)", body:[
+        "Forbes puxa um pano de cima de um cavalete: “Minha paciente da semana. O reverendo Thomas Carne, reitor, acusado de bruxaria em 1662. Coitado, um homem tão sério. Apaguem a luz.” Ele liga a lâmpada UV. O verniz brilha verde, mas o rosto inteiro aparece escuro: foi retocado por cima do verniz. “As fotos de raio X que eu mandei fazer em Edimburgo mostram três rostos, um sobre o outro.”",
+        "Ele espalha três fotografias de raio X sobre a mesa: a camada de 1960, com o rosto mais velho; a de 1890, um pouco mais jovem; e a original de 1662, que mostra um rapaz de uns vinte anos.",
+        "Teste: Inspecionar ou Percepção, DT 8. Sucesso: o jogador percebe que as camadas foram pintadas para envelhecer o rosto, não para corrigir dano, e que o rapaz da camada original se parece demais com o Elias. Forbes acha graça: “Que tradição curiosa, não? Cada restaurador acrescentou umas rugas. Talvez achassem que um reitor precisa parecer velho. Eu vou tirar tudo e devolver o rapaz ao mundo!”",
+        "O momento da cena: a porta do ateliê se abre. É o Elias, que estava passando. Ele olha a foto de raio X da camada original por um segundo longo, sem expressão, e diz baixo: “Era mais bonito antes.” Depois sorri para a turma e vai embora."]},
+      {t:"Parte 4: fechamento (15 min)", body:[
+        "“Para sexta que vem: terminem o desenho gótico, com sombra. E pensem nisto: se vocês tivessem que esconder algo dentro de um quadro, onde esconderiam? Os melhores segredos estão sempre embaixo de outra coisa.”"]},
+      {t:"Objetivos e bônus", body:[
+        "Objetivos: 1. Desenhar um elemento gótico do castelo e dizer o nome certo dele. 2. Explicar com as próprias palavras o que é pentimento ou como funciona a luz UV. 3. Perceber o que as camadas do retrato escondem (teste da Parte 3).",
+        "Os 3 objetivos: Olhar Restaurador, +2 em testes de Inspecionar para perceber falsificações, retoques, assinaturas e documentos adulterados até o fim da próxima sessão. E ganha a pista abaixo.",
+        "2 objetivos: +1 em um teste de Inspecionar ou Percepção até o fim da sessão.",
+        "1 ou nenhum: nada, e Forbes pede para o aluno limpar todos os pincéis do ateliê “com amor”."]},
+      {t:"Pista para quem cumpriu os 3 (só para o mestre)", seg:true, body:[
+        "Quando a turma sai, Forbes chama o aluno, entusiasmado como quem conta uma fofoca: “Querido, uma coisa engraçada, só entre nós. Aquele rapaz, o Vane, vem aqui quase todo dia ver este quadro. No mês passado eu achei ele sozinho, no escuro, com a minha lâmpada UV ligada, olhando para o rosto. E a Lucy, minha orientanda, tentou desenhar ele na biblioteca e não conseguiu fazer o rosto. Disse que ‘não fica no papel’. Que coisa, não? E tem mais: eu ia mandar o retrato de volta para o Great Hall na semana que vem, e ele me pediu para não tirar as camadas de cima. Disse que ‘a história também faz parte do quadro’. Que rapaz sensível!”",
+        "O jogador fica sabendo que o Elias vigia o retrato, que não quer que a camada original apareça, e que a Lucy não consegue desenhar o rosto dele."]},
+      {t:"Para o mestre", seg:true, body:[
+        "As fotos de raio X das três camadas são prova física de que o rosto do Elias é o de 1662. Se os jogadores as levarem ao Dr. Hay ou ao Reitor, junto com o Livro de Matrículas, é o que basta para convencer quem ainda duvida.",
+        "Se o Elias perceber que alguém viu as fotos, elas somem do ateliê. Forbes vai achar que as perdeu e vai ficar inconsolável.",
+        "Os retoques de 1890 e 1960 batem com os despertares do Carne (como Edward Lyall, em 1888, e logo depois do incêndio de 1957). Foi ele mesmo quem pediu aos restauradores da época que envelhecessem o reitor."]}
     ]},
     { id:"baird", g:1, name:"Dr. Robert Baird", role:"Matemática e Filosofia Natural; chefe do Departamento de Ciências (57 anos)", blocks:[
       {t:"Resumo", body:[
@@ -731,7 +1112,40 @@ var RETRATOS = {
       {t:"Aparência", body:["Alto, careca, barba grisalha bem aparada, óculos grossos e suéter de tricô com padrão de losangos. Calculadora científica no bolso da camisa."]},
       {t:"Segredos e enredo", seg:true, body:[
         "Gay, escondido a vida inteira. Estava apaixonado por David Shaw e nunca disse a ele. Guarda os cadernos de observação de David, que registram um rapaz que sobe ao Observatório sem aparecer no reflexo do telescópio.",
-        "Seus cálculos mostram que 30/11/1996 é noite de lua minguante. Pode emprestar a chave sobressalente da Torre Norte."]}
+        "Seus cálculos mostram que 30/11/1996 é noite de lua minguante. Pode emprestar a chave sobressalente da Torre Norte.",
+        "Ensinou a ficar em silêncio no escuro e a respeitar o tempo dos olhos. Tímido, fala para o quadro e não para a turma; só levanta os olhos quando fala de estrelas. Nunca se atrasa, nunca falta e nunca fala de si mesmo.",
+        "“Números não mentem. Pessoas, sim. Arquivos, sempre.” / “O céu é a única coisa neste castelo que não mudou desde 1342.”"]},
+      {t:"Sala e rotina", body:[
+        "A primeira hora é na Sala de Cálculo, ao pé da Torre Norte. A segunda é no Gramado Sul, à noite, com telescópios portáteis e lanternas cobertas com papel celofane vermelho, para não cegar a vista.",
+        "Rotina: cálculo no quadro, depois observação. Quem estuda deixa apontar o telescópio e escolher o alvo. Quem faz bagunça pede que conte em voz alta as estrelas das Plêiades a olho nu; a bagunça vira discussão de astronomia. Quem chega atrasado recebe a hora exata em que chegou, com segundos, e nada mais."]},
+      {t:"Aula: O Relógio da Lua", body:[
+        "Matemática e Filosofia Natural, 1º ano. Quinta-feira, 20h às 22h. Sala de Cálculo e Gramado Sul. A astronomia é real, e as datas de 1996 e 1991 também."]},
+      {t:"Parte 1: o cálculo (50 min, Sala de Cálculo)", body:[
+        "“Boa noite. A Lua leva cerca de 29,53 dias para voltar à mesma fase. Isso se chama mês sinódico. Se vocês souberem a data de uma lua nova, conseguem calcular a fase da Lua de qualquer dia, de qualquer ano, do passado ou do futuro. É o relógio mais antigo do mundo.”",
+        "Fases, em dias depois da lua nova: 0, lua nova (invisível); cerca de 7,4, quarto crescente; cerca de 14,8, lua cheia; cerca de 22,1, quarto minguante; 29,5, lua nova outra vez. “Entre a cheia e o quarto minguante, a Lua é ‘minguante gibosa’: ainda quase cheia, mas diminuindo. Nasce tarde, depois das nove ou dez da noite, e fica no céu até de manhã.”",
+        "O método: 1. Pegue uma lua nova conhecida. Ele usa a de 11 de novembro de 1996. 2. Conte os dias até a data que você quer. 3. Divida por 29,53 e fique com o resto. 4. Compare o resto com a tabela.",
+        "O exercício da turma: calcular a fase da Lua no dia 30 de novembro. De 11 a 30 de novembro são 19 dias: depois da cheia (dia 25) e antes do quarto minguante. Resposta: minguante gibosa, poucos dias depois da cheia. Teste: Aptidão (Matemática) ou Mente, DT 8."]},
+      {t:"Parte 2: a observação (60 min, Gramado Sul)", body:[
+        "“Luz vermelha não estraga a vista do escuro. Desliguem tudo o que é branco. Esperem vinte minutos. Os olhos precisam de tempo para se acostumar com a noite, como tudo neste castelo.”",
+        "O céu de novembro na Escócia: Cassiopeia, o W, bem alto sobre o castelo. As Plêiades, um pequeno aglomerado azulado; quem tem vista boa vê seis ou sete estrelas a olho nu. A Galáxia de Andrômeda, uma manchinha leitosa perto de Cassiopeia: “A luz que vocês estão vendo saiu de lá há mais de dois milhões de anos. Vocês estão olhando para o passado.” Órion nascendo a leste, sobre o mar, mais tarde da noite. O cometa Hale-Bopp, descoberto em 1995, já visível pelo telescópio, baixo no céu: “No ano que vem, ele vai estar tão brilhante que todo mundo vai ver sem telescópio. Vocês estão vendo antes de todo mundo.” (É real: foi o grande cometa da primavera de 1997.)",
+        "Teste: Percepção, DT 7, para achar a Galáxia de Andrômeda no telescópio.",
+        "O momento da cena: enquanto a turma observa, alguém vê uma luz acesa no alto da Torre Norte, no Observatório interditado. Uma lamparina amarela, que se apaga sozinha alguns segundos depois. Baird vê também. Fica imóvel, tira os óculos, limpa as lentes e diz só: “Reflexo. Vamos guardar os telescópios.”"]},
+      {t:"Parte 3: fechamento (10 min)", body:[
+        "“Para quinta que vem: calculem a fase da Lua no dia em que vocês nasceram. E no dia de hoje, daqui a cem anos. A Lua vai estar lá. Nós, não.”"]},
+      {t:"Objetivos e bônus", body:[
+        "Objetivos: 1. Acertar o cálculo da fase da Lua de 30/11 (teste da Parte 1). 2. Esperar os vinte minutos no escuro sem acender lanterna branca. 3. Achar a Galáxia de Andrômeda no telescópio (teste da Parte 2).",
+        "Os 3 objetivos: Olhos da Noite, +2 em testes de Percepção no escuro e em testes para calcular horários (marés, amanhecer, rondas) até o fim da próxima sessão. E ganha a pista abaixo.",
+        "2 objetivos: +1 em um teste de Percepção até o fim da sessão.",
+        "1 ou nenhum: nada, e o aluno carrega todos os telescópios de volta."]},
+      {t:"Pista para quem cumpriu os 3 (só para o mestre)", seg:true, body:[
+        "A turma volta para dentro, e Baird fica para trás com o aluno, olhando a Torre Norte apagada. Fala devagar, como quem nunca disse aquilo em voz alta: “Eu dividi o quarto com um rapaz em 1957. David Shaw. Ele era o melhor de nós. Passava as noites lá em cima, no Observatório. Uma semana antes do incêndio, ele escreveu no caderno que um rapaz subia a escada sem fazer barulho, e que não aparecia no espelho do telescópio. Eu achei que era cansaço. Eu guardo os cadernos dele até hoje.”",
+        "“E fiz uma conta, depois que aquele rapaz de Glasgow sumiu, em 1991. Véspera do Natal: lua minguante, poucos dias depois da cheia. Hoje vocês calcularam o dia 30. Mesma fase. Eu não acredito em coincidências. Eu acredito em números.”",
+        "“A chave da torre não sumiu de todo. Eu tenho uma. Se um dia vocês precisarem subir lá… eu não posso. Não consigo. Mas vocês podem.”",
+        "O jogador fica sabendo do rapaz sem reflexo em 1957, da coincidência da Lua entre 1991 e 1996, e de que Baird tem a chave sobressalente da Torre Norte."]},
+      {t:"Para o mestre", seg:true, body:[
+        "A conta da Lua dá aos jogadores um motivo matemático para desconfiar do dia 30/11 antes de acharem o caderno no bunker. Se eles já souberem a data, a aula confirma.",
+        "A luz no Observatório é o elemento Sangue reagindo ao lugar onde a Membrana está fraca. Se os jogadores subirem com a chave de Baird, encontram as marcas de mão queimadas na parede e o lugar vazio onde ficava o astrolábio de David, que hoje está na caixa de troféus.",
+        "Baird não fala de David como um amigo qualquer. Um teste de Intuição, DT 9, durante a pista, percebe que ele amava David. Se o jogador tratar isso com delicadeza, Baird vira o aliado mais leal do grupo."]}
     ]},
     { id:"greig", g:1, name:"Prof. Alasdair Greig", role:"Engenharia Civil e Mecânica (54 anos)", blocks:[
       {t:"Resumo", body:[
@@ -739,7 +1153,42 @@ var RETRATOS = {
       {t:"Aparência", body:["Grande, ombros largos, mãos calejadas e barba ruiva grisalha cortada rente. Macacão azul, óculos de proteção no pescoço e botas com bico de aço."]},
       {t:"Segredos e enredo", seg:true, body:[
         "Tem as plantas do bunker de 1940, com um duto que sobe até o quarto de Elias na Ala Oeste. Tem também um relatório de 1957 que cita marcas de mão queimadas na parede do Observatório.",
-        "Sabe abrir a porta de aço do bunker e conhece os túneis de serviço. Fica obcecado quando há uma passagem que não está em nenhum mapa."]}
+        "Sabe abrir a porta de aço do bunker e conhece os túneis de serviço. Fica obcecado quando há uma passagem que não está em nenhum mapa.",
+        "Ranzinza, direto, desconfiado de quem fala bonito. Respeita quem suja as mãos. Trata o castelo como um paciente velho e teimoso. Por trás da grosseria, é leal e protetor: nunca deixa um aluno se machucar numa obra.",
+        "“Fantasma não derruba parede. Umidade derruba.” / “Não me diga o que você acha. Me diga o que você mediu.”"]},
+      {t:"Sala e rotina", body:[
+        "A Oficina Greig, nas antigas cocheiras, com bancadas, ferramentas e maquetes de pontes. A parte prática é sempre no próprio castelo.",
+        "Rotina: quinze minutos de quadro, o resto com trena na mão. Quem estuda deixa segurar a trena e anotar as medidas. Quem faz bagunça manda carregar os tijolos do canto da oficina para o outro canto, e depois de volta. Quem chega atrasado recebe uma vassoura e a aula daquela pessoa vira a oficina limpa."]},
+      {t:"Aula: O Castelo Não Mente, Se Você Medir", body:[
+        "Engenharia Civil e Mecânica, 1º ano. Terça-feira, 9h às 11h30. Oficina Greig, claustro e adega. A engenharia é real."]},
+      {t:"Parte 1: como uma pedra fica de pé (30 min, na oficina)", body:[
+        "Greig fala de pé ao lado de uma maquete de arco feita de blocos de madeira, sem cola: “Bom dia. Uma pergunta: o que segura este castelo de pé há 654 anos?” Ele espera alguém dizer “o cimento” e tira um bloco do meio do arco. O arco desmorona.",
+        "“Não é o cimento. Na Idade Média, a argamassa era cal e areia, fraca como bolo. O que segura é a geometria. A pedra só aguenta bem uma coisa: ser apertada. Puxada, ela quebra. O arco transforma o peso de cima em aperto, e empurra para os lados. Esse empurrão chama-se empuxo. Se nada segurar o empuxo, as paredes abrem e tudo cai.”",
+        "Ele monta de novo o arco, agora com dois blocos pesados nas pontas: “Por isso, os contrafortes. Por isso, as paredes de dois metros de espessura. Escrevam.”",
+        "Conceitos: compressão, força que aperta (a pedra aguenta muito bem); tração, força que puxa (a pedra aguenta muito mal); empuxo, o empurrão para os lados que todo arco faz; contraforte, pilar externo que segura o empuxo; umidade ascendente, água que sobe pelas paredes a partir do chão, o maior inimigo dos castelos escoceses."]},
+      {t:"Parte 2: ler uma planta (25 min)", body:[
+        "Sobre a bancada, as plantas do castelo de 1932 (as mais recentes que existem). Planta baixa: o prédio visto de cima, cortado na altura de um metro do chão. Corte: o prédio fatiado de cima a baixo, como um bolo. Elevação: a fachada vista de frente. Escala: “1:100 quer dizer que um centímetro no papel é um metro de verdade. Quem confundir a escala derruba a ponte.”",
+        "Cada aluno mede na planta, com régua, o comprimento da adega. Na planta de 1932, a adega tem 14 metros."]},
+      {t:"Parte 3: o levantamento (60 min, no castelo)", body:[
+        "“Agora a parte boa. A planta diz uma coisa. Vamos ver o que o castelo diz.” A turma desce para a adega com trenas, lanternas e cadernos. Grupo 1: mede a adega por dentro, de parede a parede. Grupo 2: mede o mesmo trecho por fora, pelo corredor dos túneis de serviço que corre ao lado, e desconta a espessura das paredes (Greig dá o valor: 1,20 m cada).",
+        "Resultado: por dentro, a adega mede 12 metros. Por fora, descontadas as paredes, deveria medir 14 metros, como na planta. Faltam dois metros.",
+        "Teste: Aptidão (Matemática/Engenharia) ou Inspecionar, DT 8, para fazer as contas e perceber a diferença.",
+        "Greig refaz a conta em silêncio, duas vezes. Depois vai até a estante de garrafas no fundo da adega e bate na parede atrás dela com o nó dos dedos. O som é oco. “… Isto não está em nenhuma planta. E eu tenho todas as plantas.” Ele olha para a turma e fecha o caderno: “Aula encerrada. Ninguém comenta isso. É uma parede antiga, com um vão de ventilação. Só isso. Para cima, todos.”"]},
+      {t:"Parte 4: fechamento (10 min, de volta à oficina)", body:[
+        "“Para terça que vem: escolham uma sala do castelo, meçam por dentro e por fora e me tragam a diferença. Se der diferente de zero, me procurem antes de contar a qualquer outra pessoa.”"]},
+      {t:"Objetivos e bônus", body:[
+        "Objetivos: 1. Explicar com as próprias palavras por que o arco fica de pé (empuxo e compressão). 2. Ler a escala da planta e medir a adega no papel corretamente. 3. Achar a diferença de dois metros (teste da Parte 3).",
+        "Os 3 objetivos: Medida Certa, +2 em testes de Inspecionar para achar passagens, salas escondidas e fundos falsos até o fim da campanha, uma vez por sessão. E ganha a pista abaixo.",
+        "2 objetivos: +1 em um teste de Inspecionar até o fim da sessão.",
+        "1 ou nenhum: nada, e o aluno varre a oficina."]},
+      {t:"Pista para quem cumpriu os 3 (só para o mestre)", seg:true, body:[
+        "No fim do dia, Greig procura o aluno no claustro, com um rolo de papel debaixo do braço, e fala baixo e rápido: “Você mediu bem. Então eu vou te mostrar uma coisa que eu não mostrei a ninguém. São as plantas do abrigo da Marinha, de 1940, debaixo da Ala Oeste. Eu servi na Marinha, consegui as cópias nos arquivos de Rosyth. Olha aqui: o duto de ventilação do abrigo sobe por dentro da parede e sai no térreo da Ala Oeste. No último quarto do corredor. Sabe de quem é aquele quarto?”",
+        "“E tem mais: aquela parede oca na adega não é de 1940. É muito mais velha. Pela pedra, uns trezentos anos. Alguém construiu uma escada lá dentro. Eu não acredito em fantasma. Mas eu acredito em escadas. E escada serve para descer.”",
+        "O jogador fica sabendo do duto que liga o bunker ao quarto do Elias, de que a parede da adega esconde uma escada do século XVII, e ganha Greig como aliado: ele sabe abrir o bunker."]},
+      {t:"Para o mestre", seg:true, body:[
+        "A técnica de medir por dentro e por fora é real e é o jeito mais pé no chão de os jogadores acharem a Passagem Esquecida sem depender de sorte. Depois da aula, eles podem usar o método em qualquer sala do castelo.",
+        "Greig não acredita no sobrenatural até ver com os próprios olhos. Quando acreditar, vira o aliado mais útil do grupo: abre portas, segura escadas e conhece cada túnel.",
+        "Se o Elias souber que Greig mediu a adega, a estante aparece pregada na parede no dia seguinte. Greig fica furioso: “Quem mexeu na minha adega?”"]}
     ]},
     { id:"mackie", g:1, name:"Dr. Ewan Mackie", role:"Professor de Medicina e médico do Colégio (61 anos). Atende na Enfermaria às terças", blocks:[
       {t:"Resumo", body:[
@@ -758,7 +1207,47 @@ var RETRATOS = {
       {t:"Falas", body:[
         "“Tome isso três vezes ao dia. Ferro. E durma, pelo amor de Deus, durma.”",
         "“Eu vi as marcas no rapaz Lane. Escrevi ‘picada de inseto’. Em dezembro. Na Escócia.”",
-        "“Um médico de aldeia aprende cedo que há perguntas que só trazem mais mortos.”"]}
+        "“Um médico de aldeia aprende cedo que há perguntas que só trazem mais mortos.”"]},
+      {t:"Personalidade", body:[
+        "Fala devagar, com voz rouca de cachimbo. Explica tudo com paciência, como explicaria a uma família assustada. Tem as mãos firmes quando trabalha e trêmulas quando para. Evita olhar nos olhos quando o assunto é Oliver Lane."]},
+      {t:"Sala e rotina", body:[
+        "O Teatro de Anatomia, com a arquibancada circular de madeira em volta da mesa de mármore. Os alunos sentam em degraus, olhando para baixo, como nos teatros de dissecção do século XIX.",
+        "Começa com uma história de um paciente real de Kinmorrow (sem o nome), explica a anatomia no esqueleto e termina com a prática em dupla. Quem estuda deixa usar o estetoscópio. Quem faz bagunça é convidado a se deitar na mesa de mármore e servir de paciente; a mesa é muito fria. Quem chega atrasado tem o pulso tirado e ouve quantos lances de escada subiu correndo."]},
+      {t:"Aula: O Pescoço e os Primeiros Minutos", body:[
+        "Medicina, 1º ano. Terça-feira, 16h às 18h. Teatro de Anatomia, porão da ala sul. A anatomia e os primeiros socorros são reais e são os ensinados nos anos 90."]},
+      {t:"Parte 1: a história do paciente (10 min)", body:[
+        "Mackie entra pela porta da Enfermaria, devagar, com a maleta, e senta num banquinho ao lado da mesa de mármore: “Boa tarde. Em 1972, um pescador de Kinmorrow cortou o pescoço numa corda de aço, no porto. Um corte pequeno, assim, do tamanho do meu dedo. O colega dele entrou em pânico e foi chamar o médico. Quando eu cheguei, quinze minutos depois, o homem tinha morrido. Se o colega tivesse apertado o corte com a mão, ele estaria vivo hoje.”",
+        "“Esta aula não é para vocês virarem médicos. É para vocês saberem o que fazer nos primeiros minutos, antes de o médico chegar. Porque, neste castelo, o médico chega às terças.”"]},
+      {t:"Parte 2: anatomia do pescoço (35 min)", body:[
+        "“O pescoço é o lugar mais perigoso do corpo. Tudo o que é importante passa por um espaço do tamanho de uma garrafa.”",
+        "Artéria carótida: dos dois lados da traqueia, um pouco abaixo do ângulo da mandíbula. Leva o sangue ao cérebro. É onde se sente o pulso forte. Cortada, sangra em jato.",
+        "Veia jugular: mais superficial, na lateral do pescoço, pouco atrás da carótida. Traz o sangue de volta da cabeça. Cortada, sangra escuro e contínuo.",
+        "Traqueia: no meio, na frente. Passagem do ar.",
+        "Músculo esternocleidomastoideo: do atrás da orelha até o osso do peito. Protege a carótida e a jugular. É o cordão que salta quando a gente vira a cabeça.",
+        "“Atrás da orelha e na lateral do pescoço, a jugular fica a menos de um centímetro da pele. É por isso que as perfurações ali são tão perigosas. E tão discretas.” Ele faz uma pausa longa demais nessa frase. Quem passar num teste de Intuição, DT 8, percebe que ele está pensando em alguém.",
+        "O pulso: “O pulso normal de um adulto em repouso: entre 60 e 100 batidas por minuto. Abaixo disso, ou é um atleta, ou alguma coisa está errada. Quem perdeu muito sangue tem o pulso rápido e fraco, a pele fria e pálida, e confusão. Isso se chama choque.”"]},
+      {t:"Parte 3: primeiros socorros (55 min)", body:[
+        "ABC, o método que todo socorrista aprendia nos anos 90. A, airway (vias aéreas): o ar passa? Fazer: inclinar a cabeça para trás e levantar o queixo. B, breathing (respiração): está respirando? Fazer: olhar o peito, ouvir, sentir o ar por 10 segundos. C, circulation (circulação): tem pulso? está sangrando? Fazer: sentir a carótida e parar o sangramento.",
+        "Para parar um sangramento: 1. Pressão direta, apertando a ferida com um pano limpo, ou com a mão, se não houver pano. 2. Elevação: se for num braço ou numa perna, levantar acima do coração. 3. Não tirar o pano: se encharcar, pôr outro por cima. 4. Tratar o choque: deitar a pessoa, levantar as pernas, cobrir com um casaco e não dar nada de beber.",
+        "A prática em dupla: cada aluno tira o pulso do colega, na carótida e no punho, contando por 15 segundos e multiplicando por 4. Depois, Mackie deita um aluno voluntário na mesa de mármore, desenha com caneta vermelha duas pequenas marcas na lateral do pescoço, atrás da orelha, e diz: “Paciente encontrado desmaiado no claustro, de manhã. Pálido, frio, pulso a 120. Duas pequenas feridas aqui. Vocês têm dois minutos. Vão.”",
+        "Teste: Medicina, DT 7, para fazer o ABC na ordem certa, apertar as feridas e tratar o choque.",
+        "Se alguém perguntar “O que fez essas marcas?”, Mackie responde rápido demais: “Não importa. Num atendimento, a causa não importa. Importa o sangue que está saindo.” E guarda a caneta vermelha no bolso."]},
+      {t:"Parte 4: fechamento (10 min)", body:[
+        "“Para terça que vem: decorem o ABC. E cada um vai sair daqui com uma atadura no bolso. Carreguem sempre. Num castelo cheio de escadas de pedra, vocês vão precisar.” Ele entrega uma atadura de gaze a cada aluno."]},
+      {t:"Objetivos e bônus", body:[
+        "Objetivos: 1. Tirar o pulso do colega corretamente. 2. Dizer em ordem o que significa o ABC. 3. Fazer o atendimento simulado (teste da Parte 3).",
+        "Os 3 objetivos: Mãos Firmes. O jogador aprende primeiros socorros. Uma vez por sessão, até o fim da campanha, pode estancar um sangramento ou tirar alguém do choque, recuperando 1d4 PV de um aliado, mesmo sem a perícia Medicina. E ganha a pista abaixo.",
+        "2 objetivos: +1 em um teste de Medicina até o fim da sessão.",
+        "1 ou nenhum: nada, mas ganha a atadura do mesmo jeito: “Você vai precisar mais que os outros.”"]},
+      {t:"Pista para quem cumpriu os 3 (só para o mestre)", seg:true, body:[
+        "A turma sobe as escadas, e Mackie pede ao aluno que fique para ajudar a guardar o esqueleto. Ele abre o crânio de gesso, serve dois dedos de uísque num copinho e não oferece: “Aquelas marcas que eu desenhei. Eu não inventei. Eu vi iguais em 1991, num rapaz de Glasgow, Oliver Lane. Anemia grave, três meses. Duas perfurações atrás da orelha. Eu escrevi ‘picada de inseto’. Em dezembro. Na Escócia.”",
+        "“E eu vejo as mesmas marcas agora, nos alunos daquele clube de poesia. Eu receito ferro e me calo. Sabe por quê? Porque o último médico de Kinmorrow que fez perguntas sobre este castelo foi o meu antecessor, em 1957. Ele perguntou demais sobre o rapaz que morreu no incêndio. Seis meses depois, teve de ir embora da vila. Eu tenho sessenta e um anos e uma casa em Kinmorrow.”",
+        "“Não conte a ninguém que eu disse isso. Mas, se você encontrar alguém com essas marcas, traga para mim. Eu ainda sei fechar uma ferida.”",
+        "O jogador fica sabendo das marcas de 1991, de que Mackie viu as mesmas na Vigília, e de que alguém já foi expulso da vila em 1957 por fazer perguntas. E ganha Mackie como aliado culpado."]},
+      {t:"Para o mestre", seg:true, body:[
+        "O bônus Mãos Firmes é importante para a Cena 18 e a Cena 19, nas cavernas, onde alguém vai sangrar. Os jogadores que fizeram a aula vão agradecer ao Mackie.",
+        "O atendimento simulado é o retrato exato de quem foi mordido. Se um jogador já tiver as marcas e o Mackie desenhar no mesmo lugar, o jogador sente o pescoço arder (teste de Emoção, DT 7, para não levar a mão ao pescoço na frente de todos).",
+        "Se o Elias souber que o Mackie está falando, o médico aparece na terça seguinte sóbrio, frio e com uma rosa negra seca na maleta. Não dá aula. Pede licença por motivos de saúde. Os jogadores vão ter de ir até a casa dele, em Kinmorrow, para trazê-lo de volta."]}
     ]},
     { id:"duncan", g:1, name:"Prof. Duncan Reid", role:"Educação Física (45 anos)", blocks:[
       {t:"Resumo", body:[
@@ -766,7 +1255,48 @@ var RETRATOS = {
       {t:"Aparência", body:["Forte, nariz quebrado de rugby, barba de dois dias e rosto vermelho de vento. Agasalho azul-marinho com o brasão do Colégio e apito no pescoço."]},
       {t:"Segredos e enredo", seg:true, body:[
         "Entrou nas cavernas pela praia quando era menino e ouviu “um homem cantando em latim” lá embaixo. Nunca mais voltou.",
-        "A tábua das marés pregada na porta do pavilhão é essencial para entrar e sair das cavernas. Pode emprestar o barco e as cordas."]}
+        "A tábua das marés pregada na porta do pavilhão é essencial para entrar e sair das cavernas. Pode emprestar o barco e as cordas."]},
+      {t:"Personalidade", body:[
+        "Barulhento, alegre e justo. Grita o nome de todo mundo e nunca esquece nenhum. Trata os calouros com dureza de treinador, mas é o primeiro a dar o casaco a quem está com frio. É protetor com o pai e muda de expressão quando alguém fala das cavernas.",
+        "“Bom dia, Brasil! Três voltas na praia. Quem chegar por último carrega os remos!” / “O mar não liga para quem você é. Ele só respeita quem respeita ele.”"]},
+      {t:"Sala e rotina", body:[
+        "A praia de seixos ao amanhecer, com neblina e frio, e o galpão de barcos com cheiro de madeira molhada.",
+        "Rotina: corrida, aquecimento, técnica e prática na água. Quem estuda deixa ser o stroke, quem dá o ritmo no barco. Quem faz bagunça é mandado correr até o farol e voltar. Quem chega atrasado ganha uma volta a mais na praia por minuto de atraso, cronometrada."]},
+      {t:"Aula: O Mar Não Espera Ninguém", body:[
+        "Educação Física, 1º ano. Segunda-feira, 6h às 8h. Praia de seixos, galpão de barcos e o mar. A técnica de remo, os nós e a segurança no mar são reais."]},
+      {t:"Parte 1: a corrida (20 min)", body:[
+        "Ainda está escuro. Duncan espera os alunos na Escadaria dos Pescadores com uma lanterna e um apito: “Bom dia, Brasil! Bom dia, Escócia! Hoje o mar está a oito graus. Isso é quente. Em janeiro vocês vão sentir saudade de hoje. Três voltas na praia, do pé da escada até as rochas e de volta. Vai!”",
+        "Teste: Atletismo, DT 6, para completar as três voltas sem parar. Quem falhar termina caminhando, e Duncan corre ao lado: “Não importa a velocidade. Importa não parar.”"]},
+      {t:"Parte 2: a técnica de remo (30 min, no galpão)", body:[
+        "Ele senta num barco no seco, num banco de remo, e mostra as quatro fases da remada. Pegada (catch): a pá entra na água, braços esticados, corpo inclinado para a frente. Puxada (drive): empurra com as pernas primeiro, depois o corpo, e só no fim os braços. Final (finish): a pá sai da água, mãos perto do peito. Recuperação (recovery): volta devagar para a frente, pronto para a próxima pegada.",
+        "“O erro de todo calouro é remar com os braços. O remo é perna. Setenta por cento da força vem das pernas. Os braços só terminam o serviço. E o barco inteiro rema junto, no ritmo de quem está na frente. Um barco desencontrado não anda: só balança.”",
+        "Nós de marinheiro: cada aluno aprende dois. Lais de guia (bowline): uma laçada que não aperta e não escorrega. “Serve para amarrar uma pessoa e puxar. O coelho sai da toca, dá a volta na árvore e volta para a toca.” Nó de escota: para amarrar duas cordas de grossuras diferentes.",
+        "Teste: Aptidão ou Sobrevivência, DT 7, para dar um lais de guia certo em menos de um minuto."]},
+      {t:"Parte 3: segurança na água fria (15 min)", body:[
+        "“Escutem, porque isso salva vida. Se vocês caírem nesta água, o primeiro minuto é o pior. O frio faz vocês puxarem o ar sem querer, e quem está com a boca na água engole o mar. Isso se chama choque térmico. Não lutem. Fiquem de barriga para cima, com a cabeça fora, e respirem devagar até o susto passar. Depois, nadem para o barco ou fiquem parados no colete.”",
+        "“Com o tempo, o frio vai tirando a força das mãos e das pernas. Por isso, no mar escocês, colete sempre. Quem entrar no meu barco sem colete volta para a praia nadando.”",
+        "Ele pendura a tábua das marés na porta do galpão: “A maré sobe e desce duas vezes por dia, mais ou menos a cada doze horas e meia. Todo dia ela atrasa uns cinquenta minutos. Nas luas cheia e nova, a maré é maior: sobe mais e desce mais. Hoje, maré baixa às 7h10. Vamos aproveitar.”"]},
+      {t:"Parte 4: no mar (45 min)", body:[
+        "A turma entra em dois barcos de quatro remadores, com Duncan no leme de um deles. Os barcos seguem colados à falésia, para o norte, na maré baixa.",
+        "Teste: Atletismo, DT 7, para remar no ritmo do barco. Falha: o barco perde o ritmo e balança. Duncan grita: “Pernas! Pernas! Todo mundo junto, comigo: pega… puxa!”",
+        "O momento da cena: na volta, o barco de Duncan passa bem na frente das três bocas das cavernas, abertas na base da falésia, abaixo do castelo. A maré está baixa, e dá para ver a areia molhada entrando na escuridão. O vento sai das grutas com um som parecido com uma voz. Teste de Percepção, DT 8: o jogador ouve, por um segundo, algo que parece alguém cantando, muito baixo, lá dentro. Ou o choro de uma moça.",
+        "Duncan para de remar de repente, olha para as cavernas e grita, alto demais: “Vira! Todo mundo, vira o barco! Para casa, já!” E rema de volta mais rápido do que todos."]},
+      {t:"Parte 5: fechamento (10 min, no galpão)", body:[
+        "“Para quarta: dez lais de guia sem errar. E ninguém, ouviram, ninguém chega perto daquelas grutas sem mim. A maré enche em quarenta minutos. Quem estiver lá dentro quando ela subir não sai.”"]},
+      {t:"Objetivos e bônus", body:[
+        "Objetivos: 1. Completar a corrida sem parar. 2. Dar um lais de guia correto. 3. Remar no ritmo do barco (teste da Parte 4).",
+        "Os 3 objetivos: Pernas de Marinheiro, +2 em testes de Atletismo e Sobrevivência na costa, na água e nas cavernas até o fim da campanha, uma vez por sessão. E ganha a pista abaixo.",
+        "2 objetivos: +1 em um teste de Atletismo até o fim da sessão.",
+        "1 ou nenhum: nada, e o aluno carrega os remos de volta e lava os barcos."]},
+      {t:"Pista para quem cumpriu os 3 (só para o mestre)", seg:true, body:[
+        "Enquanto a turma sobe a escadaria, Duncan fica para trás com o aluno, enrolando as cordas, sem olhar para ele: “Você ouviu lá na frente das grutas, não ouviu? Eu vi a sua cara. Eu tinha doze anos. Entrei lá pela praia, na maré baixa, com dois amigos, apostando quem ia mais fundo. Eu fui o mais fundo. Lá no fim tem uma sala grande, seca. E tinha uma luz de vela. E um homem cantando em latim. Uma voz bonita, jovem. Eu corri tanto que quase me afoguei na volta. A maré já estava subindo.”",
+        "“Nunca contei para o meu pai. Ele ia me dar uma surra, e depois ia ficar com medo. Ele tem medo daquelas grutas. Ele finge que não, mas tem. Se um dia você tiver que entrar lá, e eu espero que não tenha, me chama. Eu sei os horários da maré de cabeça. E tenho o barco. E não tenho mais doze anos.”",
+        "O jogador fica sabendo que existe uma sala seca no fundo das cavernas, iluminada, com alguém cantando em latim, e que dá para entrar pela praia na maré baixa. Ganha também Duncan como aliado, com barco, cordas e os horários da maré."]},
+      {t:"Para o mestre", seg:true, body:[
+        "A aula dá aos jogadores um segundo caminho para as cavernas: pelo mar, na maré baixa, em vez de pela Passagem Esquecida da adega. Na Cena 18, se a passagem estiver bloqueada, o barco de Duncan é a alternativa.",
+        "A maré pode virar relógio de tensão: na noite de 30/11, logo depois da lua cheia de 25/11, a maré ainda está alta. O grupo tem pouco tempo antes de a água fechar as saídas.",
+        "O lais de guia serve para tirar alguém de um poço, de uma fenda ou da água. Se um jogador o usar nas cavernas, lembre a ele da aula.",
+        "Duncan é forte e corajoso, mas tem medo das cavernas desde criança. Se ele entrar com os jogadores, faça um teste de Emoção dele na primeira vez que ouvir o canto. Se falhar, ele congela, e um jogador precisa trazê-lo de volta."]}
     ]},
 
     /* ---------- ALUNOS NOTÁVEIS ---------- */
@@ -950,6 +1480,86 @@ var RETRATOS = {
         "A caixa de música no bunker revela toda a história de uma vez. É um ótimo momento de virada no Ato 3 ou 4."]}
     ]}
   ];
+
+  // Ficha mecânica e aula resumida da Dra. Morag Lindsay
+  FICHAS["morag"] = {nivel:2, F:4, M:10, E:8, PV:8, PD:14, pericias:{"Intuição":10,"Aptidão (Ciências)":8,"Inspecionar":8,"Persuasão":6}, itens:"gravador de fita portátil; prancheta; fitas de entrevistas (entre elas a de Clara); questionários de sono; eletroencefalógrafo do laboratório; caixa de cartas da Kirsty (gaveta trancada)", ataques:"—", poderes:"Leitura de pessoas: percebe quando alguém mente sobre o próprio sono, os sonhos ou a memória; Hipnose clínica: uma vez por cena, com 10 minutos de sessão, dá +2 a um aliado no próximo teste contra o Encanto do Elias. No Ato 5, é o que pode devolver a memória de Clara"};
+  AULAS["morag"] = {
+    materia: "Psicologia, sexta às 10h.",
+    conteudo: "Memória, esquecimento e falsas memórias; sono e sonhos.",
+    cena: "O experimento da lista de palavras, em que a turma lembra uma palavra que ela nunca disse.",
+    teste: "Mente ou Intuição, DT 8, para não cair na falsa memória.",
+    mestre: "A pesquisa Lacunas de Memória Noturna, 1996, mostra treze alunos que não lembram de noites inteiras, todos da Vigília. Clara é a voluntária nº 14. Morag acha que é histeria coletiva ou droga."
+  };
+
+  // Ficha mecânica e aula resumida do Dr. Gideon Hay
+  FICHAS["hay"] = {nivel:2, F:4, M:12, E:6, PV:8, PD:12, pericias:{"Aptidão (Filosofia)":12,"Persuasão":8,"Atualidades/História":8,"Intuição":4}, itens:"cachimbo apagado; Tratado da Natureza Humana de Hume (edição de 1888, cheia de anotações); pilha de ensaios dos alunos; a ficha de transferência do Elias; tabuleiro de xadrez", ataques:"—", poderes:"Diálogo socrático: uma vez por cena, faz uma pergunta que obriga o alvo a pensar. O alvo faz um teste de Mente, DT 8; se falhar, fica confuso e perde a próxima ação de discussão; Ponto cego: recebe −4 em qualquer teste para perceber algo errado no Elias, até ser convencido com provas"};
+  AULAS["hay"] = {
+    materia: "Filosofia, terça às 15h.",
+    conteudo: "Identidade pessoal: Locke, Hume e o escocês Thomas Reid.",
+    cena: "Seminário em que o Elias, como monitor, lê um ensaio sobre um homem que vive trezentos anos.",
+    teste: "Mente ou Aptidão (Filosofia), DT 8, para encontrar a falha no argumento.",
+    mestre: "Os ensaios do Elias citam manuscritos do século XVII que não existem em biblioteca nenhuma. A ficha de transferência dele, de 1994, tem o carimbo de uma faculdade de Oxford que fechou em 1902. Hay não vê nada disso, por admiração."
+  };
+
+  // Ficha mecânica e aula resumida da Prof.ª Ailsa Munro
+  FICHAS["munro"] = {nivel:2, F:4, M:8, E:12, PV:8, PD:16, pericias:{"Aptidão (Artes/Música)":12,"Intuição":10,"Religião":8,"Percepção":8}, itens:"chave do órgão da capela; caderno das três notas; partituras de E. Lyall, tutor (século XIX); saltério escocês de 1650; diapasão de prata; xale tartã azul", ataques:"—", poderes:"Ouvido absoluto: reconhece qualquer melodia, voz ou instrumento já ouvido, mesmo distorcido ou à distância; percebe quando alguém canta ou toca fora do tempo, com técnica de outra época; Salmo de Proteção: uma vez por cena, regendo ou cantando o Salmo 121, dá +2 a todos os aliados que cantarem com ela em testes contra efeitos de Sangue ou contra o Encanto. Nas cavernas, diante do altar, vale também como bônus no ritual para destruir o altar"};
+  AULAS["munro"] = {
+    materia: "Música, quarta às 18h, na galeria da Capela.",
+    conteudo: "Os salmos métricos escoceses e o canto puxado (precenting); leitura de melodia.",
+    cena: "A turma aprende a cantar o Salmo 121 do jeito das igrejas das Highlands, e o órgão responde sozinho.",
+    teste: "Aptidão (Música) ou Emoção, DT 7, para cantar afinado com o grupo.",
+    mestre: "As três notas que o órgão toca sozinho às 3h são o começo da melodia do Salmo 121, o salmo do livro de Margaret Lyall. Cantá-lo inteiro nas cavernas enfraquece Carne."
+  };
+
+  // Ficha mecânica e aula resumida do Prof. Niall Forbes
+  FICHAS["forbes"] = {nivel:2, F:6, M:10, E:8, PV:10, PD:12, pericias:{"Aptidão (Artes)":12,"Inspecionar":10,"Atualidades/História":8,"Persuasão":6}, itens:"lâmpada de luz ultravioleta portátil; lupa de joalheiro; pincéis finos; solventes; avental manchado; fotografias de raio X do acervo; maquete do castelo", ataques:"—", poderes:"Olho de restaurador: percebe falsificações, retoques, camadas escondidas e mudanças em quadros, documentos e objetos antigos, com +2 em Inspecionar para obras de arte, assinaturas e caligrafia; Fofoca bem informada: uma vez por sessão, conta aos jogadores um boato verdadeiro sobre algum professor ou aluno. O mestre escolhe qual"};
+  AULAS["forbes"] = {
+    materia: "Artes Visuais e Arquitetura, sexta às 14h.",
+    conteudo: "Arquitetura gótica do castelo e restauração de pinturas (luz ultravioleta, raio X e pentimento).",
+    cena: "Demonstração com luz UV no retrato de Thomas Carne, retirado do Great Hall para restauro.",
+    teste: "Inspecionar ou Percepção, DT 8, para perceber que o rosto foi repintado para parecer mais velho.",
+    mestre: "Sob luz UV, o retrato mostra que o rosto foi repintado em 1890 e em 1960, sempre para parecer mais velho. A camada original é de um rapaz de uns 20 anos, igual ao Elias. Forbes acha que é uma tradição curiosa de restauradores."
+  };
+
+  // Ficha mecânica e aula resumida do Dr. Robert Baird
+  FICHAS["baird"] = {nivel:2, F:4, M:12, E:6, PV:8, PD:12, pericias:{"Aptidão (Ciências/Matemática)":12,"Percepção":10,"Inspecionar":8,"Furtividade":4}, itens:"calculadora científica; luneta de latão; cartas celestes; efemérides de 1996; cadernos de observação de David Shaw (1957); foto de Baird e David em 1957; chave sobressalente da Torre Norte (escondida)", ataques:"—", poderes:"Cálculo preciso: com 10 minutos e papel, calcula horários de maré, de nascer e pôr do sol e de fases da Lua para qualquer data; +2 em testes para planejar ações com hora marcada (entrar nas cavernas na maré baixa, chegar antes do amanhecer); Memória de 1957: uma vez por sessão, lembra de um detalhe sobre o incêndio, David Shaw ou o rapaz do Observatório. O mestre escolhe qual"};
+  AULAS["baird"] = {
+    materia: "Matemática e Filosofia Natural, quinta às 20h, no Gramado Sul.",
+    conteudo: "Fases da Lua, o mês sinódico e o céu de outono; o cometa Hale-Bopp.",
+    cena: "A turma calcula a fase da Lua de 30/11/1996 e observa o céu com telescópios portáteis.",
+    teste: "Aptidão (Matemática) ou Mente, DT 8, para acertar o cálculo.",
+    mestre: "Os cadernos de David Shaw registram um rapaz que subia ao Observatório sem fazer barulho e não aparecia no espelho do telescópio. Baird tem a chave sobressalente da Torre Norte."
+  };
+
+  // Ficha mecânica e aula resumida do Prof. Alasdair Greig
+  FICHAS["greig"] = {nivel:3, F:10, M:10, E:4, PV:16, PD:10, pericias:{"Aptidão (Engenharia)":12,"Tecnologia":10,"Inspecionar":10,"Luta":6,"Intimidar":6}, itens:"chave inglesa; trena de 30 m; nível de bolha; lanterna potente; plantas do castelo (inclusive as do bunker de 1940); relatório do incêndio de 1957; molho de chaves dos túneis de serviço; macacão azul; óculos de proteção", ataques:"Chave inglesa pesada — Luta 6 — 1d6+1", poderes:"Leitura de estrutura: olhando uma parede, um piso ou uma escada por um minuto, sabe se aguenta peso, se está oca ou se esconde algo; +2 em Inspecionar para achar passagens, salas e fundos falsos; Mão na massa: abre portas emperradas, fechaduras simples, grades e a porta de aço do bunker sem chave, com 10 minutos e ferramentas"};
+  AULAS["greig"] = {
+    materia: "Engenharia Civil e Mecânica, terça às 9h.",
+    conteudo: "Estruturas de alvenaria (arcos e cargas), leitura de plantas e levantamento de medidas.",
+    cena: "A turma mede a adega por dentro e por fora e descobre que faltam dois metros.",
+    teste: "Aptidão (Matemática/Engenharia) ou Inspecionar, DT 8, para achar a diferença nas medidas.",
+    mestre: "As plantas do bunker de 1940 mostram um duto de ventilação que sobe até o quarto do Elias. O relatório de 1957 cita marcas de mão queimadas no Observatório. Greig sabe abrir o bunker e conhece os túneis."
+  };
+
+  // Ficha mecânica e aula resumida do Dr. Ewan Mackie
+  FICHAS["mackie"] = {nivel:2, F:4, M:10, E:6, PV:8, PD:10, pericias:{"Medicina":12,"Intuição":8,"Inspecionar":8,"Disciplina":4}, itens:"maleta médica (ataduras, gaze, seringas, sais de cheiro, comprimidos de ferro, morfina com receita); estetoscópio; relógio de bolso; cachimbo; livro de atestados de óbito de Kinmorrow; ficha médica de Oliver Lane; uísque no crânio de gesso", ataques:"—", poderes:"Médico de família: uma vez por cena, com 10 minutos e a maleta, recupera 1d6 PV de um personagem e tira condições como sangramento, choque ou desmaio; Atestado conveniente: pode assinar um atestado médico que dispensa um aluno de aulas, do toque de recolher ou de uma punição, desde que o jogador o convença (Persuasão, DT 8)"};
+  AULAS["mackie"] = {
+    materia: "Medicina, terça às 16h, depois do atendimento na Enfermaria.",
+    conteudo: "Anatomia do pescoço e primeiros socorros (o ABC, o pulso, hemorragia e choque).",
+    cena: "Os alunos tiram o pulso uns dos outros e atendem um paciente com duas pequenas perfurações no pescoço.",
+    teste: "Medicina, DT 7, para fazer o atendimento de primeiros socorros na ordem certa.",
+    mestre: "Mackie percebeu as anemias da Vigília e a de Oliver Lane, e escolheu não perguntar. Confrontado com provas, desaba e vira aliado culpado."
+  };
+
+  // Ficha mecânica e aula resumida do Prof. Duncan Reid
+  FICHAS["duncan"] = {nivel:3, F:14, M:6, E:8, PV:22, PD:10, pericias:{"Atletismo":12,"Luta":10,"Sobrevivência (mar e costa)":10,"Pilotagem (barco)":8,"Intimidar":6}, itens:"apito; cronômetro; tábua das marés de 1996; chave do galpão de barcos; cordas de escalada; lanterna à prova d'água; coletes salva-vidas; frasco de uísque para emergências", ataques:"Soco — Luta 10 — 1d4+2; Remo — Luta 10 — 1d8+1", poderes:"Tackle de rugby: uma vez por cena, derruba um inimigo com um teste de Luta; o alvo cai e perde a próxima ação; Conhece a costa: sabe de cabeça os horários da maré e os caminhos seguros pela praia e pelas rochas. +2 para o grupo em testes de Sobrevivência e Atletismo na costa e nas cavernas, quando ele estiver junto"};
+  AULAS["duncan"] = {
+    materia: "Educação Física, segunda, quarta e sexta às 6h, na praia e no galpão de barcos.",
+    conteudo: "Corrida na praia, técnica de remo, nós de marinheiro e segurança na água fria.",
+    cena: "A turma rema ao longo da falésia, na maré baixa, e passa na frente das bocas das cavernas.",
+    teste: "Atletismo, DT 7, para remar no ritmo do barco.",
+    mestre: "Entrou nas cavernas quando era menino e ouviu um homem cantando em latim. Nunca mais voltou. A tábua das marés na porta do pavilhão é essencial para entrar e sair das cavernas. Pode emprestar o barco e as cordas."
+  };
 
   /* ---------- utilidades ---------- */
   function norm(s){
