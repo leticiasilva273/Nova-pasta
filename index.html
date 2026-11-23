@@ -233,6 +233,7 @@
 <footer>Escudo do mestre · não mostrar aos jogadores</footer>
 
 <script src="biblia-dunraven.js"></script>
+<script src="roteiro-mestre.js"></script>
 <script>
 const FICHAS = {
   "malcolm-ross":  {nivel:3, F:6, M:8, E:8, PV:12, PD:14, pericias:{"Persuasão":8,"Disciplina":10,"Aptidão":10,"Intimidar":6}, itens:"anel de ouro com o brasão; chave do gabinete; livro de atas", ataques:"—", poderes:"Argumento certo; Sangue-frio"},
@@ -535,7 +536,7 @@ const SLUG = {
 (function(){
   "use strict";
 
-  var GRUPOS = ["Administração", "Corpo Docente", "Alunos Notáveis", "Outros Bolsistas Brasileiros", "Vilão", "Locais", "Jogadora", "Bíblia", "Mundo", "Só para o mestre"];
+  var GRUPOS = ["Administração", "Corpo Docente", "Alunos Notáveis", "Outros Bolsistas Brasileiros", "Vilão", "Locais", "Jogadora", "Bíblia", "Mundo", "Só para o mestre", "Roteiro"];
 
   // g = índice do grupo. blocks: {t, body[], seg (segredo), ol (lista numerada)}
   var DATA = [
@@ -1385,15 +1386,29 @@ const SLUG = {
   }
 
   /* ---------- aba Bíblia (texto em biblia-dunraven.js) ---------- */
+  // Negrito aceita itálico dentro (ex.: **O minuto de *Silentium*.**)
   function inlineNodes(texto){
     var frag = document.createDocumentFragment();
-    String(texto).replace(/\[([^\]]+)\]\([^)]*\)/g, "$1").replace(/\\(.)/g, "$1").split(/(\*\*[^*]+\*\*|\*[^*]+\*)/).forEach(function(parte){
+    String(texto).replace(/\[([^\]]+)\]\([^)]*\)/g, "$1").split(/(\*\*(?!\s)[\s\S]+?\*\*(?!\*))/).forEach(function(parte){
       if (!parte) return;
-      if (/^\*\*[^*]+\*\*$/.test(parte)) frag.appendChild(el("strong", null, parte.slice(2, -2)));
-      else if (/^\*[^*]+\*$/.test(parte)) frag.appendChild(el("em", null, parte.slice(1, -1)));
-      else frag.appendChild(document.createTextNode(parte));
+      if (/^\*\*(?!\s)[\s\S]+\*\*$/.test(parte) && parte.length > 4) {
+        var st = el("strong");
+        st.appendChild(italicNodes(parte.slice(2, -2)));
+        frag.appendChild(st);
+      } else {
+        frag.appendChild(italicNodes(parte));
+      }
     });
     return frag;
+  }
+  function italicNodes(t){
+    var f = document.createDocumentFragment();
+    t.split(/(\*[^*\s][^*]*\*)/).forEach(function(p){
+      if (!p) return;
+      if (/^\*[^*\s][^*]*\*$/.test(p)) f.appendChild(el("em", null, p.slice(1, -1)));
+      else f.appendChild(document.createTextNode(p.replace(/\\(.)/g, "$1")));
+    });
+    return f;
   }
 
   // Converte o markdown da Bíblia em blocos: "## " abre um bloco, "### " um subtítulo
@@ -1418,7 +1433,8 @@ const SLUG = {
     panel.appendChild(titulo);
     panel.appendChild(cargo);
 
-    var todas = String(window.BIBLIA_MD || "").replace(/\r/g, "").split("\n");
+    var fonte = cfg.fonte !== undefined ? cfg.fonte : window.BIBLIA_MD;
+    var todas = String(fonte || "").replace(/\r/g, "").split("\n");
     var linhas = todas;
     if (cfg.prefixo) {
       // Recorta do cabeçalho "## ..." que começa com o prefixo até o próximo "## "
@@ -1433,11 +1449,23 @@ const SLUG = {
     }
     var blocos = [];
     var atual = null, par = [], lista = null, ultimoLi = null, ultimoSub = null, tab = [];
+    var bq = null, bqPar = [];
+
+    // Texto fora de qualquer "## " (byline, intro) ganha um bloco sem título
+    function garantir(){
+      if (!atual) { atual = el("article", "block"); panel.appendChild(atual); blocos.push(atual); }
+    }
+    function bqFlush(){
+      if (bq && bqPar.length) { var p = el("p"); p.appendChild(inlineNodes(bqPar.join(" "))); bq.appendChild(p); }
+      bqPar = [];
+    }
+    function bqEnd(){ bqFlush(); bq = null; }
 
     function fechaTab(){
       var rows = tab.filter(function(r){ return !/^\s*\|?\s*:?-{3,}/.test(r); });
       tab = [];
-      if (!rows.length || !atual) return;
+      if (!rows.length) return;
+      garantir();
       var t = el("table", "biblia-tabela");
       rows.forEach(function(r, idx){
         var cells = r.trim().replace(/^\|/, "").replace(/\|$/, "").split("|");
@@ -1469,7 +1497,7 @@ const SLUG = {
       blocos.push(atual);
     }
     function addItem(tag, ind, texto){
-      if (!atual) return;
+      garantir();
       fechaPar();
       var li = el("li");
       li.appendChild(inlineNodes(texto));
@@ -1486,6 +1514,15 @@ const SLUG = {
 
     linhas.forEach(function(raw){
       var m;
+      if (/^>/.test(raw)) {
+        var txt = raw.replace(/^>\s?/, "").trim();
+        if (!atual && !cargo.hasChildNodes()) { if (txt) cargo.appendChild(inlineNodes(txt)); return; }
+        garantir();
+        if (!bq) { fechaPar(); fechaLista(); bq = el("blockquote"); atual.appendChild(bq); }
+        if (txt) bqPar.push(txt); else bqFlush();
+        return;
+      }
+      if (bq) bqEnd();
       if (/^\s*\|/.test(raw)) { fechaPar(); fechaLista(); tab.push(raw); return; }
       if (tab.length) fechaTab();
       if (/^\s*---+\s*$/.test(raw)) { fechaPar(); fechaLista(); return; }
@@ -1493,19 +1530,17 @@ const SLUG = {
       if (/^## /.test(raw)) { abreBloco(raw.slice(3)); return; }
       if (/^### /.test(raw)) {
         fechaPar(); fechaLista();
-        if (atual) atual.appendChild(el("h4", null, raw.slice(4)));
-        return;
-      }
-      if (/^> /.test(raw)) {
-        fechaPar();
-        if (!cargo.hasChildNodes()) cargo.appendChild(inlineNodes(raw.slice(2)));
+        garantir();
+        atual.appendChild(el("h4", null, raw.slice(4)));
         return;
       }
       if (/^\s*$/.test(raw)) { fechaPar(); fechaLista(); return; }
       if ((m = /^(\s*)- (.*)$/.exec(raw))) { addItem("ul", m[1].length, m[2]); return; }
       if ((m = /^(\s*)\d+\. (.*)$/.exec(raw))) { addItem("ol", m[1].length, m[2]); return; }
-      if (atual) par.push(raw.trim());
+      garantir();
+      par.push(raw.trim());
     });
+    if (bq) bqEnd();
     if (tab.length) fechaTab();
     fechaPar(); fechaLista();
 
@@ -1532,6 +1567,8 @@ const SLUG = {
     tabsEl.appendChild(grp);
     groupEls[i] = { wrap: grp, bar: bar };
   });
+  // O Roteiro é a aba principal: o grupo vai para o topo, sem mudar os índices dos demais
+  tabsEl.insertBefore(groupEls[10].wrap, tabsEl.firstChild);
 
   var items = DATA.map(function(npc){
     var btn = el("button", "tab" + (npc.vilao ? " vilao" : ""), npc.name.replace(/^(Dr\.|Dona|Mr\.|Mrs\.|Prof\.|Monsieur|Fr\.|Lorde)\s+/, "") );
@@ -1603,6 +1640,7 @@ const SLUG = {
   items.push(buildMapa());
   JOGADORAS.forEach(function(j){ items.push(buildJogadora(j)); });
   items.push(buildBiblia());
+  items.push(buildBiblia({ id: "roteiro", label: "Roteiro do Mestre", group: 10, titulo: "Roteiro do Mestre", prefixo: null, fonte: window.ROTEIRO_MD }));
   // Seções da Bíblia como abas próprias (texto vindo de BIBLIA_MD, sem transcrição manual)
   [
     { id: "visao",     label: "Visão Geral",          group: 8, prefixo: "## 1. ",  titulo: "Visão Geral" },
