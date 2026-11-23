@@ -100,6 +100,7 @@
   }
   .block.seg h3{color:var(--blood-ink)}
 
+  .retrato{display:block;width:min(100%,260px);height:auto;margin:0 auto 12px;border-radius:12px}
   .stats{display:grid;grid-template-columns:repeat(3,1fr);margin:8px 0 2px}
   @media (min-width:640px){.stats{grid-template-columns:repeat(6,1fr)}}
   .stat{padding:8px 4px 10px;text-align:center;border-bottom:1px solid var(--line)}
@@ -533,10 +534,27 @@ const SLUG = {
   rory:"rory-kerr", lucy:"lucy-bell", clara:"clara-bennett", carne:"thomas-carne"
 };
 
+// Retratos dos personagens (pasta retratos/, um arquivo por id)
+var RETRATOS = {
+  bianca: "retratos/bianca.png", diego: "retratos/diego.png", camila: "retratos/camila.png",
+  renato: "retratos/renato.png", lucy: "retratos/lucy.png", rory: "retratos/rory.png",
+  megan: "retratos/megan.png", callum: "retratos/callum.png", vmartin: "retratos/vmartin.png",
+  hale: "retratos/hale.png", clara: "retratos/clara.png", vane: "retratos/vane.png",
+  carne: "retratos/carne.png", renard: "retratos/renard.png", burke: "retratos/burke.png",
+  moore: "retratos/moore.png", kerr: "retratos/kerr.png", clarke: "retratos/clarke.png",
+  grant: "retratos/grant.png", lowe: "retratos/lowe.png", prado: "retratos/prado.png",
+  reid: "retratos/reid.png", doyle: "retratos/doyle.png", bell: "retratos/bell.png",
+  hunt: "retratos/hunt.png", ross: "retratos/ross.png",
+  munro: "retratos/munro.jpg", forbes: "retratos/forbes.jpg", greig: "retratos/greig.jpg",
+  baird: "retratos/baird.jpg", hay: "retratos/hay.jpg", duncan: "retratos/duncan.jpg",
+  morag: "retratos/morag.jpg", carrick: "retratos/carrick.png",
+  mackie: "retratos/Dr_Ewan_Mackie.png", kirsty: "retratos/Kirsty_Fraser.png"
+};
+
 (function(){
   "use strict";
 
-  var GRUPOS = ["Administração", "Corpo Docente", "Alunos Notáveis", "Outros Bolsistas Brasileiros", "Vilão", "Locais", "Jogadora", "Bíblia", "Mundo", "Só para o mestre", "Roteiro"];
+  var GRUPOS = ["Administração", "Corpo Docente", "Alunos Notáveis", "Outros Bolsistas Brasileiros", "Vilão", "Locais", "Jogadora", "Bíblia", "Mundo", "Só para o mestre", "Roteiro", "Fora do Castelo"];
 
   // g = índice do grupo. blocks: {t, body[], seg (segredo), ol (lista numerada)}
   var DATA = [
@@ -591,6 +609,16 @@ const SLUG = {
       {t:"Aparência", body:["Morena, cabelo curto com luzes, terninho bege com ombreiras e perfume forte."]},
       {t:"Segredos e enredo", seg:true, body:[
         "Sem segredo central na Bíblia. Útil como contato externo: pode falar com famílias e com o Brasil quando o grupo perceber que algo está errado."]}
+    ]},
+
+    { id:"carrick", g:0, name:"Lorde Edward Carrick", role:"Presidente da Court of Governors (idade avançada)", blocks:[
+      {t:"Resumo", body:[
+        "Velho, arrogante e pai espiritual dos Carrick. Preside a Court of Governors, que decide sobre a Casa.",
+        "Trata os bolsistas com desprezo: “Os tempos são outros. Infelizmente.”"]},
+      {t:"Aparência", body:["Alto e de postura rígida, cabelo grisalho penteado para trás, rosto cansado e olhar frio. Beca com forro vermelho, terno listrado, bengala de prata e a gravata verde da Casa."]},
+      {t:"Segredos e enredo", seg:true, body:[
+        "Presente no ceilidh de 30/11, quando o sequestro acontece. Pode ser aliado do Reitor Ross ou pressionar por silêncio, conforme o rumo da história.",
+        "Ross, que se diz sem saída, pode ser pressionado por ele a manter o Silentium."]}
     ]},
 
     /* ---------- CORPO DOCENTE ---------- */
@@ -712,13 +740,24 @@ const SLUG = {
         "Tem as plantas do bunker de 1940, com um duto que sobe até o quarto de Elias na Ala Oeste. Tem também um relatório de 1957 que cita marcas de mão queimadas na parede do Observatório.",
         "Sabe abrir a porta de aço do bunker e conhece os túneis de serviço. Fica obcecado quando há uma passagem que não está em nenhum mapa."]}
     ]},
-    { id:"mackie", g:1, name:"Dr. Ewan Mackie", role:"Medicina (61 anos)", blocks:[
+    { id:"mackie", g:1, name:"Dr. Ewan Mackie", role:"Professor de Medicina e médico do Colégio (61 anos). Atende na Enfermaria às terças", blocks:[
       {t:"Resumo", body:[
-        "Médico de família de Kinmorrow há 35 anos e médico do Colégio. Gentil, cansado e cauteloso. Atende na Enfermaria às terças e bebe um pouco além da conta."]},
-      {t:"Aparência", body:["Magro, alto e curvado, cabelo branco ralo penteado de lado, bigode amarelado de cachimbo e olhos azuis aguados. Terno de tweed gasto, colete com relógio de bolso e maleta médica de couro preto sempre na mão."]},
-      {t:"Segredos e enredo", seg:true, body:[
-        "Percebeu as anemias da Vigília e a de Oliver Lane, mas escolheu não perguntar. Na ficha de Lane há a anotação “picadas de inseto?”, riscada por ele. Receita ferro e se cala.",
-        "Se confrontado com provas, desaba e vira aliado culpado. Pode tratar Clara e o jogador mordido depois do Ato 4."]}
+        "Médico de família de Kinmorrow há 35 anos. Gentil, cansado e cauteloso. Bebe um pouco além da conta.",
+        "Dá as aulas de Anatomia na antiga sala de dissecção."]},
+      {t:"Aparência", body:["Alto, magro e um pouco curvado. Cabelo branco ralo penteado de lado, bigode amarelado de cachimbo e olhos azuis aguados. Óculos de leitura na ponta do nariz.",
+        "Terno de tweed marrom gasto, colete com relógio de bolso e beca preta curta demais para ele. Estetoscópio e cachimbo no bolso, maleta médica de couro preto sempre na mão."]},
+      {t:"Sala", body:["Teatro de Anatomia, no porão da ala sul, com acesso pela Enfermaria. Arquibancada circular de madeira em volta de uma mesa de mármore, esqueletos, órgãos em formol e pranchas vitorianas.",
+        "Um arquivo de aço guarda as fichas médicas dos alunos desde 1960. Uma garrafa de uísque fica escondida dentro de um crânio de gesso."]},
+      {t:"Pistas (só para o mestre)", seg:true, body:[
+        "A ficha médica de Oliver Lane (1991) mostra anemia grave nos três meses antes de sumir, com a anotação “marcas no pescoço — picadas de inseto?”, riscada pelo próprio Mackie.",
+        "O livro de atestados de óbito de Kinmorrow, herdado do médico anterior, tem o registro de Eleanor Hale (1888): “quase sem sangue no corpo”."]},
+      {t:"Ligação com a trama (só para o mestre)", seg:true, body:[
+        "Percebeu as anemias da Vigília e a de Oliver Lane, mas escolheu não perguntar. Receita ferro e se cala, por medo do Reitor e de parecer louco.",
+        "Confrontado com provas, desaba e vira aliado culpado. Pode tratar Clara e o jogador mordido depois do Ato 4."]},
+      {t:"Falas", body:[
+        "“Tome isso três vezes ao dia. Ferro. E durma, pelo amor de Deus, durma.”",
+        "“Eu vi as marcas no rapaz Lane. Escrevi ‘picada de inseto’. Em dezembro. Na Escócia.”",
+        "“Um médico de aldeia aprende cedo que há perguntas que só trazem mais mortos.”"]}
     ]},
     { id:"duncan", g:1, name:"Prof. Duncan Reid", role:"Educação Física (45 anos)", blocks:[
       {t:"Resumo", body:[
@@ -834,14 +873,21 @@ const SLUG = {
         "Pode propor testes científicos sobre as cavernas e é aliada natural de Fiona Kerr."]}
     ]},
 
-    { id:"kirsty", g:5, name:"Kirsty Fraser", role:"Dona do sebo Fraser's Books, em Stonehaven (28 anos)", blocks:[
+    { id:"kirsty", g:11, name:"Kirsty Fraser", role:"Dona do sebo Fraser's Books, em Stonehaven (28 anos)", blocks:[
       {t:"Resumo", body:[
-        "Alegre, corajosa e protetora. Namora Morag Lindsay em segredo, desde que as duas se conheceram em Edimburgo, em 1993.",
-        "Tem um sebo de dois andares em Stonehaven, com um gato chamado Hume e café de graça para estudantes. Vende livros antigos sobre a Escócia, inclusive uma gravura de 1890 de “E. Lyall, tutor de piano”."]},
-      {t:"Aparência", body:["Ruiva, sardas, sorriso largo, cabelo raspado dos lados e comprido em cima. Jaqueta de couro preta, camiseta de banda, jeans rasgado e coturnos."]},
-      {t:"Segredos e enredo", seg:true, body:[
-        "Escreve para Morag pelos Correios de Kinmorrow, sem remetente. Elias ameaça usar uma fita gravada por ela para chantagear Morag. Pode virar porto seguro dos jogadores fora do castelo.",
-        "Falas: “Vocês são os amigos da Morag? Entrem, o café é ruim, mas é quente.” / “Ela tem medo por nós duas. Eu tenho raiva por nós duas. A gente se equilibra.”"]}
+        "Corajosa, engraçada e protetora. Sem paciência para se esconder.",
+        "Papel: dona do sebo Fraser's Books, em Stonehaven. Não é da faculdade; é uma amiga de Edimburgo para o castelo."]},
+      {t:"Aparência", body:["Ruiva, muitas sardas, olhos verdes e sorriso largo. Cabelo raspado dos lados e comprido em cima. Argolinhas na orelha e piercing no nariz.",
+        "Jaqueta de couro preta com bottons, camiseta de banda dos anos 90, jeans rasgado e coturnos pretos. Camisa xadrez amarrada na cintura e sacola de lona cheia de livros."]},
+      {t:"Local: Fraser's Books", body:["Sebo de dois andares em Stonehaven, com pilhas tortas de livros, um gato chamado Hume e café de graça para estudantes."]},
+      {t:"Pistas (só para o mestre)", seg:true, body:[
+        "Vende livros antigos sobre a Escócia, entre eles um com uma gravura de 1890 de “E. Lyall, tutor de piano”."]},
+      {t:"Segredo (só para o mestre)", seg:true, body:[
+        "Namora a Dra. Morag Lindsay desde 1993, em segredo. Oficialmente é “uma amiga de Edimburgo”.",
+        "Escreve para Morag pelos Correios de Kinmorrow, sem remetente. Elias ameaça usar uma fita gravada por ela para chantagear Morag. Pode virar porto seguro dos jogadores fora do castelo."]},
+      {t:"Falas", body:[
+        "“Vocês são os amigos da Morag? Entrem, o café é ruim, mas é quente.”",
+        "“Ela tem medo por nós duas. Eu tenho raiva por nós duas. A gente se equilibra.”"]}
     ]},
 
     /* ---------- VILÃO ---------- */
@@ -1586,6 +1632,15 @@ const SLUG = {
     panel.hidden = true;
     panel.appendChild(el("h2", null, npc.name));
     panel.appendChild(el("p", "cargo", npc.role));
+    if (RETRATOS[npc.id]) {
+      var foto = el("img", "retrato");
+      foto.src = RETRATOS[npc.id];
+      foto.alt = "Retrato de " + npc.name;
+      foto.loading = "lazy";
+      // Sem arquivo ainda? Mostra o placeholder, sem quebrar a ficha
+      foto.onerror = function(){ this.onerror = null; this.src = "retratos/placeholder.svg"; };
+      panel.appendChild(foto);
+    }
 
     var f = FICHAS[SLUG[npc.id] || npc.id];
     var blocks = [];
