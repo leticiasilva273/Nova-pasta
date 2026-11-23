@@ -135,6 +135,13 @@
   .jogadora ul.pericias li{break-inside:avoid}
   .jogadora .sub-linha{color:var(--muted);font-style:italic}
   .jogadora .poder-linha{display:block}
+  /* Bíblia: subtítulos internos e listas */
+  .biblia .block h4{
+    margin:1.5em 0 .1em;font-family:var(--serif-display);font-weight:normal;font-size:1.18rem;line-height:1.25;color:var(--ink);
+  }
+  .biblia .block li{margin:.5em 0}
+  .biblia .block ul ul{margin-top:.2em;margin-bottom:.2em}
+  .biblia .block em{color:var(--muted)}
   .achado{margin:12px 0 0;padding:10px 12px;border:1px solid var(--line);border-left:2px solid var(--line);background:var(--sheet-2)}
   .achado.encontrado{border-left-color:var(--gold)}
   .achado p{margin:.3em 0;max-width:62ch}
@@ -225,6 +232,7 @@
 
 <footer>Escudo do mestre · não mostrar aos jogadores</footer>
 
+<script src="biblia-dunraven.js"></script>
 <script>
 const FICHAS = {
   "malcolm-ross":  {nivel:3, F:6, M:8, E:8, PV:12, PD:14, pericias:{"Persuasão":8,"Disciplina":10,"Aptidão":10,"Intimidar":6}, itens:"anel de ouro com o brasão; chave do gabinete; livro de atas", ataques:"—", poderes:"Argumento certo; Sangue-frio"},
@@ -527,7 +535,7 @@ const SLUG = {
 (function(){
   "use strict";
 
-  var GRUPOS = ["Administração", "Corpo Docente", "Alunos Notáveis", "Outros Bolsistas Brasileiros", "Vilão", "Locais", "Jogadora"];
+  var GRUPOS = ["Administração", "Corpo Docente", "Alunos Notáveis", "Outros Bolsistas Brasileiros", "Vilão", "Locais", "Jogadora", "Bíblia"];
 
   // g = índice do grupo. blocks: {t, body[], seg (segredo), ol (lista numerada)}
   var DATA = [
@@ -1047,7 +1055,7 @@ const SLUG = {
   /* ---------- aba Jogadora (só dados de player) ---------- */
   var JOGADORAS = [{
     slug: "silvia",
-    nome: "Silvia Ferreira",
+    nome: "Silvia Ferreira dos Santos",
     jogador: "Giorgiana",
     idade: 20,
     nivel: 1,
@@ -1062,14 +1070,15 @@ const SLUG = {
     pdMax: 11,
     capacidade: 6,
     pericias: [
-      ["Acrobacia", 6, "Físico"], ["Bruxaria", 6, "Mente"], ["Disciplina", 6, "Emoção"],
-      ["Enganação", 8, "Emoção"], ["Furtividade", 8, "Físico"], ["Inspecionar", 8, "Mente"],
-      ["Intuição", 6, "Emoção"], ["Persuasão", 6, "Emoção"]
+      ["Acrobacia", 6, "Físico"], ["Aptidão", 6, "Mente"], ["Bruxaria", 6, "Mente"],
+      ["Disciplina", 6, "Emoção"], ["Enganação", 6, "Emoção"], ["Furtividade", 6, "Físico"],
+      ["Inspecionar", 6, "Mente"], ["Intimidar", 6, "Emoção"], ["Intuição", 6, "Emoção"],
+      ["Persuasão", 6, "Emoção"]
     ],
-    treinadas: "8 / 10 (faltam 2)",
+    treinadas: "10 / 10",
     aptidao: "Folclore",
     poderes: [["Dedução", "Perfil · Analista"], ["Leitura rápida", "Vocação · Letras"]],
-    habilidades: ["Resoluto"],
+    habilidades: ["Chamado"],
     itens: ["Caderno de anotações", "Mapa do castelo", "Livro de folclore"],
     situacao: "sem penalidade",
     relacao: { com: "Ninguém", grau: 1 },
@@ -1235,6 +1244,106 @@ const SLUG = {
     };
   }
 
+  /* ---------- aba Bíblia (texto em biblia-dunraven.js) ---------- */
+  function inlineNodes(texto){
+    var frag = document.createDocumentFragment();
+    String(texto).replace(/\\(.)/g, "$1").split(/(\*\*[^*]+\*\*|\*[^*]+\*)/).forEach(function(parte){
+      if (!parte) return;
+      if (/^\*\*[^*]+\*\*$/.test(parte)) frag.appendChild(el("strong", null, parte.slice(2, -2)));
+      else if (/^\*[^*]+\*$/.test(parte)) frag.appendChild(el("em", null, parte.slice(1, -1)));
+      else frag.appendChild(document.createTextNode(parte));
+    });
+    return frag;
+  }
+
+  // Converte o markdown da Bíblia em blocos: "## " abre um bloco, "### " um subtítulo
+  function buildBiblia(){
+    var btn = el("button", "tab", "Bíblia");
+    btn.type = "button";
+    btn.id = "tab-biblia";
+    btn.setAttribute("role", "tab");
+    btn.setAttribute("aria-selected", "false");
+    btn.setAttribute("aria-controls", "p-biblia");
+    groupEls[7].bar.appendChild(btn);
+
+    var panel = el("section", "panel biblia");
+    panel.id = "p-biblia";
+    panel.setAttribute("role", "tabpanel");
+    panel.setAttribute("aria-labelledby", btn.id);
+    panel.hidden = true;
+    var titulo = el("h2", null, "Bíblia de Dunraven Hall");
+    var cargo = el("p", "cargo");
+    panel.appendChild(titulo);
+    panel.appendChild(cargo);
+
+    var linhas = String(window.BIBLIA_MD || "").replace(/\r/g, "").split("\n");
+    var blocos = [];
+    var atual = null, par = [], lista = null, ultimoLi = null, ultimoSub = null;
+
+    function fechaPar(){
+      if (par.length && atual) {
+        var p = el("p");
+        p.appendChild(inlineNodes(par.join(" ")));
+        atual.appendChild(p);
+      }
+      par = [];
+    }
+    function fechaLista(){ lista = null; ultimoLi = null; ultimoSub = null; }
+    function abreBloco(t){
+      fechaPar(); fechaLista();
+      atual = el("article", "block");
+      atual.appendChild(el("h3", null, t));
+      panel.appendChild(atual);
+      blocos.push(atual);
+    }
+    function addItem(tag, ind, texto){
+      if (!atual) return;
+      fechaPar();
+      var li = el("li");
+      li.appendChild(inlineNodes(texto));
+      if (ind > 0 && ultimoLi) {
+        if (!ultimoSub) { ultimoSub = el(tag); ultimoLi.appendChild(ultimoSub); }
+        ultimoSub.appendChild(li);
+      } else {
+        if (!lista || lista.tagName.toLowerCase() !== tag) { lista = el(tag); atual.appendChild(lista); }
+        lista.appendChild(li);
+        ultimoLi = li;
+        ultimoSub = null;
+      }
+    }
+
+    linhas.forEach(function(raw){
+      var m;
+      if (/^# /.test(raw)) { titulo.textContent = raw.slice(2); return; }
+      if (/^## /.test(raw)) { abreBloco(raw.slice(3)); return; }
+      if (/^### /.test(raw)) {
+        fechaPar(); fechaLista();
+        if (atual) atual.appendChild(el("h4", null, raw.slice(4)));
+        return;
+      }
+      if (/^> /.test(raw)) {
+        fechaPar();
+        if (!cargo.hasChildNodes()) cargo.appendChild(inlineNodes(raw.slice(2)));
+        return;
+      }
+      if (/^\s*$/.test(raw)) { fechaPar(); fechaLista(); return; }
+      if ((m = /^(\s*)- (.*)$/.exec(raw))) { addItem("ul", m[1].length, m[2]); return; }
+      if ((m = /^(\s*)\d+\. (.*)$/.exec(raw))) { addItem("ol", m[1].length, m[2]); return; }
+      if (atual) par.push(raw.trim());
+    });
+    fechaPar(); fechaLista();
+
+    panelsEl.appendChild(panel);
+    return {
+      id: "biblia",
+      g: 7,
+      btn: btn,
+      panel: panel,
+      head: norm("Bíblia de Dunraven Hall Sanctum"),
+      blocks: blocos.map(function(art){ return { el: art, text: norm(art.textContent) }; })
+    };
+  }
+
   /* ---------- montagem ---------- */
   var groupEls = [];
   GRUPOS.forEach(function(nome, i){
@@ -1317,6 +1426,7 @@ const SLUG = {
 
   items.push(buildMapa());
   JOGADORAS.forEach(function(j){ items.push(buildJogadora(j)); });
+  items.push(buildBiblia());
 
   /* ---------- links para as abas dos NPCs ---------- */
   // Aliases em ordem livre: a busca usa sempre a forma mais longa primeiro.
