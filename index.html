@@ -294,7 +294,7 @@ const AULAS = {
     conteudo: "Direito constitucional, o Ato de União de 1707 e os direitos de bolsistas estrangeiros.",
     cena: "Debate simulado sobre se a expulsão de bolsistas por dívida é legal. Os jogadores se dividem em dois times.",
     teste: "Persuasão, DT 8. Quem vencer ganha +1 em Persuasão com a Reitoria pelo resto da campanha.",
-    mestre: "É pai de um aluno, e o vínculo dele com a Carrick Society pode virar chantagem."
+    mestre: "É pai de Victoria Martin, e o vínculo dele com a Carrick Society pode virar chantagem."
   },
   moore: {
     materia: "Oficina de Pesquisa em Arquivos, quarta às 16h (optativa).",
@@ -547,7 +547,8 @@ const SLUG = {
       {t:"Aparência", body:["Alto, ombros largos, cabelo grisalho curto, barba aparada e olhos cinzentos cansados. Terno de tweed escuro, beca e anel de ouro com o brasão."]},
       {t:"Segredos e enredo", seg:true, body:[
         "Sabe que “algo” existe no castelo e mantém o Silentium por medo e por um acordo herdado.",
-        "Pai de Callum Ross. Pode ser aliado ou obstáculo quando o grupo chegar perto da verdade."]}
+        "Pai de Callum Ross. Pode ser aliado ou obstáculo quando o grupo chegar perto da verdade.",
+        "Guarda no cofre a carta secreta de 1984, com o selo da Ordo Clavis, e a certidão antiga de Ailsa Munro. Escreveu com a própria letra o motivo “retorno familiar” na ficha de Clara."]}
     ]},
     { id:"hunt", g:0, name:"Mr. Gerald Hunt", role:"Vice-Reitor e Diretor Disciplinar (49 anos)", blocks:[
       {t:"Resumo", body:[
@@ -555,12 +556,13 @@ const SLUG = {
         "Faz rondas noturnas com lanterna. O gabinete guarda o arquivo disciplinar e os mapas das rondas."]},
       {t:"Aparência", body:["Baixo e magro, careca no topo, óculos de aro de metal e bigode fino. Terno cinza impecável, relógio de bolso, prancheta e lanterna."]},
       {t:"Segredos e enredo", seg:true, body:[
-        "Ferramenta para os jogadores: o arquivo disciplinar e os mapas das rondas mostram quem estava fora do quarto. Sugestão do mestre: pode ser usado para incriminar um bolsista."]}
+        "Ferramenta para os jogadores: o arquivo disciplinar e os mapas das rondas mostram quem estava fora do quarto. Sugestão do mestre: pode ser usado para incriminar um bolsista.",
+        "Abriu uma carta de Kirsty no escaninho (violação do Art. 12) e guarda a cópia no arquivo disciplinar. Espera um deslize de Morag para pedir a demissão dela ao Reitor."]}
     ]},
     { id:"bell", g:0, name:"Mrs. Agnes Bell", role:"Governanta-chefe e Inspetora da Ala Leste (63 anos)", blocks:[
       {t:"Resumo", body:[
         "Viúva e presbiteriana devota, trabalha no castelo desde 1961. Severa, mas maternal no fundo.",
-        "Sabe de tudo e conta pouco. Dorme no térreo, junto à porta da Ala Leste."]},
+        "Cuida da Enfermaria; o Dr. Mackie atende lá às terças. Sabe de tudo e conta pouco. Dorme no térreo, junto à porta da Ala Leste."]},
       {t:"Aparência", body:["Robusta, cabelos brancos presos num coque apertado, rosto vermelho do vento. Vestido azul-marinho, cardigã e um molho de chaves na cintura."]},
       {t:"Segredos e enredo", seg:true, body:[
         "Avó de Lucy Bell. Sabe do histórico das alunas da Ala Leste e pode ajudar ou travar a investigação, a critério do mestre."]}
@@ -576,7 +578,7 @@ const SLUG = {
     { id:"reid", g:0, name:"Mr. Angus Reid", role:"Zelador (71 anos)", blocks:[
       {t:"Resumo", body:[
         "Mora na Casa do Portão com o cão Bran. Guarda o livro de entradas, o molho de chaves mestras e um telefone fixo.",
-        "Conhece cada passagem do castelo e diz que “o castelo tem humor”. Acende a caldeira às 5h."]},
+        "Conhece cada passagem do castelo e diz que “o castelo tem humor”. Acende a caldeira às 5h. É pai do Prof. Duncan Reid."]},
       {t:"Aparência", body:["Velho e curvado, barba branca cerrada, olhos azuis muito vivos. Boina de lã, capa encerada e botas de borracha, sempre ao lado de Bran, um deerhound cinza enorme."]},
       {t:"Segredos e enredo", seg:true, body:[
         "Conhece as passagens e sentiu a presença do Outro Lado. É uma fonte de pistas sobre as cavernas e a passagem da adega."]}
@@ -597,7 +599,7 @@ const SLUG = {
         "Dá aula em cima da mesa e leva os alunos à falésia para ler Byron e Burns. A reitoria o tolera por pouco tempo."]},
       {t:"Aparência", body:["Magro, cabelo castanho bagunçado, barba de três dias e olhos castanhos calorosos. Suéter de lã com cotoveleiras, cachecol listrado e um livro de bolso na mão."]},
       {t:"Segredos e enredo", seg:true, body:[
-        "Ouviu falar da Assembleia Livre quando era aluno e guarda um panfleto original. Aliado de Renard e possível aliado do grupo."]}
+        "Ouviu falar da Assembleia Livre quando era aluno e guarda um panfleto original. Bissexual, vive em segredo um relacionamento com Renard há três anos. Se Hunt descobrir, os dois perdem o emprego. Possível aliado do grupo."]}
     ]},
     { id:"grant", g:1, name:"Prof. Isobel Grant", role:"História Medieval (52 anos)", blocks:[
       {t:"Resumo", body:[
@@ -613,17 +615,17 @@ const SLUG = {
         "Toca piano na capela à noite."]},
       {t:"Aparência", body:["Gordinho, cabelo branco ralo e despenteado, óculos grossos e gravata-borboleta torta. A beca vive manchada de giz."]},
       {t:"Segredos e enredo", seg:true, body:[
-        "Ouve coisas na capela quando toca à noite. Pode ser testemunha dos fenômenos ligados à lenda do órgão que toca sozinho às 3h."]}
+        "Era professor de David Shaw em 1957 e nunca superou o incêndio. Ouve coisas na capela quando toca à noite. Pode ser testemunha dos fenômenos ligados à lenda do órgão que toca sozinho às 3h."]}
     ]},
-    { id:"kerr", g:1, name:"Dr. Fiona Kerr", role:"Biologia e Ciências Naturais (41 anos)", blocks:[
+    { id:"kerr", g:1, name:"Dr. Fiona Kerr", role:"Biologia e Ciências Naturais; também Geografia e Geologia (41 anos)", blocks:[
       {t:"Resumo", body:[
         "Cética, moderna e fumante. Dirige o Laboratório Kerr e colabora com o Instituto Roslin.",
         "Defende os bolsistas nas reuniões da reitoria."]},
       {t:"Aparência", body:["Loira, cabelo curto e prático, sem maquiagem. Jaleco sobre jeans e botas Dr. Martens. Um maço de Marlboro no bolso."]},
       {t:"Segredos e enredo", seg:true, body:[
-        "Colaborou com o Instituto Roslin, onde nasceu a ovelha Dolly. Aliada natural de Bianca Nunes; pode analisar restos e marcas encontrados nas cavernas."]}
+        "Bissexual e discreta: foi casada com um geólogo até 1992 e é confidente de Morag. Colaborou com o Instituto Roslin, onde nasceu a ovelha Dolly. Aliada natural de Bianca Nunes; pode analisar restos e marcas encontrados nas cavernas."]}
     ]},
-    { id:"martin", g:1, name:"Prof. Hugh Martin", role:"Direito (55 anos)", blocks:[
+    { id:"martin", g:1, name:"Prof. Hugh Martin", role:"Direito; também Economia e Administração (55 anos)", blocks:[
       {t:"Resumo", body:[
         "Aristocrata e conservador, pai de Victoria Martin. Representa a velha guarda.",
         "Desconfia dos bolsistas e prefere a tradição à reforma."]},
@@ -639,13 +641,13 @@ const SLUG = {
       {t:"Segredos e enredo", seg:true, body:[
         "Servo antigo e cansado de Thomas Carne. Apaga registros, troca fichas e desvia investigações. Pode virar aliado ou traidor."]}
     ]},
-    { id:"burke", g:1, name:"Fr. Daniel Burke", role:"Capelão episcopal (44 anos)", blocks:[
+    { id:"burke", g:1, name:"Fr. Daniel Burke", role:"Capelão católico (44 anos)", blocks:[
       {t:"Resumo", body:[
         "Gentil, sofre de insônia e ouve confissões informais dos alunos no escritório da sacristia.",
         "Está sempre com uma caneca de chá."]},
       {t:"Aparência", body:["Rosto gentil, olheiras profundas e cabelo castanho rareando. Colarinho clerical, cardigã marrom e uma caneca de chá sempre na mão."]},
       {t:"Segredos e enredo", seg:true, body:[
-        "Recebe confissões que revelam segredos dos alunos. Pode ser fonte de informação valiosa ou testemunha do que acontece à noite."]}
+        "Gay e celibatário, vive uma fé sincera e uma solidão enorme. Não revela a ninguém os segredos que ouve. Recebe confissões que revelam segredos dos alunos. Pode ser fonte de informação valiosa ou testemunha do que acontece à noite."]}
     ]},
     { id:"renard", g:1, name:"Monsieur Luc Renard", role:"Francês e Teatro (36 anos)", blocks:[
       {t:"Resumo", body:[
@@ -653,7 +655,77 @@ const SLUG = {
         "Aliado de Lowe."]},
       {t:"Aparência", body:["Moreno, cabelo comprido preso num rabo, brinco na orelha esquerda, lenços coloridos no pescoço e casaco de veludo vinho."]},
       {t:"Segredos e enredo", seg:true, body:[
+        "Gay, e vive em segredo com Lowe há três anos. Diante de todos, os dois fingem ser só bons colegas que discutem muito.",
         "A Peça de Inverno acontece durante o clímax, em dezembro. Pode servir de cenário para o confronto nas cavernas."]}
+    ]},
+
+    { id:"morag", g:1, name:"Dra. Morag Lindsay", role:"Psicologia (27 anos)", blocks:[
+      {t:"Resumo", body:[
+        "Recém-doutora em Edimburgo, chegou em janeiro de 1996 para criar o curso de Psicologia, contra a vontade da velha guarda. É a professora mais jovem da Casa.",
+        "Brilhante e curiosa, mas encolhe perto dos professores mais velhos. Pesquisa sono, sonhos e memória, e usa os alunos como voluntários."]},
+      {t:"Aparência", body:["Baixa, rosto jovem e sardento, cabelo castanho cacheado curto preso com presilha, óculos de aro de tartaruga e blazer de veludo cotelê mostarda grande demais. Coturnos cor de vinho, prancheta e gravador de fita."]},
+      {t:"Segredos e enredo", seg:true, body:[
+        "Lésbica, vive um relacionamento escondido com Kirsty Fraser, dona do sebo Fraser's Books em Stonehaven. Hunt desconfia e guarda uma cópia de uma carta no arquivo disciplinar.",
+        "Elias descobre o segredo com Dedução e a chantageia: quer que ela encerre o estudo sobre memória e entregue a fita de Clara. Morag pode devolver a memória de Clara no Ato 5."]}
+    ]},
+    { id:"hay", g:1, name:"Dr. Gideon Hay", role:"Filosofia; chefe do Departamento (63 anos)", blocks:[
+      {t:"Resumo", body:[
+        "Filósofo brilhante e distraído, especialista em Hume. Tutor de Elias Vane, de quem tem orgulho enorme: “o aluno mais extraordinário em quarenta anos”.",
+        "Cachimbo sempre apagado na mão."]},
+      {t:"Aparência", body:["Pequeno e magro, cabelo branco revolto, sobrancelhas enormes e olhos muito escuros. Cardigã marrom com furos, gravata torta e beca puída."]},
+      {t:"Segredos e enredo", seg:true, body:[
+        "Os ensaios de Elias citam manuscritos do século XVII que não existem em nenhuma biblioteca, com detalhes “de quem estava lá”. A ficha de transferência de 1994 tem um carimbo de uma faculdade de Oxford fechada em 1902.",
+        "Hay é cego para Elias por admiração. Convencê-lo é difícil e doloroso; se acontecer, ele pode dar um depoimento ao Reitor."]}
+    ]},
+    { id:"munro", g:1, name:"Prof.ª Ailsa Munro", role:"Música (47 anos)", blocks:[
+      {t:"Resumo", body:[
+        "Organista da capela, regente do coral e professora de teoria e canto. Sensível e ligeiramente mística, ouve “vozes na música”.",
+        "Mora no castelo há vinte anos e é a única que admite em voz alta que o órgão toca sozinho às três."]},
+      {t:"Aparência", body:["Alta e magra, cabelo grisalho prateado muito comprido, mãos longas de pianista, xale tartã azul e muitos anéis de prata. Fala baixo e cantarola."]},
+      {t:"Segredos e enredo", seg:true, body:[
+        "Mulher trans, escondida: fez a transição em Londres antes de chegar a Dunraven, em 1976. Ninguém no castelo sabe. Sua certidão antiga está no cofre do Reitor Ross, e Hunt pode achá-la nos arquivos da Secretaria.",
+        "Reconhece a técnica de “E. Lyall” nas partituras. As três notas que o órgão toca às três são do salmo de Margaret Lyall, e cantá-lo nas cavernas pode enfraquecer Carne."]}
+    ]},
+    { id:"forbes", g:1, name:"Prof. Niall Forbes", role:"Artes Visuais e Arquitetura (50 anos)", blocks:[
+      {t:"Resumo", body:[
+        "Chefe do Departamento de Artes e restaurador oficial do acervo do castelo. Bem-humorado, fofoqueiro e apaixonado pelo gótico. Orientador de Lucy Bell."]},
+      {t:"Aparência", body:["Barrigudo, careca com uma coroa de cabelo grisalho, barba cheia e óculos de meia-lua. Avental de pintor manchado, gravata-borboleta e tinta nos dedos."]},
+      {t:"Segredos e enredo", seg:true, body:[
+        "Sob luz ultravioleta, descobriu que o rosto do retrato de Thomas Carne (1662) foi repintado em 1890 e em 1960, sempre para parecer mais velho. A camada original mostra um rapaz de uns 20 anos.",
+        "Elias passa no ateliê com frequência demais, “admirando o trabalho”."]}
+    ]},
+    { id:"baird", g:1, name:"Dr. Robert Baird", role:"Matemática e Filosofia Natural; chefe do Departamento de Ciências (57 anos)", blocks:[
+      {t:"Resumo", body:[
+        "Matemático e astrônomo amador, tímido, metódico e melancólico. Quer reabrir o Observatório da Torre Norte há vinte anos.",
+        "Era aluno em 1957 e dividia o quarto com David Shaw."]},
+      {t:"Aparência", body:["Alto, careca, barba grisalha bem aparada, óculos grossos e suéter de tricô com padrão de losangos. Calculadora científica no bolso da camisa."]},
+      {t:"Segredos e enredo", seg:true, body:[
+        "Gay, escondido a vida inteira. Estava apaixonado por David Shaw e nunca disse a ele. Guarda os cadernos de observação de David, que registram um rapaz que sobe ao Observatório sem aparecer no reflexo do telescópio.",
+        "Seus cálculos mostram que 30/11/1996 é noite de lua minguante. Pode emprestar a chave sobressalente da Torre Norte."]}
+    ]},
+    { id:"greig", g:1, name:"Prof. Alasdair Greig", role:"Engenharia Civil e Mecânica (54 anos)", blocks:[
+      {t:"Resumo", body:[
+        "Prático, ranzinza e desconfiado de “poetas e filósofos”. Ex-engenheiro da Marinha Real, cuida da estrutura do castelo e luta para reabrir a Torre Norte."]},
+      {t:"Aparência", body:["Grande, ombros largos, mãos calejadas e barba ruiva grisalha cortada rente. Macacão azul, óculos de proteção no pescoço e botas com bico de aço."]},
+      {t:"Segredos e enredo", seg:true, body:[
+        "Tem as plantas do bunker de 1940, com um duto que sobe até o quarto de Elias na Ala Oeste. Tem também um relatório de 1957 que cita marcas de mão queimadas na parede do Observatório.",
+        "Sabe abrir a porta de aço do bunker e conhece os túneis de serviço. Fica obcecado quando há uma passagem que não está em nenhum mapa."]}
+    ]},
+    { id:"mackie", g:1, name:"Dr. Ewan Mackie", role:"Medicina (61 anos)", blocks:[
+      {t:"Resumo", body:[
+        "Médico de família de Kinmorrow há 35 anos e médico do Colégio. Gentil, cansado e cauteloso. Atende na Enfermaria às terças e bebe um pouco além da conta."]},
+      {t:"Aparência", body:["Magro, alto e curvado, cabelo branco ralo penteado de lado, bigode amarelado de cachimbo e olhos azuis aguados. Terno de tweed gasto, colete com relógio de bolso e maleta médica de couro preto sempre na mão."]},
+      {t:"Segredos e enredo", seg:true, body:[
+        "Percebeu as anemias da Vigília e a de Oliver Lane, mas escolheu não perguntar. Na ficha de Lane há a anotação “picadas de inseto?”, riscada por ele. Receita ferro e se cala.",
+        "Se confrontado com provas, desaba e vira aliado culpado. Pode tratar Clara e o jogador mordido depois do Ato 4."]}
+    ]},
+    { id:"duncan", g:1, name:"Prof. Duncan Reid", role:"Educação Física (45 anos)", blocks:[
+      {t:"Resumo", body:[
+        "Filho do zelador Angus Reid. Ex-jogador de rugby da seleção escocesa B, voltou para cuidar do pai. Treina remo e rugby e faz os calouros correrem na praia às 6h."]},
+      {t:"Aparência", body:["Forte, nariz quebrado de rugby, barba de dois dias e rosto vermelho de vento. Agasalho azul-marinho com o brasão do Colégio e apito no pescoço."]},
+      {t:"Segredos e enredo", seg:true, body:[
+        "Entrou nas cavernas pela praia quando era menino e ouviu “um homem cantando em latim” lá embaixo. Nunca mais voltou.",
+        "A tábua das marés pregada na porta do pavilhão é essencial para entrar e sair das cavernas. Pode emprestar o barco e as cordas."]}
     ]},
 
     /* ---------- ALUNOS NOTÁVEIS ---------- */
@@ -671,7 +743,7 @@ const SLUG = {
         "Pode virar aliada do grupo."]},
       {t:"Aparência", body:["Ruiva escura, cabelo liso até os ombros, olhos amendoados e expressão entediada. Gola alta preta, saia de tweed e batom vinho."]},
       {t:"Segredos e enredo", seg:true, body:[
-        "Pode ser a aliada que expõe a Carrick ou a que os entrega, conforme o rumo da história."]}
+        "Lésbica e escondida atrás da pose. “Namora” Julian Hale por conveniência social, o que a protege. Pode ser a aliada que expõe a Carrick ou a que os entrega, conforme o rumo da história."]}
     ]},
     { id:"callum", g:2, name:"Callum Ross", role:"Aluno, filho do reitor (19 anos)", blocks:[
       {t:"Resumo", body:[
@@ -679,7 +751,7 @@ const SLUG = {
         "É filho do Dr. Ross, o que o afasta da reitoria."]},
       {t:"Aparência", body:["Cabelo castanho comprido até o queixo, estilo Britpop e olheiras. Jaqueta Adidas sobre a camisa do colégio, tênis Samba e walkman no pescoço."]},
       {t:"Segredos e enredo", seg:true, body:[
-        "Recusar os Carrick pode aproximá-lo dos bolsistas. Conhece o lado do pai e pode ser a chave para o Silentium."]}
+        "Gay, escondido do pai. Rory, o monitor, o encobre fora do toque de recolher. Recusar os Carrick pode aproximá-lo dos bolsistas. Conhece o lado do pai e pode ser a chave para o Silentium."]}
     ]},
     { id:"megan", g:2, name:"Megan Doyle", role:"Bolsista local de Kinmorrow (20 anos)", blocks:[
       {t:"Resumo", body:[
@@ -687,12 +759,12 @@ const SLUG = {
         "É uma das vozes mais honestas do grupo."]},
       {t:"Aparência", body:["Morena, cabelo preso num rabo alto e bochechas rosadas do vento. Capa de chuva amarela, jeans e botas de borracha."]},
       {t:"Segredos e enredo", seg:true, body:[
-        "Conhece o porto e a Escadaria dos Pescadores. Pode ser guia na falésia e na praia de seixos."]}
+        "Bissexual. Era apaixonada por Clara, que sabia e continuou sua amiga. Conhece o porto e a Escadaria dos Pescadores. Pode ser guia na falésia e na praia de seixos."]}
     ]},
     { id:"rory", g:2, name:"Rory Kerr", role:"Veterano e monitor (22 anos)", blocks:[
       {t:"Resumo", body:[
         "Certinho e monitor, secretamente apaixonado por poesia. É o atual presidente da Hume Society.",
-        "Leva a beca sempre abotoada com cuidado."]},
+        "Leva a beca sempre abotoada com cuidado. Bissexual, ainda sem palavra para isso, e se aproximando de Callum."]},
       {t:"Aparência", body:["Alto e desajeitado, cabelo castanho bem curto e óculos redondos. Beca sempre abotoada e distintivo de monitor no peito."]},
       {t:"Segredos e enredo", seg:true, body:[
         "A Hume Society guarda as atas desde 1789 na Sala de Mapas. Pode ser fonte de histórias do passado do colégio."]}
@@ -702,11 +774,11 @@ const SLUG = {
         "Tímida e observadora, neta de Mrs. Bell. Desenha tudo num caderno e percebe detalhes que os outros ignoram."]},
       {t:"Aparência", body:["Pequena, cabelo preto curtinho com franja e olhos grandes. Suéter enorme da avó e caderno de desenho debaixo do braço."]},
       {t:"Segredos e enredo", seg:true, body:[
-        "O caderno de desenhos pode guardar registros visuais de Clara, de Elias ou das ruínas de São Fergus. Sugestão do mestre: use como pista visual."]}
+        "Assexual, sem palavra para isso. Por isso o charme de Elias não tem onde agarrar: o Encanto tem −4 contra ela, e ela não consegue desenhar o rosto dele. O caderno de desenhos pode guardar registros visuais de Clara, de Elias ou das ruínas de São Fergus. Sugestão do mestre: use como pista visual."]}
     ]},
     { id:"vane", g:2, name:"Elias Vane", role:"Veterano de Filosofia, 3º ano. Aparenta 20 anos. Na verdade, Thomas Carne", blocks:[
       {t:"Resumo", body:[
-        "Veterano do terceiro ano de Filosofia, “transferido de Oxford” em 1993. Culto, engraçado e generoso; fala um pouco de português e adora música brasileira.",
+        "Veterano do terceiro ano de Filosofia, “transferido de Oxford” em 1994. Culto, engraçado e generoso; fala um pouco de português e adora música brasileira.",
         "Faz questão de ser o primeiro amigo dos bolsistas: empresta casacos, mostra passagens secretas e livra-os de punições."]},
       {t:"Aparência", body:["Pele pálida e lisa, cabelo preto ondulado caindo na testa e olhos cinza-claros que parecem prateados à luz de velas. Mãos sempre frias. Sobretudo preto longo, suéter de gola alta e anel antigo de prata. Nunca aparece em fotos de grupo."]},
       {t:"Segredos e enredo do mestre", seg:true, body:[
@@ -717,12 +789,13 @@ const SLUG = {
     ]},
     { id:"clara", g:2, name:"Clara Bennett", role:"Aluna de Letras, monitora do Programa Atlântico (20 anos). Desaparecida", blocks:[
       {t:"Resumo", body:[
-        "Simpática e luminosa, a mais bonita do colégio segundo metade dos alunos. Recebeu os bolsistas na chegada, em 15 de setembro.",
+        "Simpática e luminosa, a mais bonita do colégio segundo metade dos alunos. Entrou no Colégio em 1995 e é monitora voluntária do Programa Atlântico. Recebeu os bolsistas na chegada, em 15 de setembro.",
         "Naquela noite saiu para encontrar Elias nas Ruínas de São Fergus e nunca voltou. A reitoria disse que ela “voltou para casa por motivos familiares”."]},
       {t:"Aparência", body:["Cabelo loiro-mel comprido e ondulado, olhos verdes, sardas leves e sorriso largo. Casaco xadrez vermelho, cachecol creme e botas de montaria. Usava um cordão com pingente de trevo de prata."]},
       {t:"Segredos e enredo do mestre", seg:true, body:[
         "Está viva, presa nas cavernas como reserva de sangue e futura serva. Apaixonada por Elias, escolheu ser monitora por isso.",
         "Pista: o exemplar de Clara do livro tem a mesma dedicatória e data de setembro de 1995. O “presente” não era único.",
+        "Gravação de hipnose feita por Morag em agosto de 1996: “um rapaz que me beija o pescoço e o mundo fica em silêncio”.",
         "Troféu de Carne: o pingente de trevo de prata, que ele carrega no bolso."]}
     ]},
 
@@ -749,7 +822,7 @@ const SLUG = {
         "Levou uma cuia de chimarrão escondida na mala."]},
       {t:"Aparência", body:["Branco, cabelo loiro-escuro curto com gel e porte de atleta. Jaqueta jeans, botas e a cuia de chimarrão escondida na mala."]},
       {t:"Segredos e enredo", seg:true, body:[
-        "O orgulho pode ser explorado: é um alvo fácil para a disputa de afeto com Vane ou para um convite à Vigília."]}
+        "Gay, muito escondido: a família espera que ele volte, case e assuma a fazenda. Elias percebe o segredo e oferece exatamente o que ele quer ouvir: “aqui você pode ser quem quiser”. O orgulho pode ser explorado: é um alvo fácil para a disputa de afeto com Vane ou para um convite à Vigília."]}
     ]},
     { id:"bianca", g:3, name:"Bianca Nunes", role:"Bolsista baiana, Biologia (20 anos)", blocks:[
       {t:"Resumo", body:[
@@ -760,11 +833,23 @@ const SLUG = {
         "Pode propor testes científicos sobre as cavernas e é aliada natural de Fiona Kerr."]}
     ]},
 
+    { id:"kirsty", g:5, name:"Kirsty Fraser", role:"Dona do sebo Fraser's Books, em Stonehaven (28 anos)", blocks:[
+      {t:"Resumo", body:[
+        "Alegre, corajosa e protetora. Namora Morag Lindsay em segredo, desde que as duas se conheceram em Edimburgo, em 1993.",
+        "Tem um sebo de dois andares em Stonehaven, com um gato chamado Hume e café de graça para estudantes. Vende livros antigos sobre a Escócia, inclusive uma gravura de 1890 de “E. Lyall, tutor de piano”."]},
+      {t:"Aparência", body:["Ruiva, sardas, sorriso largo, cabelo raspado dos lados e comprido em cima. Jaqueta de couro preta, camiseta de banda, jeans rasgado e coturnos."]},
+      {t:"Segredos e enredo", seg:true, body:[
+        "Escreve para Morag pelos Correios de Kinmorrow, sem remetente. Elias ameaça usar uma fita gravada por ela para chantagear Morag. Pode virar porto seguro dos jogadores fora do castelo.",
+        "Falas: “Vocês são os amigos da Morag? Entrem, o café é ruim, mas é quente.” / “Ela tem medo por nós duas. Eu tenho raiva por nós duas. A gente se equilibra.”"]}
+    ]},
+
     /* ---------- VILÃO ---------- */
     { id:"carne", g:4, vilao:true, name:"Thomas Carne", role:"Vilão. Identidade atual: Elias Vane", blocks:[
       {t:"Identidade", body:[
         "Reitor acusado de práticas ocultas em 1662, absolvido misteriosamente e morto um ano depois, aos 91 anos, segundo o registro oficial.",
-        "Na verdade fez um pacto de Sangue com uma entidade do Outro Lado e tornou-se vampiro. Dorme por longos ciclos no bunker e nas cavernas e volta sob novas identidades. Hoje é Elias Vane."]},
+        "Na verdade fez um pacto de Sangue com uma entidade do Outro Lado e tornou-se vampiro. Desde então dorme por longos ciclos nas cavernas (e, desde a guerra, no bunker) e volta sob novas identidades. Depois do incêndio de 1957, que o deixou ferido e faminto, os ciclos encurtaram: ele desperta por alguns meses a cada década (1963, 1977, 1991) e está acordado sem parar desde 1994. Hoje é Elias Vane."]},
+      {t:"Como ele se alimenta", body:[
+        "Escolhe jovens apaixonados por arte, beleza e eternidade. A Vigília é a sua “estufa”: vinho, poesia, intimidade e promessas de genialidade. Bebe pouco de cada vez, criando dependência; alguns escolhidos são convertidos em servos."]},
       {t:"Perfil psicológico", body:[
         "Psicopata clínico, muito antes de ser vampiro. Não sente culpa, só tédio.",
         "Não odeia as vítimas: coleciona-as. Cada jovem é uma obra inacabada que ele “completa” ao tirá-la do tempo. Vê-se como curador da beleza, não como assassino.",
@@ -778,32 +863,41 @@ const SLUG = {
       {t:"Assinatura", body:[
         "Guarda troféus numa caixa de música de ébano no bunker, cada um com etiqueta de nome e data.",
         "Deixa uma rosa negra seca onde a vítima foi vista pela última vez.",
-        "Encobre tudo com acidente, fuga ou “motivos familiares”, contando com o Silentium e com servos como Silas Moore."]},
+        "Encobre tudo com acidente, fuga ou “motivos familiares”, contando com o Silentium e com servos como Silas Moore.",
+        "Após cada ciclo de caça, volta a dormir e desaparece da memória do colégio. Só ficam rastros: um rosto desfocado numa foto de turma, um nome riscado num registro."]},
       {t:"Fraquezas", body:[
         "Vaidoso e precisa ser admirado; não resiste a uma plateia.",
         "Subestima quem é leal ao grupo, e não a ele.",
         "Se uma vítima o rejeita, fica obcecado e começa a cometer erros."]},
       {t:"Vítima 1662 — Margaret Lyall, a criada", seg:true, body:[
-        "Escolhida como testemunha contra ele. Carne foi gentil por semanas, ensinou-a a ler e deu-lhe um livro de salmos. Na véspera do depoimento, sangrou-a sobre o altar de pedra das cavernas. A acusação caiu por falta de testemunha.",
+        "Escolhida como testemunha contra ele, e para completar o pacto de Sangue. Carne foi gentil por semanas, ensinou-a a ler e deu-lhe um livro de salmos. Na véspera do depoimento, chamou-a à capela para “rezarem juntos” e a sangrou sobre o altar de pedra das cavernas. A acusação caiu por falta de testemunha.",
         "Troféu: o livro de salmos, com o nome dela."]},
       {t:"Vítimas 1746 — três jacobitas e três Custodes", seg:true, body:[
         "Conquistou os oficiais escondidos nas cavernas levando comida e notícias, sob o nome de um irmão da Ordem da Chave. Matou-os um a um na maré alta, dizendo que o companheiro “fugira num barco”.",
         "Quando três Custodes desceram para investigar, ele os afogou na maré alta. Foi o fim da Ordem da Chave. Troféus: um cocar branco jacobita e três chaves de ferro."]},
       {t:"Vítima 1888 — Eleanor Hale", seg:true, body:[
-        "Voltou como “Edward Lyall”, tutor de piano. Leu os poemas de Eleanor em voz alta e prometeu publicá-los em Londres.",
-        "Na noite de 31 de outubro, levou-a à falésia. Quando ela entendeu quem ele era e tentou fugir pela borda, ele a deixou cair. Troféu: o caderno de poemas dela."]},
+        "Voltou como “Edward Lyall”, tutor de piano. Eleanor tinha 19 anos, escrevia poemas e se sentia sufocada pela família. Ele leu os poemas dela em voz alta e prometeu publicá-los em Londres. Durante o outono, ela foi ficando pálida e distante das amigas.",
+        "Na noite de 31 de outubro, levou-a à falésia para “ver o mar sob a lua”. Quando ela entendeu quem ele era e tentou fugir pela borda, ele a deixou cair. O corpo quase não tinha sangue, o que o médico de Kinmorrow registrou e a reitoria mandou esquecer. Troféu: o caderno de poemas dela."]},
       {t:"Vítima 1920 — Agnes Murray, a última Irmã", seg:true, body:[
-        "Descobriu o padrão de desaparecimentos e o nome “Lyall” em 1662 e 1888. Carne apenas a vigiou. Na noite em que ia levar as provas ao bispo de Aberdeen, foi vista pela última vez entrando na estufa.",
-        "Troféu: o broche de lírio da sociedade. Os diários dela continuam sob o piso da Estufa Victoria."]},
+        "Descobriu o padrão de desaparecimentos e o nome “Lyall” em 1662 e 1888. Carne, ainda desperto, não a seduziu: apenas a vigiou. Na noite em que ia levar as provas ao bispo de Aberdeen, foi vista pela última vez entrando na estufa.",
+        "As Irmãs foram dissolvidas na semana seguinte e Carne voltou a dormir. Troféu: o broche de lírio da sociedade. Os diários dela continuam sob o piso da Estufa Victoria, que ele nunca encontrou."]},
       {t:"Vítima 1957 — David Shaw, o incêndio da Torre Norte", seg:true, body:[
-        "Aluno de astronomia que passava as noites no Observatório. Carne o atacou lá em cima; David reagiu com uma lamparina de querosene e a torre pegou fogo.",
+        "Aluno de astronomia que passava as noites no Observatório. Carne despertou com fome e o atacou lá em cima; David reagiu com uma lamparina de querosene e a torre pegou fogo.",
         "Carne escapou e é a única vez em que foi ferido: tem uma cicatriz de queimadura nas costas que nunca sarou. Troféu: um astrolábio de latão derretido."]},
       {t:"Vítima 1991 — Oliver Lane", seg:true, body:[
-        "Bolsista, filho de mineiro de Glasgow, tímido e humilhado pelos Carrick. Carne apareceu como colega de quarto temporário, defendeu-o dos trotes e, aos poucos, bebeu dele.",
+        "Bolsista, filho de mineiro de Glasgow, tímido e humilhado pelos Carrick. Carne apareceu como colega de quarto temporário, defendeu-o dos trotes e, aos poucos, bebeu dele. Oliver passou a idolatrá-lo e chegou a pedir para “ser igual a ele”.",
         "Na véspera do Natal, levou-o às cavernas para transformá-lo em servo. Oliver não sobreviveu. Os restos estão numa gruta lateral, sob pedras. Troféu: a carteira de estudante."]},
       {t:"Vítima 1996 — Clara Bennett (viva)", seg:true, body:[
-        "Conquistada ao longo de 1995 e 1996. Na noite de 15 de setembro, após o jantar de boas-vindas, foi levada às ruínas, beijada e mordida.",
+        "Conquistada ao longo de 1995 e 1996: Clara se apaixonou por ele e topou ser monitora do Programa Atlântico para ajudá-lo a “conhecer os brasileiros”, sem saber que escolhia as próximas vítimas. Na noite de 15 de setembro, após o jantar de boas-vindas, foi levada às ruínas, beijada e mordida.",
         "Está presa nas cavernas, fraca e meio enfeitiçada. Carne planeja convertê-la em serva no ritual de 30 de novembro, junto com o jogador escolhido."]},
+      {t:"Vítimas desconhecidas", seg:true, body:[
+        "Na caverna, Carne diz ter colecionado “treze”. O dossiê soma onze mortos e Clara. As outras duas nem os arquivos registraram: dois troféus sem etiqueta na caixa de música, um gancho para uma segunda temporada."]},
+      {t:"O Pequeno Príncipe na trama", seg:true, body:[
+        "Carne lê o livro como manual de caça. A raposa ensina a “cativar” (criar laços devagar e aparecer sempre na mesma hora). A serpente é a personagem com quem ele se identifica, e a mordida é um presente, um caminho para a eternidade. A rosa sob a redoma é a vítima favorita.",
+        "Há três exemplares: o do presente (edição francesa da Gallimard, dedicatória em sépia assinada “E.”); o de Clara (mesma dedicatória e data de setembro de 1995); e o de Carne, na Arca (primeira edição de Nova York, 1943, com os nomes das vítimas nas margens e, ao lado da serpente, “Moi.”). No mapa dos vulcões, os dois ativos são a Sala das Caldeiras e o bunker; o extinto é a estante da adega.",
+        "No clímax, o encanto pode ser quebrado se um amigo ler em voz alta a fala da raposa sobre o que cativar significa de verdade. Mecânica sugerida: teste de Vontade ou Diplomacia, com bônus se ele tiver lido o livro em cena."]},
+      {t:"No combate final", seg:true, body:[
+        "Rodada 1: ele fala e oferece a eternidade; a Vaidade o prende aqui. Rodadas 2 e 3: usa Encanto no mais vulnerável e manda o encantado atacar os amigos. Abaixo da metade dos PV: entra na forma verdadeira e usa Chamado do Sangue. Se perder: tenta Passo na sombra até o mar; se o altar estiver inteiro, sobrevive para uma segunda temporada."]},
       {t:"Dica do mestre", body:[
         "A caixa de música no bunker revela toda a história de uma vez. É um ótimo momento de virada no Ato 3 ou 4."]}
     ]}
@@ -1293,7 +1387,7 @@ const SLUG = {
   /* ---------- aba Bíblia (texto em biblia-dunraven.js) ---------- */
   function inlineNodes(texto){
     var frag = document.createDocumentFragment();
-    String(texto).replace(/\\(.)/g, "$1").split(/(\*\*[^*]+\*\*|\*[^*]+\*)/).forEach(function(parte){
+    String(texto).replace(/\[([^\]]+)\]\([^)]*\)/g, "$1").replace(/\\(.)/g, "$1").split(/(\*\*[^*]+\*\*|\*[^*]+\*)/).forEach(function(parte){
       if (!parte) return;
       if (/^\*\*[^*]+\*\*$/.test(parte)) frag.appendChild(el("strong", null, parte.slice(2, -2)));
       else if (/^\*[^*]+\*$/.test(parte)) frag.appendChild(el("em", null, parte.slice(1, -1)));
@@ -1324,7 +1418,25 @@ const SLUG = {
 
     var linhas = String(window.BIBLIA_MD || "").replace(/\r/g, "").split("\n");
     var blocos = [];
-    var atual = null, par = [], lista = null, ultimoLi = null, ultimoSub = null;
+    var atual = null, par = [], lista = null, ultimoLi = null, ultimoSub = null, tab = [];
+
+    function fechaTab(){
+      var rows = tab.filter(function(r){ return !/^\s*\|?\s*:?-{3,}/.test(r); });
+      tab = [];
+      if (!rows.length || !atual) return;
+      var t = el("table", "biblia-tabela");
+      rows.forEach(function(r, idx){
+        var cells = r.trim().replace(/^\|/, "").replace(/\|$/, "").split("|");
+        var tr = el("tr");
+        cells.forEach(function(c){
+          var td = el(idx === 0 ? "th" : "td");
+          td.appendChild(inlineNodes(c.trim()));
+          tr.appendChild(td);
+        });
+        t.appendChild(tr);
+      });
+      atual.appendChild(t);
+    }
 
     function fechaPar(){
       if (par.length && atual) {
@@ -1360,6 +1472,9 @@ const SLUG = {
 
     linhas.forEach(function(raw){
       var m;
+      if (/^\s*\|/.test(raw)) { fechaPar(); fechaLista(); tab.push(raw); return; }
+      if (tab.length) fechaTab();
+      if (/^\s*---+\s*$/.test(raw)) { fechaPar(); fechaLista(); return; }
       if (/^# /.test(raw)) { titulo.textContent = raw.slice(2); return; }
       if (/^## /.test(raw)) { abreBloco(raw.slice(3)); return; }
       if (/^### /.test(raw)) {
@@ -1377,6 +1492,7 @@ const SLUG = {
       if ((m = /^(\s*)\d+\. (.*)$/.exec(raw))) { addItem("ol", m[1].length, m[2]); return; }
       if (atual) par.push(raw.trim());
     });
+    if (tab.length) fechaTab();
     fechaPar(); fechaLista();
 
     panelsEl.appendChild(panel);
